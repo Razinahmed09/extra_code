@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaded Illuzions - Product Showcase</title>
+    <style>
+        .jaded-showcase {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .jaded-showcase * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .jaded-showcase .showcase-section {
+            min-height: 100vh;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .jaded-showcase .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .jaded-showcase .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: jaded-fadeInUp 1s ease forwards;
+        }
+
+        .jaded-showcase .section-title h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f4c542, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .jaded-showcase .section-title p {
+            font-size: 1.2rem;
+            color: #888;
+        }
+
+        .jaded-showcase .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .jaded-showcase .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .jaded-showcase .product-card.animate {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .jaded-showcase .product-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(244, 197, 66, 0.2);
+            border-color: rgba(244, 197, 66, 0.3);
+        }
+
+        .jaded-showcase .product-image {
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+        }
+
+        .jaded-showcase .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .jaded-showcase .product-card:hover .product-image img {
+            transform: scale(1.1);
+        }
+
+        .jaded-showcase .sold-out-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ff4757, #ff3742);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 2;
+            animation: jaded-pulse 2s infinite;
+        }
+
+        .jaded-showcase .product-info {
+            padding: 25px;
+        }
+
+        .jaded-showcase .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #fff;
+            line-height: 1.4;
+        }
+
+        .jaded-showcase .product-seller {
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+
+        .jaded-showcase .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #f4c542;
+            margin-bottom: 15px;
+        }
+
+        .jaded-showcase .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+
+        .jaded-showcase .stars {
+            display: flex;
+            gap: 2px;
+        }
+
+        .jaded-showcase .star {
+            width: 16px;
+            height: 16px;
+            background: #333;
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            transition: all 0.3s ease;
+        }
+
+        .jaded-showcase .star.filled {
+            background: linear-gradient(135deg, #ffd700, #f4c542);
+        }
+
+        .jaded-showcase .add-to-cart {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #f4c542, #ffd700);
+            color: #000;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .jaded-showcase .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(244, 197, 66, 0.3);
+        }
+
+        .jaded-showcase .add-to-cart:active {
+            transform: translateY(0);
+        }
+
+        .jaded-showcase .add-to-cart::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .jaded-showcase .add-to-cart:hover::before {
+            left: 100%;
+        }
+
+        /* Floating particles animation */
+        .jaded-showcase .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .jaded-showcase .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(244, 197, 66, 0.3);
+            border-radius: 50%;
+            animation: jaded-float 6s infinite linear;
+        }
+
+        @keyframes jaded-fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes jaded-pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+        }
+
+        @keyframes jaded-float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .jaded-showcase .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .jaded-showcase .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .jaded-showcase .showcase-section {
+                padding: 60px 15px;
+            }
+        }
+
+        /* Scroll indicator */
+        .jaded-showcase .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(244, 197, 66, 0.2);
+            z-index: 1000;
+        }
+
+        .jaded-showcase .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #f4c542, #ffd700);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="jaded-showcase">
+        <div class="scroll-indicator">
+            <div class="scroll-progress"></div>
+        </div>
+
+        <div class="floating-particles"></div>
+
+        <section class="showcase-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Featured Collection</h2>
+                    <p>Discover our premium streetwear essentials</p>
+                </div>
+
+                <div class="products-grid">
+                    <div class="product-card" data-delay="0">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=300&fit=crop" alt="Merkaba Hoodie">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">MERKABA JADED I'LLUZIONS HOODIE</h3>
+                            <p class="product-seller">Listed By: Madison</p>
+                            <div class="product-price">$35.00</div>
+                            <div class="rating">
+                                <div class="stars">
+                                    <div class="star filled"></div>
+                                    <div class="star filled"></div>
+                                    <div class="star filled"></div>
+                                    <div class="star filled"></div>
+                                    <div class="star"></div>
+                                </div>
+                            </div>
+                            <button class="add-to-cart">🛒 Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-delay="200">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop" alt="White Crop Tee">
+                            <div class="sold-out-badge">Sold Out</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">JADED I'LLUZIONS WHITE CROP TEE</h3>
+                            <div class="product-price">$32.00</div>
+                            <div class="rating">
+                                <div class="stars">
+                                    <div class="star filled"></div>
+                                    <div class="star filled"></div>
+                                    <div class="star filled"></div>
+                                    <div class="star filled"></div>
+                                    <div class="star"></div>
+                                </div>
+                            </div>
+                            <button class="add-to-cart">🛒 Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-delay="400">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1503341504253-dff4815485f1?w=400&h=300&fit=crop" alt="Ankh T-Shirt">
+                            <div class="sold-out-badge">Sold Out</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">JADED I'LLUZIONS ANKH T-SHIRT</h3>
+                            <div class="product-price">$32.00</div>
+                            <div class="rating">
+                                <div class="stars">
+                                    <div class="star filled"></div>
+                                    <div class="star filled"></div>
+                                    <div class="star filled"></div>
+                                    <div class="star filled"></div>
+                                    <div class="star"></div>
+                                </div>
+                            </div>
+                            <button class="add-to-cart">🛒 Add to Cart</button>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-delay="600">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=400&h=300&fit=crop" alt="Gold T-Shirt">
+                            <div class="sold-out-badge">Sold Out</div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Jaded I'lluzions GOLD T-SHIRT</h3>
+                            <div class="product-price">$32.00</div>
+                            <div class="rating">
+                                <div class="stars">
+                                    <div class="star filled"></div>
+                                    <div class="star filled"></div>
+                                    <div class="star filled"></div>
+                                    <div class="star filled"></div>
+                                    <div class="star"></div>
+                                </div>
+                            </div>
+                            <button class="add-to-cart">🛒 Add to Cart</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Scroll-triggered animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const delay = entry.target.dataset.delay || 0;
+                    setTimeout(() => {
+                        entry.target.classList.add('animate');
+                    }, delay);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all product cards within the jaded-showcase container
+        document.querySelectorAll('.jaded-showcase .product-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Scroll progress indicator
+        function updateScrollProgress() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            const progressBar = document.querySelector('.jaded-showcase .scroll-progress');
+            if (progressBar) {
+                progressBar.style.width = scrollPercent + '%';
+            }
+        }
+
+        window.addEventListener('scroll', updateScrollProgress);
+
+        // Floating particles
+        function createParticle() {
+            const particleContainer = document.querySelector('.jaded-showcase .floating-particles');
+            if (!particleContainer) return;
+            
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            particle.style.animationDelay = Math.random() * 2 + 's';
+            particleContainer.appendChild(particle);
+
+            setTimeout(() => {
+                particle.remove();
+            }, 8000);
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 500);
+
+        // Add to cart functionality
+        document.querySelectorAll('.jaded-showcase .add-to-cart').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Create ripple effect
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.height, rect.width);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.3)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'jaded-ripple 0.6s linear';
+                ripple.style.pointerEvents = 'none';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+                
+                // Button feedback
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 150);
+            });
+        });
+
+        // Add ripple animation CSS with jaded prefix
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes jaded-ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Smooth hover effects for cards
+        document.querySelectorAll('.jaded-showcase .product-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            });
+        });
+    </script>
+</body>
+</html>

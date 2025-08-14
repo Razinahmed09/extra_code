@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Artist Portal – SingWithMe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0c0c0c;
+      color: #fff;
+    }
+
+    header {
+      background: #1a1a1a;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: #ff4081;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #ccc;
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      margin-top: 50px;
+    }
+
+    .feature-card {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 25px;
+      transition: transform 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-icon {
+      font-size: 28px;
+      color: #ff4081;
+      margin-bottom: 10px;
+    }
+
+    .feature-card h3 {
+      color: #ff4081;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+
+    .feature-card p {
+      color: #aaa;
+      font-size: 0.95rem;
+    }
+
+    .cta {
+      text-align: center;
+      margin: 60px 0;
+    }
+
+    .cta a {
+      background: #ff4081;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+      display: inline-block;
+    }
+
+    .cta a:hover {
+      background: #e0356f;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>SingWithMe</h1>
+    <span>Artist Portal</span>
+  </header>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <h2>Artist Portal – Manage Your Music Career</h2>
+      <p>Welcome to the Artist Portal, where you can upload your music, manage your royalties, and access all the tools you need to succeed in the music industry.</p>
+    </div>
+
+    <!-- Features -->
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-upload"></i></div>
+        <h3>Upload Your Music & Videos</h3>
+        <p>Easily upload your tracks and music videos to be distributed across platforms like Spotify, YouTube, and iTunes.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Track Royalties</h3>
+        <p>Keep track of your earnings and view detailed reports of your streams and sales.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-credit-card"></i></div>
+        <h3>Manage Your Subscription</h3>
+        <p>Update your plan, manage billing, and unlock tools to grow your music career.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-image"></i></div>
+        <h3>Profile & Artwork</h3>
+        <p>Upload your album artwork, promotional images, and bio to showcase your artist identity.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-headset"></i></div>
+        <h3>Contact & Support</h3>
+        <p>Reach out to our support team for help with your account, uploads, royalties, or anything else.</p>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta">
+      <a href="#">Log In or Create Your Account</a>
+    </div>
+  </div>
+
+</body>
+</html>

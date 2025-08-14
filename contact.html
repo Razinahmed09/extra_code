@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get In Touch - Custom CSS (Scoped)</title>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" xintegrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0V4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Base styles for the body - generally not scoped as it sets global page styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Main container for the entire section */
+        .contact-container {
+            background-color: #ffffff;
+            border-radius: 1.5rem; /* Large rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column; /* Stack vertically on small screens */
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        /* Responsive styling for larger screens */
+        @media (min-width: 1024px) {
+            .contact-container {
+                flex-direction: row; /* Layout horizontally on large screens */
+            }
+        }
+
+        /* Styles for the form section */
+        .contact-container .form-section {
+            padding: 2.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        /* Styles for the image and contact info section */
+        .contact-container .image-section {
+            flex: 1;
+            background-color: #e0f2fe; /* Light blue background */
+            display: flex;
+            flex-direction: column; /* Stack image and contact cards vertically */
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 0 1.5rem 1.5rem 0; /* Rounded corners on right for desktop */
+            padding: 2.5rem;
+            gap: 1.5rem; /* Space between image and cards */
+        }
+
+        /* Responsive adjustments for the image section on small screens */
+        @media (max-width: 1023px) {
+            .contact-container .image-section {
+                border-radius: 1.5rem 1.5rem 0 0; /* Rounded corners on top for mobile */
+                padding-bottom: 2rem;
+            }
+        }
+
+        /* Styling for the image within the image section */
+        .contact-container .image-section img {
+            max-width: 90%;
+            height: auto;
+            border-radius: 1rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease-in-out;
+            z-index: 1; /* Ensure image is above wave background */
+        }
+
+        /* Hover effect for the image */
+        .contact-container .image-section img:hover {
+            transform: scale(1.03); /* Subtle zoom */
+        }
+
+        /* Headings and text within the form section */
+        .contact-container .form-section .section-tag {
+            color: #f97316; /* Orange color */
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-container .form-section .section-title {
+            font-size: 2.25rem; /* 36px */
+            font-weight: 700;
+            color: #1f2937; /* Dark gray */
+            margin-bottom: 1.5rem;
+            line-height: 1.25;
+        }
+
+        .contact-container .form-section .section-description {
+            color: #4b5563; /* Medium gray */
+            margin-bottom: 2rem;
+            font-size: 1.125rem; /* 18px */
+        }
+
+        /* Form styling */
+        .contact-container .form-section .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; /* Space between form rows */
+        }
+
+        .contact-container .form-section .form-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Single column on small screens */
+            gap: 1.5rem; /* Space between input fields */
+        }
+
+        @media (min-width: 768px) {
+            .contact-container .form-section .form-grid {
+                grid-template-columns: 1fr 1fr; /* Two columns on medium screens and up */
+            }
+        }
+
+        .contact-container .form-section .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-container .form-section .form-label {
+            display: block;
+            color: #374151; /* Darker gray */
+            font-size: 0.875rem; /* 14px */
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-container .form-section .form-input,
+        .contact-container .form-section .form-textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #d1d5db; /* Light gray border */
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            transition: all 0.2s ease-in-out;
+            outline: none;
+        }
+
+        .contact-container .form-section .form-input:focus,
+        .contact-container .form-section .form-textarea:focus {
+            border-color: #2563eb; /* Blue border on focus */
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25); /* Focus ring effect */
+        }
+
+        .contact-container .form-section .form-textarea {
+            resize: vertical; /* Allow vertical resizing */
+        }
+
+        /* Privacy policy checkbox */
+        .contact-container .form-section .privacy-checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .contact-container .form-section .privacy-checkbox-group input[type="checkbox"] {
+            border-radius: 0.25rem;
+            color: #2563eb;
+            height: 1rem;
+            width: 1rem;
+            /* Hide default checkbox */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border: 1px solid #9ca3af;
+            background-color: #fff;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0; /* Prevent checkbox from shrinking */
+        }
+
+        .contact-container .form-section .privacy-checkbox-group input[type="checkbox"]:checked {
+            background-color: #2563eb;
+            border-color: #2563eb;
+        }
+
+        .contact-container .form-section .privacy-checkbox-group input[type="checkbox"]:checked::before {
+            content: '\2713'; /* Checkmark character */
+            display: block;
+            color: #fff;
+            font-size: 0.75rem;
+            text-align: center;
+            line-height: 1rem;
+        }
+
+        .contact-container .form-section .privacy-checkbox-group input[type="checkbox"]:focus {
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+            outline: none;
+        }
+
+        .contact-container .form-section .privacy-checkbox-label {
+            margin-left: 0.5rem;
+            font-size: 0.875rem;
+            color: #111827; /* Darkest gray */
+        }
+
+        /* Submit button */
+        .contact-container .form-section .submit-button {
+            background-color: #2563eb; /* Blue background */
+            color: #ffffff;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+            border: none;
+            width: 100%; /* Make button full width */
+        }
+
+        .contact-container .form-section .submit-button:hover {
+            background-color: #1d4ed8; /* Darker blue on hover */
+            transform: translateY(-2px); /* Lift effect */
+        }
+
+        .contact-container .form-section .submit-button:active {
+            transform: translateY(0); /* Press effect */
+        }
+
+        /* Contact info cards */
+        .contact-container .image-section .contact-info-card {
+            background-color: #ffffff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.2s ease-in-out;
+            width: 100%; /* Make cards take full width */
+            max-width: 350px; /* Max width for cards */
+            z-index: 1; /* Ensure cards are above wave */
+        }
+
+        .contact-container .image-section .contact-info-card:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+        }
+
+        .contact-container .image-section .icon-wrapper {
+            background-color: #e0f2fe;
+            padding: 0.75rem;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #2563eb;
+            font-size: 1.25rem;
+        }
+
+        .contact-container .image-section .contact-info-card p {
+            margin: 0; /* Reset default paragraph margin */
+        }
+
+        .contact-container .image-section .contact-info-card p:first-child {
+            color: #6b7280; /* Gray color for labels */
+            font-size: 0.875rem; /* Small font size */
+        }
+
+        .contact-container .image-section .contact-info-card p:last-child {
+            font-weight: 600;
+            color: #1f2937; /* Dark gray for actual info */
+        }
+
+        /* Custom wave animation */
+        .contact-container .image-section .wave-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+            opacity: 0.3; /* Subtle opacity */
+        }
+        .contact-container .image-section .wave {
+            position: absolute;
+            background: #a8d9ff; /* Light blue wave color */
+            border-radius: 50%;
+            animation: wave 15s infinite ease-in-out;
+            opacity: 0.6;
+        }
+        .contact-container .image-section .wave:nth-child(1) {
+            width: 500px;
+            height: 500px;
+            top: -150px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+        .contact-container .image-section .wave:nth-child(2) {
+            width: 600px;
+            height: 600px;
+            top: -100px;
+            right: -250px;
+            animation-delay: 2s;
+            animation-duration: 17s;
+        }
+        .contact-container .image-section .wave:nth-child(3) {
+            width: 700px;
+            height: 700px;
+            bottom: -200px;
+            left: -150px;
+            animation-delay: 4s;
+            animation-duration: 20s;
+        }
+
+        @keyframes wave {
+            0% { transform: scale(0.8) translate(0, 0); opacity: 0.6; }
+            50% { transform: scale(1.2) translate(20px, 30px); opacity: 0.4; }
+            100% { transform: scale(0.8) translate(0, 0); opacity: 0.6; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="contact-container">
+        <!-- Form Section -->
+        <div class="form-section">
+            <p class="section-tag">Get in Touch</p>
+            <h1 class="section-title">Let's Chat, Reach Out to Us</h1>
+            <p class="section-description">Have questions or feedback? We're here to help. Send us a message, and we'll respond within 24 hours.</p>
+
+            <form class="contact-form">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="first-name" class="form-label">First Name</label>
+                        <input type="text" id="first-name" name="first-name" placeholder="First name" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name" class="form-label">Last Name</label>
+                        <input type="text" id="last-name" name="last-name" placeholder="Last name" class="form-input">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Email address" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Leave us a message" class="form-textarea"></textarea>
+                </div>
+
+                <div class="privacy-checkbox-group">
+                    <input type="checkbox" id="privacy-policy" name="privacy-policy">
+                    <label for="privacy-policy" class="privacy-checkbox-label">
+                        I agree to our friendly privacy policy
+                    </label>
+                </div>
+
+                <button type="submit" class="submit-button">Send Message</button>
+            </form>
+        </div>
+
+        <!-- Image and Contact Info Section -->
+        <div class="image-section">
+            <!-- Wave Background -->
+            <div class="wave-background">
+                <div class="wave wave-1"></div>
+                <div class="wave wave-2"></div>
+                <div class="wave wave-3"></div>
+            </div>
+            
+            <img src="https://placehold.co/400x400/e0f2fe/2563eb?text=Contact+Image" alt="Person on phone">
+
+            <div style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 1.5rem;">
+                <!-- Email Card -->
+                <div class="contact-info-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <p>Email</p>
+                        <p>techteam@kawruh.com</p>
+                    </div>
+                </div>
+
+                <!-- Phone Card -->
+                <div class="contact-info-card">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div>
+                        <p>Phone</p>
+                        <p>(0252) 8324 9231</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

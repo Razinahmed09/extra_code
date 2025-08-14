@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Media Upload Section</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: #f8f9fc;
+      padding: 40px;
+      margin: 0;
+    }
+
+    .upload-container {
+      max-width: 1000px;
+      margin: auto;
+      background: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    .upload-header h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+      color: #2f2f2f;
+    }
+
+    .upload-header p {
+      color: #6e6e6e;
+      font-size: 15px;
+    }
+
+    .upload-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .upload-box {
+      border: 2px dashed #ccc;
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      background: #fafafa;
+      transition: all 0.3s ease;
+    }
+
+    .upload-box:hover {
+      border-color: #715dfa;
+      background: #f5f3ff;
+    }
+
+    .upload-box input[type="file"] {
+      display: none;
+    }
+
+    .upload-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      background: #715dfa;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .upload-btn:hover {
+      background: #5d49e1;
+    }
+
+    .platforms {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .platform-badge {
+      background: #f1f1f1;
+      padding: 8px 14px;
+      border-radius: 50px;
+      font-size: 14px;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="upload-container">
+    <div class="upload-header">
+      <h2>Upload Your Music & Videos</h2>
+      <p>Effortlessly upload to major platforms like YouTube, Spotify, iTunes, TikTok, and more.</p>
+    </div>
+
+    <div class="upload-grid">
+      <label class="upload-box">
+        <div>🎵 Upload Music File</div>
+        <input type="file" accept="audio/*" />
+        <button class="upload-btn">Select Music</button>
+      </label>
+
+      <label class="upload-box">
+        <div>📹 Upload Video File</div>
+        <input type="file" accept="video/*" />
+        <button class="upload-btn">Select Video</button>
+      </label>
+    </div>
+
+    <div class="platforms">
+      <span class="platform-badge">YouTube</span>
+      <span class="platform-badge">Spotify</span>
+      <span class="platform-badge">Apple Music</span>
+      <span class="platform-badge">TikTok</span>
+      <span class="platform-badge">Instagram</span>
+    </div>
+  </div>
+
+</body>
+</html>

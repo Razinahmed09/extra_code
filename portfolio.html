@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Momentum-style Slider</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #111;
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+      color: #fff;
+    }
+    .slider-wrapper {
+      width: 100vw;
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+    }
+    .left-pane {
+      width: 50vw;
+      padding: 5vw 3vw;
+      overflow: hidden;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .slide-number-bg {
+      font-size: 12rem;
+      font-weight: bold;
+      color: rgba(255,255,255,0.05);
+      position: absolute;
+      top: 2vh;
+      left: 2vw;
+      z-index: 0;
+    }
+    .text-section {
+      position: relative;
+      z-index: 2;
+    }
+    .slide-title {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+    .slide-link {
+      margin-top: 1rem;
+      display: inline-block;
+      color: #fff;
+      border-bottom: 2px solid #fff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .swiper {
+      width: 50vw;
+      height: 100vh;
+    }
+    .swiper-slide {
+      height: auto;
+    }
+    .swiper-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .swiper-pagination {
+      position: absolute;
+      bottom: 20px;
+      left: 5vw;
+      z-index: 10;
+    }
+    .swiper-pagination-bullet {
+      background: #fff;
+      opacity: 0.4;
+    }
+    .swiper-pagination-bullet-active {
+      opacity: 1;
+      background: #f44;
+    }
+  </style>
+</head>
+<body>
+  <div class="slider-wrapper">
+    <div class="left-pane">
+      <div class="slide-number-bg" id="slide-number">01</div>
+      <div class="text-section">
+        <div class="slide-title" id="slide-title">Urban Fashion</div>
+        <a href="#" class="slide-link" id="slide-link">View Case</a>
+      </div>
+    </div>
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" data-title="Urban Fashion" data-link="#" data-number="01">
+          <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80" alt="Urban Fashion">
+        </div>
+        <div class="swiper-slide" data-title="Golden Hour" data-link="#" data-number="02">
+          <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80" alt="Golden Hour">
+        </div>
+        <div class="swiper-slide" data-title="Desert Aesthetic" data-link="#" data-number="03">
+          <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?auto=format&fit=crop&w=800&q=80" alt="Desert Aesthetic">
+        </div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper('.swiper', {
+    loop: true,
+    speed: 1000,
+    grabCursor: true,
+    effect: 'slide',
+    slidesPerView: 1,
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    autoplay: {
+      delay: 5000,
+      disableOnInteraction: false
+    },
+    on: {
+      init: function () {
+        updateSlideContent(this.realIndex);
+      },
+      slideChange: function () {
+        updateSlideContent(this.realIndex);
+      }
+    }
+  });
+
+  function updateSlideContent(index) {
+    const realSlides = document.querySelectorAll('.swiper-wrapper .swiper-slide:not(.swiper-slide-duplicate)');
+    const activeData = realSlides[index].dataset;
+    document.getElementById('slide-title').innerText = activeData.title;
+    document.getElementById('slide-link').href = activeData.link;
+    document.getElementById('slide-number').innerText = activeData.number;
+  }
+  </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Artist Subscription Plan - SingWithMe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0c0c0c;
+      color: #fff;
+    }
+
+    header {
+      background: #1a1a1a;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: #ff4081;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: #ccc;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+
+    .feature-card {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.2s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .feature-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+      color: #ff4081;
+    }
+
+    .feature-card p {
+      font-size: 0.95rem;
+      color: #aaa;
+    }
+
+    .cta {
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .cta button {
+      background: #ff4081;
+      color: #fff;
+      padding: 14px 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .cta button:hover {
+      background: #e73572;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>SingWithMe</h1>
+    <span>Subscription Plan</span>
+  </header>
+
+  <div class="container">
+    <!-- Hero -->
+    <div class="hero">
+      <h2>Artist Subscription Plan</h2>
+      <p>For a small monthly fee, gain access to our full suite of services including royalty collection, music distribution, promotional tools, and more.</p>
+    </div>
+
+    <!-- Features -->
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>Royalty Collection</h3>
+        <p>Track your music royalties in real-time and receive fast, transparent payouts directly to your account.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Music Distribution</h3>
+        <p>Distribute your songs to Spotify, Apple Music, YouTube, and 50+ other platforms worldwide.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Promotional Tools</h3>
+        <p>Boost your visibility with access to playlist pitching, promo banners, and social integrations.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Live Stream Support</h3>
+        <p>Monetize live performances and reach fans globally through integrated live video tools.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Analytics Dashboard</h3>
+        <p>Get detailed insights on streams, audience demographics, and trends to grow your music career.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Priority Support</h3>
+        <p>Enjoy fast response times and personalized assistance from our dedicated artist support team.</p>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="cta">
+      <button>Subscribe Now - $9.99/month</button>
+    </div>
+  </div>
+
+</body>
+</html>

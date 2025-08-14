@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Platform Pricing</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .pricing-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            padding: 32px 28px;
+            flex: 1;
+            position: relative;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .pricing-card.popular {
+            border: 3px solid #00d4aa;
+            /* transform: scale(1.05); */
+            z-index: 2;
+        }
+
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-4px);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .plan-name {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .starter .plan-name {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .pro .plan-name {
+            background: #00d4aa;
+            color: white;
+        }
+
+        .label .plan-name {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .plan-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .starter .plan-badge {
+            color: #7c3aed;
+        }
+
+        .pro .plan-badge {
+            color: #00d4aa;
+        }
+
+        .badge-icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        .plan-description {
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 24px;
+        }
+
+        .price-section {
+            margin-bottom: 32px;
+        }
+
+        .price {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            margin-bottom: 8px;
+        }
+
+        .currency {
+            font-size: 24px;
+            font-weight: 600;
+            color: #111827;
+        }
+
+        .amount {
+            font-size: 48px;
+            font-weight: 700;
+            color: #111827;
+            line-height: 1;
+        }
+
+        .period {
+            font-size: 18px;
+            color: #6b7280;
+            margin-left: 4px;
+        }
+
+        .features-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+
+        .features-list {
+            list-style: none;
+            margin-bottom: 32px;
+            height: 132px;
+            overflow: overlay;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: #374151;
+            line-height: 1.4;
+        }
+
+        .features-list li::before {
+            content: "•";
+            color: #6b7280;
+            font-weight: bold;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .cta-button {
+            width: 100%;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .starter .cta-button {
+            background: #1f2937;
+            color: white;
+        }
+
+        .starter .cta-button:hover {
+            background: #111827;
+            transform: translateY(-2px);
+        }
+
+        .pro .cta-button {
+            background: #00d4aa;
+            color: white;
+            margin-top: 20px;
+        }
+
+        .pro .cta-button:hover {
+            background: #00c199;
+            transform: translateY(-2px);
+        }
+
+        .label .cta-button {
+            background: #1f2937;
+            color: white;
+        }
+
+        .label .cta-button:hover {
+            background: #111827;
+            transform: translateY(-2px);
+        }
+
+        .learn-more {
+            display: block;
+            text-align: center;
+            color: #7c3aed;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            margin-top: 16px;
+            padding: 8px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .learn-more:hover {
+            background-color: #f3f4f6;
+        }
+
+        .artist-count {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .artist-count span:first-child {
+            color: #7c3aed;
+            font-weight: 500;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e5e7eb;
+            border-radius: 3px;
+            margin: 12px 0 24px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #7c3aed;
+            border-radius: 3px;
+            width: 12.5%;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-container {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .pricing-card.popular {
+                transform: none;
+            }
+            
+            .pricing-card.popular:hover {
+                transform: translateY(-4px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="pricing-container">
+        <!-- Starter Plan -->
+        <div class="pricing-card starter">
+            <div class="card-header">
+                <span class="plan-name">STARTER</span>
+                <div class="plan-badge">
+                    <svg class="badge-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                    30 days free
+                </div>
+            </div>
+            
+            <p class="plan-description">
+                Upload as much music as you like to every music platform.
+            </p>
+            
+            <div class="price-section">
+                <div class="price">
+                    <span class="currency">£</span>
+                    <span class="amount">19</span>
+                    <span class="period">/Year</span>
+                </div>
+            </div>
+            
+            <div class="features-title">This plan includes:</div>
+            <ul class="features-list">
+                <li>Release unlimited music for 1 artist</li>
+                <li>Release to 150+ platforms worldwide</li>
+                <li>Access our Starter industry tools</li>
+                <li>Free Pre-Save Smartlinks for every release</li>
+                <li>In-depth analytics & fan data</li>
+                <li>Automatic split royalty payments</li>
+                <li>Submit for playlists</li>
+                <li>Fast royalty payouts</li>
+                <li>Ditto Perks</li>
+            </ul>
+            
+            <button class="cta-button">Try for free</button>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="pricing-card pro popular">
+            <div class="card-header">
+                <span class="plan-name">PRO</span>
+                <div class="plan-badge">
+                    <svg class="badge-icon" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2ZM21 9V7L15 1H5C3.9 1 3 1.9 3 3V21C3 22.1 3.9 23 5 23H19C20.1 23 21 22.1 21 21V9M19 9H14V4H19V9Z"/>
+                    </svg>
+                    Popular
+                </div>
+            </div>
+            
+            <p class="plan-description">
+                Take the next step. Unlock new revenue and opportunities.
+            </p>
+            
+            <div class="price-section">
+                <div class="price">
+                    <span class="currency">£</span>
+                    <span class="amount">59</span>
+                    <span class="period">/Year</span>
+                </div>
+            </div>
+            
+            <div class="features-title">All Starter features plus:</div>
+            <ul class="features-list">
+                <li>Release unlimited music for 2 artists</li>
+                <li>Pitch for TV & movie sync features</li>
+                <li>Collect Music Publishing royalties</li>
+                <li>YouTube Content ID & OAC setup</li>
+                <li>Set exact release times</li>
+                <li>Priority support</li>
+                <li>Release Protection guaranteed</li>
+                <li>Compilation releases</li>
+                <li>Ditto Pro Perks</li>
+                <li>Exclusive access to new features</li>
+            </ul>
+            
+            <a href="#" class="learn-more">Learn more about Pro</a>
+            <button class="cta-button">Try for free</button>
+        </div>
+
+        <!-- Label 5 Plan -->
+        <div class="pricing-card label">
+            <div class="card-header">
+                <span class="plan-name">LABEL 5</span>
+            </div>
+            
+            <p class="plan-description">
+                Manage multiple artists and access the tools you need to run your label.
+            </p>
+            
+            <div class="price-section">
+                <div class="price">
+                    <span class="currency">£</span>
+                    <span class="amount">89</span>
+                    <span class="period">/Year</span>
+                </div>
+            </div>
+            
+            <div class="artist-count">
+                <span>Artists: 5</span>
+                <span>40</span>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            
+            <div class="features-title">All Starter and Pro features plus:</div>
+            <ul class="features-list">
+                <li>Release unlimited music for 5 artists</li>
+            </ul>
+            
+            <a href="#" class="learn-more">Learn more about Labels</a>
+            <button class="cta-button">Select Label 5</button>
+        </div>
+    </div>
+
+
+
+    
+</body>
+</html>

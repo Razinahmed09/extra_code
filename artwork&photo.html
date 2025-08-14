@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Artwork & Photo Upload - SingWithMe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0d0d0d;
+      color: #fff;
+    }
+
+    header {
+      background: #1a1a1a;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: #ff4081;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 0 20px;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero h2 {
+      font-size: 2.2rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: #ccc;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .upload-box {
+      border: 2px dashed #444;
+      background: #1a1a1a;
+      padding: 60px 30px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 40px;
+      transition: border 0.3s ease;
+    }
+
+    .upload-box:hover {
+      border-color: #ff4081;
+    }
+
+    .upload-box i {
+      font-size: 3rem;
+      color: #ff4081;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .upload-box p {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 10px;
+    }
+
+    .upload-btn {
+      background: #ff4081;
+      color: #fff;
+      padding: 12px 28px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 15px;
+      transition: background 0.3s ease;
+    }
+
+    .upload-btn:hover {
+      background: #e83770;
+    }
+
+    .tips {
+      margin-top: 60px;
+      color: #bbb;
+    }
+
+    .tips h3 {
+      font-size: 1.3rem;
+      margin-bottom: 15px;
+      color: #fff;
+    }
+
+    .tips ul {
+      list-style: disc;
+      padding-left: 20px;
+    }
+
+    .tips li {
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>SingWithMe</h1>
+    <span>Artwork Upload</span>
+  </header>
+
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero">
+      <h2>Artwork & Photo Upload</h2>
+      <p>Upload your album artwork, promotional photos, and graphics, so your visual identity shines just as brightly as your music.</p>
+    </div>
+
+    <!-- Upload Box -->
+    <div class="upload-box">
+      <i>📁</i>
+      <p>Drag & drop your files here or</p>
+      <button class="upload-btn">Browse Files</button>
+    </div>
+
+    <!-- Upload Tips -->
+    <div class="tips">
+      <h3>Upload Guidelines</h3>
+      <ul>
+        <li>Accepted formats: JPG, PNG, GIF (Max 5MB each)</li>
+        <li>Upload album covers, profile photos, banners, etc.</li>
+        <li>High-resolution images recommended (minimum 1000x1000px)</li>
+        <li>Make sure you own or have rights to use the images</li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter Signup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news_contactForm .bg-animation {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.news_contactForm .floating-shapes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.news_contactForm .shape {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.news_contactForm .shape:nth-child(1) {
+    width: 80px;
+    height: 80px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 6s;
+}
+
+.news_contactForm .shape:nth-child(2) {
+    width: 60px;
+    height: 60px;
+    top: 60%;
+    left: 80%;
+    animation-delay: -2s;
+    animation-duration: 8s;
+}
+
+.news_contactForm .shape:nth-child(3) {
+    width: 100px;
+    height: 100px;
+    top: 80%;
+    left: 20%;
+    animation-delay: -4s;
+    animation-duration: 7s;
+}
+
+.news_contactForm .shape:nth-child(4) {
+    width: 120px;
+    height: 120px;
+    top: 10%;
+    left: 70%;
+    animation-delay: -1s;
+    animation-duration: 9s;
+}
+
+.news_contactForm .shape:nth-child(5) {
+    width: 90px;
+    height: 90px;
+    top: 40%;
+    left: 5%;
+    animation-delay: -3s;
+    animation-duration: 6.5s;
+}
+
+.news_contactForm .shape:nth-child(6) {
+    width: 70px;
+    height: 70px;
+    top: 30%;
+    left: 90%;
+    animation-delay: -5s;
+    animation-duration: 8.5s;
+}
+
+.news_contactForm .particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.news_contactForm .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    animation: particle-float 10s linear infinite;
+}
+
+.news_contactForm .particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.news_contactForm .particle:nth-child(2) { left: 20%; animation-delay: -2s; }
+.news_contactForm .particle:nth-child(3) { left: 30%; animation-delay: -4s; }
+.news_contactForm .particle:nth-child(4) { left: 40%; animation-delay: -6s; }
+.news_contactForm .particle:nth-child(5) { left: 50%; animation-delay: -8s; }
+.news_contactForm .particle:nth-child(6) { left: 60%; animation-delay: -10s; }
+.news_contactForm .particle:nth-child(7) { left: 70%; animation-delay: -12s; }
+.news_contactForm .particle:nth-child(8) { left: 80%; animation-delay: -14s; }
+.news_contactForm .particle:nth-child(9) { left: 90%; animation-delay: -16s; }
+.news_contactForm .particle:nth-child(10) { left: 95%; animation-delay: -18s; }
+
+.news_contactForm .gradient-orbs {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.news_contactForm .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    animation: orb-move 20s ease-in-out infinite;
+    opacity: 0.3;
+}
+
+.news_contactForm .orb1 {
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #ff6b6b, #4ecdc4);
+    top: -150px;
+    left: -150px;
+    animation-delay: 0s;
+}
+
+.news_contactForm .orb2 {
+    width: 250px;
+    height: 250px;
+    background: radial-gradient(circle, #a8e6cf, #ffd93d);
+    bottom: -125px;
+    right: -125px;
+    animation-delay: -10s;
+}
+
+.news_contactForm .orb3 {
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #ff8a80, #ea80fc);
+    top: 50%;
+    right: -100px;
+    animation-delay: -5s;
+}
+
+.news_contactForm .newsletter-container {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 25px 50px;
+    max-width: 700px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.news_contactForm .newsletter-container:hover {
+    transform: translateY(-5px);
+}
+
+.news_contactForm .stats {
+    margin-bottom: 30px;
+}
+
+.news_contactForm .readers-count {
+    font-size: 3.2em;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 10px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.news_contactForm .tagline {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.news_contactForm .description {
+    font-size: 1.1em;
+    color: #718096;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.news_contactForm .un_contactForm {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.news_contactForm .un_contactForm .form-group {
+    width: 48%;
+}
+
+.news_contactForm .form-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.news_contactForm .form-input {
+    width: 100%;
+    padding: 18px 20px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: #f8fafc;
+    outline: none;
+}
+
+.news_contactForm .form-input:focus {
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-2px);
+}
+
+.news_contactForm .form-input::placeholder {
+    color: #a0aec0;
+    font-weight: 500;
+}
+
+.news_contactForm .error-message {
+    color: #e53e3e;
+    font-size: 14px;
+    margin-top: 8px;
+    text-align: left;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+.news_contactForm .error-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.news_contactForm .submit-btn {
+    width: 100%;
+    padding: 18px 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.news_contactForm .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4);
+}
+
+.news_contactForm .submit-btn:active {
+    transform: translateY(0);
+}
+
+.news_contactForm .submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.news_contactForm .submit-btn:hover::before {
+    left: 100%;
+}
+
+.news_contactForm .success-message {
+    background: #48bb78;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.news_contactForm .success-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.news_contactForm .pulse-animation {
+    animation: pulse 2s infinite;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .news_contactForm .newsletter-container {
+        padding: 40px 30px;
+        margin: 20px;
+    }
+
+    .news_contactForm .readers-count {
+        font-size: 2.5em;
+    }
+
+    .news_contactForm .tagline {
+        font-size: 1.5em;
+    }
+
+    .news_contactForm .description {
+        font-size: 1em;
+    }
+
+    .news_contactForm .un_contactForm .form-group {
+        width: 100%;
+    }
+}
+
+/* Global animations (not scoped) */
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+    50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+}
+
+@keyframes particle-float {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10%, 90% { opacity: 1; }
+    100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+}
+
+@keyframes orb-move {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(30px, -30px) scale(1.1); }
+    50% { transform: translate(-20px, 20px) scale(0.9); }
+    75% { transform: translate(20px, 30px) scale(1.05); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+    </style>
+</head>
+
+<body>
+    <section class="news_contactForm">
+    <div class="newsletter-container">
+        <div class="stats">
+            <div class="readers-count">2.5M+ Readers</div>
+            <div class="tagline">One Life-Changing Newsletter</div>
+        </div>
+
+        <div class="description">
+            Get exclusive insights, tips, and strategies delivered straight to your inbox. Join our community of
+            forward-thinking professionals.
+        </div>
+
+        <form id="newsletterForm">
+            <div class="un_contactForm">
+            <div class="form-group">
+                <input type="text" id="firstName" class="form-input" placeholder="First Name" required>
+                <div class="error-message" id="firstNameError">Please enter your first name</div>
+            </div>
+
+            <div class="form-group">
+                <input type="email" id="email" class="form-input" placeholder="Email Address" required>
+                <div class="error-message" id="emailError">Please enter a valid email address</div>
+            </div>
+            </div>
+            <button type="submit" class="submit-btn" id="submitBtn">
+                Subscribe Now
+            </button>
+        </form>
+
+        <div class="success-message" id="successMessage">
+            🎉 Welcome aboard! Check your email to confirm your subscription.
+        </div>
+    </div>
+    </section>
+    <script>
+        const form = document.getElementById('newsletterForm');
+        const firstNameInput = document.getElementById('firstName');
+        const emailInput = document.getElementById('email');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+
+        // Email validation regex
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Form submission handler
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const firstName = firstNameInput.value.trim();
+            const email = emailInput.value.trim();
+
+            // Reset previous errors
+            clearErrors();
+
+            let isValid = true;
+
+            // Validate first name
+            if (!firstName) {
+                showError('firstNameError');
+                isValid = false;
+            }
+
+            // Validate email
+            if (!email || !emailRegex.test(email)) {
+                showError('emailError');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Simulate form submission
+                submitBtn.innerHTML = 'Subscribing...';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    // Show success message
+                    successMessage.classList.add('show');
+
+                    // Reset form
+                    form.reset();
+
+                    // Reset button
+                    submitBtn.innerHTML = 'Subscribe Now';
+                    submitBtn.disabled = false;
+
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                }, 1500);
+            }
+        });
+
+        function showError(errorId) {
+            const errorElement = document.getElementById(errorId);
+            errorElement.classList.add('show');
+
+            // Hide error after 5 seconds
+            setTimeout(() => {
+                errorElement.classList.remove('show');
+            }, 5000);
+        }
+
+        function clearErrors() {
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(error => {
+                error.classList.remove('show');
+            });
+        }
+
+        // Add focus animations
+        const inputs = document.querySelectorAll('.form-input');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function () {
+                this.parentElement.classList.add('pulse-animation');
+            });
+
+            input.addEventListener('blur', function () {
+                this.parentElement.classList.remove('pulse-animation');
+            });
+        });
+
+        // Real-time validation
+        emailInput.addEventListener('input', function () {
+            const emailError = document.getElementById('emailError');
+            if (this.value && !emailRegex.test(this.value)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.classList.add('show');
+            } else {
+                emailError.classList.remove('show');
+            }
+        });
+
+        firstNameInput.addEventListener('input', function () {
+            const firstNameError = document.getElementById('firstNameError');
+            if (this.value.trim()) {
+                firstNameError.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+
+</html>

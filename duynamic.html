@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  .description-box {
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-top: 10px;
+    border-left: 5px solid #888;
+  }
+
+  .subcategory-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .subcategory-item {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .subcategory-item:hover {
+    background-color: #e0e0e0;
+  }
+
+  .subcategory-item.selected {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+  }
+</style>
+
+<body>
+    <div class="form-section">
+        <h2>Select Category</h2>
+        <select id="mainCategory">
+            <option value="" disabled selected>-- Choose a Category --</option>
+            <option value="dance" data-description="Dance styles like hip hop, jazz, and more">Dance</option>
+            <option value="music" data-description="Musical genres, instruments, vocals">Music</option>
+            <option value="model" data-description="Modeling opportunities for fashion, commercial, etc.">Model</option>
+            <option value="fashion" data-description="Fashion styles and trends">Fashion</option>
+            <option value="makeup" data-description="Make-up artistry, styles, and tips">Make-up</option>
+        </select>
+
+        <div id="categoryDescription" class="description-box" style="display: none;"></div>
+
+        <div id="subCategorySection" style="display:none;">
+            <h3 id="subCategoryTitle"></h3>
+            <div id="subCategoryList" class="subcategory-list"></div>
+        </div>
+    </div>
+
+<script>
+  const mainCategory = document.getElementById("mainCategory");
+  const descBox = document.getElementById("categoryDescription");
+  const subCatSection = document.getElementById("subCategorySection");
+  const subCatTitle = document.getElementById("subCategoryTitle");
+  const subCatList = document.getElementById("subCategoryList");
+
+  const subCategories = {
+    dance: ["Jazz", "Hip Hop", "Lyrical", "Acro", "Choreographer", "Ballet"],
+    music: ["Vocal", "Instrumental", "Rap", "Classical", "Band", "Solo"],
+    model: ["Runway", "Editorial", "Commercial", "Fitness", "Plus Size"],
+    fashion: ["Streetwear", "Haute Couture", "Casual", "Formal", "Ethnic"],
+    makeup: ["Bridal", "Editorial", "FX", "Everyday Look", "Glam"]
+  };
+
+  mainCategory.addEventListener("change", function () {
+    const selected = this.value;
+    const desc = this.options[this.selectedIndex].dataset.description;
+
+    // Show description
+    descBox.style.display = "block";
+    descBox.innerText = desc;
+
+    // Show subcategory
+    const selectedName = this.options[this.selectedIndex].text;
+    subCatTitle.innerText = `Select Your ${selectedName} Style`;
+    subCatSection.style.display = "block";
+
+    // Clear old subcategories
+    subCatList.innerHTML = "";
+
+    // Load new subcategories
+    subCategories[selected].forEach(sub => {
+      const item = document.createElement("div");
+      item.className = "subcategory-item";
+      item.innerText = sub;
+
+      item.addEventListener("click", () => {
+        item.classList.toggle("selected");
+      });
+
+      subCatList.appendChild(item);
+    });
+  });
+</script>
+
+
+
+</body>
+
+</html>

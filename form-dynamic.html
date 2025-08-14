@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  .description-box {
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin-top: 10px;
+    border-left: 5px solid #888;
+  }
+
+  .subcategory-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .subcategory-item {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .subcategory-item:hover {
+    background-color: #e0e0e0;
+  }
+
+  .subcategory-item.selected {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+  }
+
+  #selectedResults {
+    margin-top: 30px;
+    background: #fafafa;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  .result-group {
+    margin-bottom: 15px;
+  }
+
+  .result-group h4 {
+    margin-bottom: 5px;
+    color: #444;
+  }
+
+  .selected-subcategory {
+    display: inline-block;
+    background: #4CAF50;
+    color: white;
+    padding: 5px 10px;
+    margin: 4px 4px 0 0;
+    border-radius: 15px;
+    font-size: 0.9em;
+  }
+</style>
+
+<body>
+    <div class="form-section">
+  <h2>Select Category</h2>
+  <select id="mainCategory">
+    <option value="" disabled selected>-- Choose a Category --</option>
+    <option value="dance" data-description="Dance styles like hip hop, jazz, and more">Dance</option>
+    <option value="music" data-description="Musical genres, instruments, vocals">Music</option>
+    <option value="model" data-description="Modeling opportunities for fashion, commercial, etc.">Model</option>
+    <option value="fashion" data-description="Fashion styles and trends">Fashion</option>
+    <option value="makeup" data-description="Make-up artistry, styles, and tips">Make-up</option>
+  </select>
+
+  <div id="categoryDescription" class="description-box" style="display: none;"></div>
+
+  <div id="subCategorySection" style="display:none;">
+    <h3 id="subCategoryTitle"></h3>
+    <div id="subCategoryList" class="subcategory-list"></div>
+  </div>
+</div>
+
+<!-- New Result Box -->
+<div id="selectedResults">
+  <h2>Your Selections</h2>
+  <div id="resultsContainer"></div>
+</div>
+
+<script>
+  const mainCategory = document.getElementById("mainCategory");
+  const descBox = document.getElementById("categoryDescription");
+  const subCatSection = document.getElementById("subCategorySection");
+  const subCatTitle = document.getElementById("subCategoryTitle");
+  const subCatList = document.getElementById("subCategoryList");
+  const resultsContainer = document.getElementById("resultsContainer");
+
+  const subCategories = {
+    dance: ["Jazz", "Hip Hop", "Lyrical", "Acro", "Choreographer", "Ballet"],
+    music: ["Vocal", "Instrumental", "Rap", "Classical", "Band", "Solo"],
+    model: ["Runway", "Editorial", "Commercial", "Fitness", "Plus Size"],
+    fashion: ["Streetwear", "Haute Couture", "Casual", "Formal", "Ethnic"],
+    makeup: ["Bridal", "Editorial", "FX", "Everyday Look", "Glam"]
+  };
+
+  const selectedItems = {}; // Store selected subcategories grouped by main category
+
+  mainCategory.addEventListener("change", function () {
+    const selected = this.value;
+    const desc = this.options[this.selectedIndex].dataset.description;
+    const selectedName = this.options[this.selectedIndex].text;
+
+    // Show description
+    descBox.style.display = "block";
+    descBox.innerText = desc;
+
+    // Show subcategory list
+    subCatTitle.innerText = `Select Your ${selectedName} Style`;
+    subCatSection.style.display = "block";
+    subCatList.innerHTML = "";
+
+    // Load subcategories dynamically
+    subCategories[selected].forEach(sub => {
+      const item = document.createElement("div");
+      item.className = "subcategory-item";
+      item.innerText = sub;
+
+      // Handle click selection
+      item.addEventListener("click", () => {
+        item.classList.toggle("selected");
+
+        // Add/remove from selectedItems
+        if (!selectedItems[selected]) {
+          selectedItems[selected] = new Set();
+        }
+
+        if (item.classList.contains("selected")) {
+          selectedItems[selected].add(sub);
+        } else {
+          selectedItems[selected].delete(sub);
+        }
+
+        renderSelections();
+      });
+
+      subCatList.appendChild(item);
+    });
+  });
+
+  function renderSelections() {
+    resultsContainer.innerHTML = "";
+    for (let category in selectedItems) {
+      if (selectedItems[category].size > 0) {
+        const group = document.createElement("div");
+        group.className = "result-group";
+
+        const title = document.createElement("h4");
+        title.innerText = mainCategory.querySelector(`option[value="${category}"]`).text;
+        group.appendChild(title);
+
+        selectedItems[category].forEach(sub => {
+          const tag = document.createElement("span");
+          tag.className = "selected-subcategory";
+          tag.innerText = sub;
+          group.appendChild(tag);
+        });
+
+        resultsContainer.appendChild(group);
+      }
+    }
+  }
+</script>
+
+
+</body>
+</html>

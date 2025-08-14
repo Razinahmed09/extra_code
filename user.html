@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Animated Profile Card</title>
+  <style>
+    .profile-card-wrapper * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .profile-card-wrapper {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .profile-card-wrapper .profile-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 40px 32px;
+      width: 100%;
+      max-width: 380px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+    }
+
+    .profile-card-wrapper .profile-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: left 0.8s;
+    }
+
+    .profile-card-wrapper .profile-card:hover::before {
+      left: 100%;
+    }
+
+    .profile-card-wrapper .profile-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+    }
+
+    .profile-card-wrapper .profile-header {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .profile-card-wrapper .search-icon,
+    .profile-card-wrapper .user-icon {
+      position: absolute;
+      top: -10px;
+      width: 24px;
+      height: 24px;
+      background: #f0f0f0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: #666;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .profile-card-wrapper .search-icon {
+      right: 40px;
+    }
+
+    .profile-card-wrapper .user-icon {
+      right: 0;
+      background: #4285f4;
+      color: white;
+    }
+
+    .profile-card-wrapper .search-icon:hover,
+    .profile-card-wrapper .user-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-card-wrapper .avatar-container {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 24px;
+    }
+
+    .profile-card-wrapper .avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid white;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      transition: all 0.4s ease;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .profile-card-wrapper .profile-card:hover .avatar {
+      transform: scale(1.1);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile-card-wrapper .online-indicator {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      width: 20px;
+      height: 20px;
+      background: #4CAF50;
+      border-radius: 50%;
+      border: 3px solid white;
+      animation: pulse 2s infinite;
+    }
+
+    .profile-card-wrapper .name {
+      font-size: 28px;
+      font-weight: 700;
+      color: #2c3e50;
+      margin-bottom: 8px;
+      opacity: 0;
+      animation: slideUp 0.8s ease forwards 0.2s;
+    }
+
+    .profile-card-wrapper .username {
+      font-size: 16px;
+      color: #7f8c8d;
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: slideUp 0.8s ease forwards 0.4s;
+    }
+
+    .profile-card-wrapper .bio {
+      font-size: 16px;
+      color: #5a6c7d;
+      line-height: 1.6;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: slideUp 0.8s ease forwards 0.6s;
+    }
+
+    .profile-card-wrapper .stats {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      opacity: 0;
+      animation: slideUp 0.8s ease forwards 0.8s;
+    }
+
+    .profile-card-wrapper .stat {
+      flex: 1;
+      padding: 16px;
+      background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-card-wrapper .stat::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+      transition: left 0.6s;
+    }
+
+    .profile-card-wrapper .stat:hover::before {
+      left: 100%;
+    }
+
+    .profile-card-wrapper .stat:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(135deg, #fff, #f8f9fa);
+    }
+
+    .profile-card-wrapper .stat-number {
+      font-size: 24px;
+      font-weight: 700;
+      color: #2c3e50;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .profile-card-wrapper .stat-label {
+      font-size: 14px;
+      color: #7f8c8d;
+      font-weight: 500;
+    }
+
+    .profile-card-wrapper .joined-date {
+      font-size: 14px;
+      color: #bdc3c7;
+      margin-top: 20px;
+      opacity: 0;
+      animation: slideUp 0.8s ease forwards 1s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(76, 175, 80, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(76, 175, 80, 0); }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .profile-card-wrapper .profile-card {
+        padding: 30px 24px;
+        margin: 10px;
+      }
+
+      .profile-card-wrapper .stats {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .profile-card-wrapper .name {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-card-wrapper">
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="search-icon">🔍</div>
+        <div class="user-icon">👤</div>
+      </div>
+
+      <div class="avatar-container">
+        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face&auto=format" alt="Profile Avatar" class="avatar">
+        <div class="online-indicator"></div>
+      </div>
+
+      <h1 class="name">Tobias Whetton</h1>
+      <p class="username">@tobias</p>
+      <p class="bio">Engineer, designer & developer that can be found inhabiting coffee houses</p>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-number">321</span>
+          <span class="stat-label">Points</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">30</span>
+          <span class="stat-label">Friends</span>
+        </div>
+      </div>
+
+      <p class="joined-date">Joined Apr 2020</p>
+    </div>
+  </div>
+</body>
+</html>

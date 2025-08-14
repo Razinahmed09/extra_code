@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated Services Section</title>
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: #f9f9f9;
+  padding: 50px;
+}
+
+.services-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 900px;
+  margin: auto;
+}
+
+.service-box {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 30px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.service-number {
+  font-size: 18px;
+  color: #aaa;
+  flex-shrink: 0;
+  min-width: 40px;
+  padding-top: 5px;
+}
+
+.service-content {
+  flex: 1;
+}
+
+.service-content h2 {
+  font-size: 20px;
+  color: #222;
+  transition: color 0.3s ease;
+}
+
+/* Initially hide details */
+.service-details {
+  overflow: hidden;
+  height: 0;
+  opacity: 0;
+  transition: height 0.5s ease, opacity 0.5s ease;
+}
+
+/* Show details smoothly on hover */
+.service-box:hover .service-details {
+  height: auto;
+  opacity: 1;
+  animation: expandDetails 0.5s ease forwards;
+}
+
+/* Animation to remove jerk on auto height */
+@keyframes expandDetails {
+  from {
+    max-height: 0;
+  }
+  to {
+    max-height: 1000px;
+  }
+}
+
+.service-details p {
+  font-size: 14px;
+  color: #444;
+  margin-top: 8px;
+}
+
+.service-details .desc {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.6;
+}
+
+.service-details button {
+  margin-top: 15px;
+  padding: 8px 16px;
+  border: 1px solid #222;
+  background: transparent;
+  border-radius: 20px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.service-details button:hover {
+  background: #222;
+  color: #fff;
+}
+
+.service-box:hover {
+  background: #edf7ee;
+}
+
+</style>
+</head>
+<body>
+ <div class="services-wrapper">
+  <div class="service-box">
+    <div class="service-header">
+      <div class="service-number">01</div>
+      <h2>Product Design</h2>
+    </div>
+    <div class="service-details">
+      <p>SaaS Platform • Web Platform • Mobile App</p>
+    </div>
+  </div>
+
+  <div class="service-box">
+    <div class="service-header">
+      <div class="service-number">02</div>
+      <h2>UX Design</h2>
+    </div>
+    <div class="service-details">
+      <p>UX Audit • Analysis • Research</p>
+    </div>
+  </div>
+
+  <div class="service-box">
+    <div class="service-header">
+      <div class="service-number">03</div>
+      <h2>Development</h2>
+    </div>
+    <div class="service-details">
+      <p>Net Core • PHP • React • Node.js • Angular</p>
+    </div>
+  </div>
+
+  <div class="service-box">
+    <div class="service-header">
+      <div class="service-number">04</div>
+      <h2>Quality Assurance</h2>
+    </div>
+    <div class="service-details">
+      <p>Testing • Planning • KPI Tracking • Documentation</p>
+      <p class="desc">
+        Our QA services ensure your products meet the highest standards of performance. We test, fix, and deliver dependable solutions.
+      </p>
+      <button>DISCUSS PROJECT</button>
+    </div>
+  </div>
+</div>
+
+
+
+</body>
+</html>

@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Free Consultation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 0;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .booking-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .calendar-section, .form-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .calendar-section::before, .form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .calendar {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .calendar-nav {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 8px;
+            padding: 8px 12px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-nav:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .calendar-month {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.05);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .calendar-day:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+        }
+
+        .calendar-day.available {
+            background: rgba(102, 126, 234, 0.3);
+            border: 1px solid rgba(102, 126, 234, 0.5);
+        }
+
+        .calendar-day.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .calendar-day.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+        }
+
+        .time-slot {
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        .time-slot:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .time-slot.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+        }
+
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.4);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+        }
+
+        .form-input::placeholder, .form-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .consultation-types {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .consultation-type {
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .consultation-type:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .consultation-type.selected {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .consultation-type h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .consultation-type p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.4;
+        }
+
+        .book-button {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .book-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .book-button:active {
+            transform: translateY(0);
+        }
+
+        .benefits {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .benefits h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .benefits-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.95rem;
+        }
+
+        .benefit-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .floating-shapes {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-shape {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .floating-shape:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-shape:nth-child(2) {
+            top: 20%;
+            right: 20%;
+            animation-delay: 3s;
+        }
+
+        .floating-shape:nth-child(3) {
+            bottom: 20%;
+            left: 15%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .booking-container {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .consultation-types {
+                grid-template-columns: 1fr;
+            }
+            
+            .benefits-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-section, .form-section {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-shapes">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Book Your Free Consultation</h1>
+            <p>Take the first step towards your transformation. Schedule a personalized consultation with our experts.</p>
+        </div>
+
+        <div class="booking-container">
+            <div class="calendar-section">
+                <h2 class="section-title">Choose Your Date & Time</h2>
+                
+                <div class="calendar">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" onclick="previousMonth()">‹</button>
+                        <div class="calendar-month" id="currentMonth">January 2025</div>
+                        <button class="calendar-nav" onclick="nextMonth()">›</button>
+                    </div>
+                    
+                    <div class="calendar-grid">
+                        <div class="calendar-day-header">Sun</div>
+                        <div class="calendar-day-header">Mon</div>
+                        <div class="calendar-day-header">Tue</div>
+                        <div class="calendar-day-header">Wed</div>
+                        <div class="calendar-day-header">Thu</div>
+                        <div class="calendar-day-header">Fri</div>
+                        <div class="calendar-day-header">Sat</div>
+                        
+                        <div class="calendar-day disabled">29</div>
+                        <div class="calendar-day disabled">30</div>
+                        <div class="calendar-day disabled">31</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">1</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">2</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">3</div>
+                        <div class="calendar-day disabled">4</div>
+                        
+                        <div class="calendar-day disabled">5</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">6</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">7</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">8</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">9</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">10</div>
+                        <div class="calendar-day disabled">11</div>
+                        
+                        <div class="calendar-day disabled">12</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">13</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">14</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">15</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">16</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">17</div>
+                        <div class="calendar-day disabled">18</div>
+                        
+                        <div class="calendar-day disabled">19</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">20</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">21</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">22</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">23</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">24</div>
+                        <div class="calendar-day disabled">25</div>
+                        
+                        <div class="calendar-day disabled">26</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">27</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">28</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">29</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">30</div>
+                        <div class="calendar-day available" onclick="selectDate(this)">31</div>
+                        <div class="calendar-day disabled">1</div>
+                    </div>
+                </div>
+
+                <div class="time-slots">
+                    <div class="time-slot" onclick="selectTime(this)">9:00 AM</div>
+                    <div class="time-slot" onclick="selectTime(this)">10:00 AM</div>
+                    <div class="time-slot" onclick="selectTime(this)">11:00 AM</div>
+                    <div class="time-slot" onclick="selectTime(this)">1:00 PM</div>
+                    <div class="time-slot" onclick="selectTime(this)">2:00 PM</div>
+                    <div class="time-slot" onclick="selectTime(this)">3:00 PM</div>
+                    <div class="time-slot" onclick="selectTime(this)">4:00 PM</div>
+                    <div class="time-slot" onclick="selectTime(this)">5:00 PM</div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2 class="section-title">Your Information</h2>
+                
+                <div class="consultation-types">
+                    <div class="consultation-type" onclick="selectConsultationType(this)">
+                        <h3>🎯 Goal Setting</h3>
+                        <p>Define your transformation goals and create a roadmap</p>
+                    </div>
+                    <div class="consultation-type" onclick="selectConsultationType(this)">
+                        <h3>📊 Progress Review</h3>
+                        <p>Assess your current progress and optimize your plan</p>
+                    </div>
+                </div>
+
+                <form id="consultationForm" onsubmit="submitForm(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-input" placeholder="Your first name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-input" placeholder="Your last name" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-input" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-input" placeholder="(555) 123-4567" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">What are your main goals?</label>
+                        <textarea class="form-textarea" placeholder="Tell us about your transformation goals and what you'd like to achieve..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">How did you hear about us?</label>
+                        <select class="form-select">
+                            <option value="">Select an option</option>
+                            <option value="social">Social Media</option>
+                            <option value="referral">Friend/Family Referral</option>
+                            <option value="search">Google Search</option>
+                            <option value="advertisement">Advertisement</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="book-button">Book My Free Consultation</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="benefits">
+            <h3>What You'll Get in Your Free Consultation</h3>
+            <div class="benefits-list">
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <span>Personalized goal assessment</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <span>Custom transformation roadmap</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <span>Expert guidance and tips</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <span>Q&A with specialist</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <span>Resource recommendations</span>
+                </div>
+                <div class="benefit-item">
+                    <div class="benefit-icon">✓</div>
+                    <span>No obligation or pressure</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let selectedDate = null;
+        let selectedTime = null;
+        let selectedConsultationType = null;
+
+        function selectDate(element) {
+            // Remove previous selection
+            document.querySelectorAll('.calendar-day').forEach(day => {
+                day.classList.remove('selected');
+            });
+            
+            // Add selection to clicked date
+            element.classList.add('selected');
+            selectedDate = element.textContent;
+            
+            // Add animation
+            element.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                element.style.transform = 'scale(1.1)';
+            }, 200);
+        }
+
+        function selectTime(element) {
+            // Remove previous selection
+            document.querySelectorAll('.time-slot').forEach(slot => {
+                slot.classList.remove('selected');
+            });
+            
+            // Add selection to clicked time
+            element.classList.add('selected');
+            selectedTime = element.textContent;
+            
+            // Add animation
+            element.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        function selectConsultationType(element) {
+            // Remove previous selection
+            document.querySelectorAll('.consultation-type').forEach(type => {
+                type.classList.remove('selected');
+            });
+            
+            // Add selection to clicked type
+            element.classList.add('selected');
+            selectedConsultationType = element.querySelector('h3').textContent;
+            
+            // Add animation
+            element.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                element.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        function previousMonth() {
+            // In a real application, this would change the calendar month
+            const navButton = event.target;
+            navButton.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                navButton.style.transform = 'scale(1)';
+            }, 150);
+        }
+
+        function nextMonth() {
+            // In a real application, this would change the calendar month
+            const navButton = event.target;
+            navButton.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                navButton.style.transform = 'scale(1)';
+            }, 150);
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            
+            // Basic validation
+            if (!selectedDate || !selectedTime || !selectedConsultationType) {
+                alert('Please select a date, time, and consultation type before booking.');
+                return;
+            }
+            
+            // Animate button
+            const button = event.target.querySelector('.book-button');
+            button.style.transform = 'scale(0.95)';
+            button.textContent = 'Booking...';
+            
+            setTimeout(() => {
+                button.style.transform = 'scale(1)';
+                button.textContent = 'Consultation Booked! ✓';
+                button.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
+                
+                // In a real application, form data would be sent to server
+                alert(`Consultation booked for ${selectedDate} at ${selectedTime} for ${selectedConsultationType}`);
+            }, 1500);
+        }
+
+        // Add some interactive animations on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const sections = document.querySelectorAll('.calendar-section, .form-section');
+            
+            sections.forEach((section, index) => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    section.style.transition = 'all 0.8s ease';
+                    section.style.opacity = '1';
+                    section.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
+</html>

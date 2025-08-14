@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Wireless Headphones</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .product-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 600px;
+        }
+
+        .video-container {
+            position: relative;
+            background: linear-gradient(45deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .demo-video {
+            width: 85%;
+            height: 85%;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .demo-video.loaded {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .video-container:hover .demo-video {
+            transform: scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        .play-overlay::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid #667eea;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 4px;
+        }
+
+        .video-container:hover .play-overlay {
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .demo-video:not([muted]) ~ .play-overlay {
+            opacity: 0;
+        }
+
+        .product-details {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            width: fit-content;
+            animation: fadeInLeft 0.6s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .product-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            animation: fadeInLeft 0.6s ease-out 0.4s both;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            animation: fadeInLeft 0.6s ease-out 0.6s both;
+        }
+
+        .stars {
+            display: flex;
+            gap: 0.2rem;
+        }
+
+        .star {
+            color: #ffd700;
+            font-size: 1.2rem;
+        }
+
+        .star.empty {
+            color: #ddd;
+        }
+
+        .rating-text {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #27ae60;
+            margin-bottom: 1.5rem;
+            animation: fadeInLeft 0.6s ease-out 0.8s both;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            animation: fadeInLeft 0.6s ease-out 1s both;
+        }
+
+        .features {
+            margin-bottom: 2rem;
+            animation: fadeInLeft 0.6s ease-out 1.2s both;
+        }
+
+        .features h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.8rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .feature-icon {
+            width: 18px;
+            height: 18px;
+            background: #27ae60;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .feature-icon::before {
+            content: '✓';
+            color: white;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .purchase-section {
+            animation: fadeInLeft 0.6s ease-out 1.4s both;
+        }
+
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .quantity-label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .qty-btn {
+            background: #f8f9fa;
+            border: none;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #555;
+            transition: all 0.2s ease;
+        }
+
+        .qty-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .qty-input {
+            border: none;
+            width: 60px;
+            height: 40px;
+            text-align: center;
+            font-size: 1rem;
+            font-weight: 600;
+            outline: none;
+        }
+
+        .add-to-cart {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-to-cart::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .add-to-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .add-to-cart:hover::before {
+            left: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                border-radius: 16px;
+            }
+
+            .product-section {
+                grid-template-columns: 1fr;
+            }
+
+            .video-container {
+                min-height: 300px;
+            }
+
+            .product-details {
+                padding: 2rem;
+            }
+
+            .product-title {
+                font-size: 2rem;
+            }
+
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="product-section">
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <video class="demo-video" muted loop preload="metadata">
+                        <source src="https://sample-videos.com/zip/10/mp4/SampleVideo_1280x720_1mb.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="play-overlay"></div>
+                </div>
+            </div>
+            
+            <div class="product-details">
+                <span class="badge">Audio Equipment</span>
+                
+                <h1 class="product-title">Premium Wireless Headphones</h1>
+                
+                <div class="rating">
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star empty">★</span>
+                    </div>
+                    <span class="rating-text">4.2 (124 reviews)</span>
+                </div>
+                
+                <div class="price">$299.99</div>
+                
+                <p class="description">
+                    Experience superior sound quality with our premium wireless headphones. 
+                    Featuring active noise cancellation, 30-hour battery life, and premium 
+                    comfort for all-day listening. Perfect for music lovers, professionals, 
+                    and anyone seeking exceptional audio quality.
+                </p>
+                
+                <div class="features">
+                    <h4>Key Features</h4>
+                    <div class="feature-list">
+                        <div class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span>Active Noise Cancellation</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span>30-Hour Battery Life</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span>Premium Comfort Design</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span>Hi-Fi Audio Quality</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span>Quick Charge Technology</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon"></div>
+                            <span>Universal Compatibility</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="purchase-section">
+                    <div class="quantity-selector">
+                        <span class="quantity-label">Quantity:</span>
+                        <div class="quantity-controls">
+                            <button class="qty-btn" onclick="updateQuantity(-1)">−</button>
+                            <input type="number" class="qty-input" value="1" min="1" max="10" id="quantity">
+                            <button class="qty-btn" onclick="updateQuantity(1)">+</button>
+                        </div>
+                    </div>
+                    
+                    <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Video functionality
+        const videoContainer = document.querySelector('.video-container');
+        const video = document.querySelector('.demo-video');
+        const playOverlay = document.querySelector('.play-overlay');
+
+        // Load video with animation
+        video.addEventListener('loadedmetadata', () => {
+            video.classList.add('loaded');
+        });
+
+        // Hover to play/pause video
+        videoContainer.addEventListener('mouseenter', () => {
+            video.play().catch(e => console.log('Video play failed:', e));
+        });
+
+        videoContainer.addEventListener('mouseleave', () => {
+            video.pause();
+            video.currentTime = 0;
+        });
+
+        // Click to toggle mute/unmute
+        videoContainer.addEventListener('click', () => {
+            video.muted = !video.muted;
+            if (!video.muted) {
+                video.play();
+            }
+        });
+
+        // Quantity controls
+        function updateQuantity(change) {
+            const quantityInput = document.getElementById('quantity');
+            const currentValue = parseInt(quantityInput.value);
+            const newValue = Math.max(1, Math.min(10, currentValue + change));
+            quantityInput.value = newValue;
+            
+            // Add animation feedback
+            quantityInput.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                quantityInput.style.transform = 'scale(1)';
+            }, 150);
+        }
+
+        // Add to cart functionality
+        function addToCart() {
+            const quantity = document.getElementById('quantity').value;
+            const button = document.querySelector('.add-to-cart');
+            
+            // Animation feedback
+            button.style.transform = 'translateY(-2px) scale(0.98)';
+            button.textContent = 'Added to Cart!';
+            button.style.background = 'linear-gradient(135deg, #27ae60, #2ecc71)';
+            
+            setTimeout(() => {
+                button.style.transform = 'translateY(-2px) scale(1)';
+                setTimeout(() => {
+                    button.textContent = 'Add to Cart';
+                    button.style.background = 'linear-gradient(135deg, #667eea, #764ba2)';
+                    button.style.transform = 'translateY(0) scale(1)';
+                }, 500);
+            }, 100);
+            
+            console.log(`Added ${quantity} headphones to cart`);
+        }
+
+        // Smooth scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = entry.target.style.animation || 'fadeInLeft 0.6s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe animated elements
+        document.querySelectorAll('[style*="animation"]').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add some interactive hover effects
+        document.querySelectorAll('.feature-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'translateX(5px)';
+                item.style.transition = 'transform 0.2s ease';
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateX(0)';
+            });
+        });
+    </script>
+</body>
+</html>

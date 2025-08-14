@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Media Gallery</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #020312;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .sec_UserData .header {
+    text-align: center;
+    margin-bottom: 4rem;
+    position: relative;
+}
+
+.sec_UserData .header::before {
+    content: '';
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #ff6b6b, #4ecdc4, transparent);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+ @keyframes glow {
+    from { opacity: 0.5; }
+    to { opacity: 1; }
+}
+
+.sec_UserData .main-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientMove 4s ease infinite;
+    margin-bottom: 1rem;
+}
+
+ @keyframes gradientMove {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.sec_UserData .subtitle {
+    font-size: 1.2rem;
+    color: #a0a0a0;
+    font-weight: 300;
+}
+
+.sec_UserData .filter-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+}
+
+.sec_UserData .tab {
+    padding: 1rem 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+}
+
+.sec_UserData .tab::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.sec_UserData .tab:hover::before {
+    left: 100%;
+}
+
+.sec_UserData .tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(10, 100, 128, 0.3);
+    border-color: #ffffff94;
+}
+
+.sec_UserData .tab.active {
+    background: linear-gradient(254.54deg, #107ccf 0.03%, #00b5eb 100%);
+    color: #000;
+    font-weight: 600;
+}
+
+.sec_UserData .media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.sec_UserData .media-card {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    backdrop-filter: blur(10px);
+}
+
+.sec_UserData .media-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.sec_UserData .media-card:hover::before {
+    opacity: 1;
+}
+
+.sec_UserData .media-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(0, 125, 163, 0.747);
+}
+
+.sec_UserData .media-thumbnail {
+    width: 100%;
+    height: 236px;
+    background: linear-gradient(45deg, #2c3e50, #34495e);
+    position: relative;
+    overflow: hidden;
+}
+
+.sec_UserData .video-thumbnail {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.sec_UserData .video-thumbnail img {
+    width: 100%;
+}
+
+.sec_UserData .image-thumbnail {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.sec_UserData .image-thumbnail img {
+    width: 100%;
+}
+
+.sec_UserData .play-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.sec_UserData .play-button:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: rgba(255, 255, 255, 1);
+}
+
+.sec_UserData .play-icon {
+    width: 0;
+    height: 0;
+    border-left: 25px solid #333;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    margin-left: 5px;
+}
+
+.sec_UserData .image-icon {
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.8);
+    z-index: 2;
+}
+
+.sec_UserData .media-info {
+    padding: 1.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+.sec_UserData .media-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+.sec_UserData .media-description {
+    color: #b0b0b0;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.sec_UserData .media-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.sec_UserData .duration {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+.sec_UserData .load-more {
+    display: block;
+    margin: 3rem auto;
+    padding: 1.2rem 3rem;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.sec_UserData .load-more::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.sec_UserData .load-more:hover::before {
+    left: 100%;
+}
+
+.sec_UserData .load-more:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(255, 107, 107, 0.4);
+}
+
+.sec_UserData .floating-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.sec_UserData .floating-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(45deg, rgba(255, 107, 107, 0.1), rgba(78, 205, 196, 0.1));
+    animation: float 6s ease-in-out infinite;
+}
+
+.sec_UserData .floating-circle:nth-child(1) {
+    width: 100px;
+    height: 100px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.sec_UserData .floating-circle:nth-child(2) {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 15%;
+    animation-delay: 2s;
+}
+
+.sec_UserData .floating-circle:nth-child(3) {
+    width: 80px;
+    height: 80px;
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+@media (max-width: 768px) {
+    .sec_UserData .main-title {
+        font-size: 2.5rem;
+    }
+
+    .sec_UserData .media-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .sec_UserData .filter-tabs {
+        gap: 1rem;
+    }
+
+    .sec_UserData .tab {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <section class="sec_UserData">
+    <div class="floating-elements">
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+        <div class="floating-circle"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="main-title">Media Gallery</h1>
+            <p class="subtitle">Discover amazing videos and stunning images</p>
+        </header>
+
+        <nav class="filter-tabs">
+            <div class="tab active" data-filter="all">All Media</div>
+            <div class="tab" data-filter="videos">Videos</div>
+            <div class="tab" data-filter="images">Images</div>
+            <!-- <div class="tab" data-filter="featured">Featured</div> -->
+        </nav>
+
+        <main class="media-grid" id="mediaGrid">
+            <!-- Video Cards -->
+            <div class="media-card" data-type="video">
+                <div class="media-thumbnail video-thumbnail">
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                    </div>
+                    <div class="duration">4:32</div>
+                </div>
+                <div class="media-info">
+                    <h3 class="media-title">Creative Process Unveiled</h3>
+                    <p class="media-description">Behind the scenes of our latest creative project, showcasing innovative techniques and artistic vision.</p>
+                    <div class="media-meta">
+                        <span>Video</span>
+                        <span>2.3M views</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-card" data-type="image">
+                <div class="media-thumbnail image-thumbnail">
+                    <div class="play-button">
+                        <div class="image-icon">🖼️</div>
+                    </div>
+                </div>
+                <div class="media-info">
+                    <h3 class="media-title">Abstract Landscapes</h3>
+                    <p class="media-description">A collection of breathtaking abstract landscape photography captured in stunning detail.</p>
+                    <div class="media-meta">
+                        <span>Image</span>
+                        <span>High Resolution</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-card" data-type="video">
+                <div class="media-thumbnail video-thumbnail">
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                    </div>
+                    <img src="/techimages.jpg" alt="">
+
+                    <div class="duration">7:18</div>
+                </div>
+                <div class="media-info">
+                    <h3 class="media-title">Tech Innovation Summit</h3>
+                    <p class="media-description">Highlights from the latest technology summit featuring groundbreaking innovations and future trends.</p>
+                    <div class="media-meta">
+                        <span>Video</span>
+                        <span>1.8M views</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-card" data-type="image">
+                <div class="media-thumbnail image-thumbnail">
+                    <!-- <div class="play-button">
+                        <div class="image-icon">📸</div>
+                    </div> -->
+                    <img src="/art.jpg" alt="">
+                </div>
+                <div class="media-info">
+                    <h3 class="media-title">Quality Art </h3>
+                    <p class="media-description">Quality Art: Skillful, inspiring, and visually impactful artwork.</p>
+                    <div class="media-meta">
+                        <span>Image</span>
+                        <span>4K Quality</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-card" data-type="video">
+                <div class="media-thumbnail video-thumbnail">
+                    <div class="play-button">
+                        <div class="play-icon"></div>
+                    </div>
+                    <img src="/nature.jpeg" alt="">
+                    <div class="duration">12:45</div>
+                </div>
+                <div class="media-info">
+                    <h3 class="media-title">Nature Documentary</h3>
+                    <p class="media-description">An immersive journey through pristine natural environments and wildlife habitats.</p>
+                    <div class="media-meta">
+                        <span>Video</span>
+                        <span>5.1M views</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="media-card" data-type="image">
+                <div class="media-thumbnail image-thumbnail">
+                    <!-- <div class="play-button">
+                        <div class="image-icon">🎨</div>
+                    </div> -->
+                    <img src="/digital-art.jpg" alt="">
+                </div>
+                <div class="media-info">
+                    <h3 class="media-title">Digital Art Collection</h3>
+                    <p class="media-description">A curated selection of contemporary digital artworks from emerging artists worldwide.</p>
+                    <div class="media-meta">
+                        <span>Image</span>
+                        <span>Vector Format</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    </section>
+
+    <script>
+        // Filter functionality
+        const tabs = document.querySelectorAll('.tab');
+        const mediaCards = document.querySelectorAll('.media-card');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                tabs.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked tab
+                tab.classList.add('active');
+
+                const filter = tab.getAttribute('data-filter');
+
+                // Filter media cards
+                mediaCards.forEach(card => {
+                    if (filter === 'all') {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'scale(1)';
+                        }, 100);
+                    } else if (filter === 'featured') {
+                        // Show random selection for featured
+                        const isVisible = Math.random() > 0.3;
+                        if (isVisible) {
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'scale(1)';
+                            }, 100);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    } else {
+                        const cardType = card.getAttribute('data-type');
+                        if (cardType === filter.slice(0, -1)) { // Remove 's' from 'videos' or 'images'
+                            card.style.display = 'block';
+                            setTimeout(() => {
+                                card.style.opacity = '1';
+                                card.style.transform = 'scale(1)';
+                            }, 100);
+                        } else {
+                            card.style.opacity = '0';
+                            card.style.transform = 'scale(0.8)';
+                            setTimeout(() => {
+                                card.style.display = 'none';
+                            }, 300);
+                        }
+                    }
+                });
+            });
+        });
+
+        // Play button interactions
+        const playButtons = document.querySelectorAll('.play-button');
+        playButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const card = button.closest('.media-card');
+                const type = card.getAttribute('data-type');
+                
+                // Add click animation
+                button.style.transform = 'translate(-50%, -50%) scale(0.9)';
+                setTimeout(() => {
+                    button.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                }, 150);
+                
+                if (type === 'video') {
+                    console.log('Playing video...');
+                    // Here you would implement video playback
+                } else {
+                    console.log('Opening image...');
+                    // Here you would implement image viewer
+                }
+            });
+        });
+
+        // Load more functionality
+        const loadMoreBtn = document.querySelector('.load-more');
+        loadMoreBtn.addEventListener('click', () => {
+            // Simulate loading animation
+            loadMoreBtn.style.transform = 'scale(0.95)';
+            loadMoreBtn.textContent = 'Loading...';
+            
+            setTimeout(() => {
+                loadMoreBtn.style.transform = 'scale(1)';
+                loadMoreBtn.textContent = 'Load More Content';
+                // Here you would load more content
+                console.log('Loading more content...');
+            }, 1500);
+        });
+
+        // Add scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Initially hide cards for animation
+        mediaCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Animate cards on load
+        setTimeout(() => {
+            mediaCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        }, 300);
+    </script>
+</body>
+</html>

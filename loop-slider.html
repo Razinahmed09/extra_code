@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Continuous Swiper Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .slider-container {
+            width: 100%;
+            max-width: 1200px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .slider-wrapper {
+            overflow: hidden;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .slider-track {
+            display: flex;
+            animation: slide 20s linear infinite;
+            width: calc(300px * 12);
+            /* 6 slides * 2 for seamless loop */
+        }
+
+        .slide {
+            min-width: 300px;
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            transform: translateX(-100%);
+            animation: shimmer 3s infinite;
+        }
+
+        .slide:nth-child(1),
+        .slide:nth-child(7) {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+        }
+
+        .slide:nth-child(2),
+        .slide:nth-child(8) {
+            background: linear-gradient(135deg, #4ecdc4, #44a08d);
+        }
+
+        .slide:nth-child(3),
+        .slide:nth-child(9) {
+            background: linear-gradient(135deg, #45b7d1, #96c93d);
+        }
+
+        .slide:nth-child(4),
+        .slide:nth-child(10) {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+        }
+
+        .slide:nth-child(5),
+        .slide:nth-child(11) {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+        }
+
+        .slide:nth-child(6),
+        .slide:nth-child(12) {
+            background: linear-gradient(135deg, #ffecd2, #fcb69f);
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(-1800px);
+            }
+
+            /* Move by 6 slides width */
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .paused .slider-track {
+            animation-play-state: paused;
+        }
+
+        @media (max-width: 768px) {
+            .slider-container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .slide {
+                min-width: 250px;
+                height: 150px;
+                font-size: 1.2rem;
+            }
+
+            .slider-track {
+                width: calc(250px * 12);
+            }
+
+            @keyframes slide {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(-1500px);
+                }
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider-container">
+        <h1>Continuous Swiper Slider</h1>
+
+        <div class="slider-wrapper" id="sliderWrapper">
+            <div class="slider-track" id="sliderTrack">
+                <div class="slide">
+                    <div>
+                        <h2>Wellnes</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi, ut maxime. Hic ipsum et,
+                            ipsa quisquam pariatur modi quo rerum vitae sit laborum, totam fuga cum numquam debitis
+                            ipsam minima?</p>
+                        <p>$700</p>
+                    </div>
+                </div>
+                <div class="slide">Slide 2</div>
+                <div class="slide">Slide 3</div>
+                <div class="slide">Slide 4</div>
+                <div class="slide">Slide 5</div>
+                <div class="slide">Slide 6</div>
+                <!-- Duplicate slides for seamless loop -->
+                <div class="slide">Slide 1</div>
+                <div class="slide">Slide 2</div>
+                <div class="slide">Slide 3</div>
+                <div class="slide">Slide 4</div>
+                <div class="slide">Slide 5</div>
+                <div class="slide">Slide 6</div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <script>
+        // Simple continuous slider with hover pause functionality
+        const sliderWrapper = document.getElementById('sliderWrapper');
+        const sliderTrack = document.getElementById('sliderTrack');
+
+        // Pause on hover (optional feature)
+        sliderWrapper.addEventListener('mouseenter', () => {
+            sliderTrack.style.animationPlayState = 'paused';
+        });
+
+        sliderWrapper.addEventListener('mouseleave', () => {
+            sliderTrack.style.animationPlayState = 'running';
+        });
+    </script>
+</body>
+
+</html>

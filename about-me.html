@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me Section</title>
+    <style>
+        /* * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 200vh;
+            padding: 50px 0;
+        } */
+
+        .spacer {
+            height: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .about-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.8s ease-out;
+        }
+
+        .about-section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .content {
+            padding: 0 20px;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease-out 0.2s;
+        }
+
+        .title.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease-out 0.4s;
+        }
+
+        .subtitle.animate {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #34495e;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out 0.6s;
+        }
+
+        .description.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out 0.8s;
+        }
+
+        .btn.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .image-section {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .profile-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 1s ease-out 0.3s;
+        }
+
+        .profile-container.animate {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            height: 400px;
+            pointer-events: none;
+        }
+
+        .floating-item {
+            position: absolute;
+            background: white;
+            border-radius: 15px;
+            padding: 15px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+
+        .floating-item.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .floating-item:nth-child(1) {
+            top: 10%;
+            right: 10%;
+            animation: float 3s ease-in-out infinite;
+            transition-delay: 1s;
+        }
+
+        .floating-item:nth-child(2) {
+            top: 60%;
+            left: -10%;
+            animation: float 3s ease-in-out infinite 1s;
+            transition-delay: 1.2s;
+        }
+
+        .floating-item:nth-child(3) {
+            bottom: 10%;
+            right: -5%;
+            animation: float 3s ease-in-out infinite 2s;
+            transition-delay: 1.4s;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .partnerships {
+            display: flex;
+            gap: 20px;
+            margin-top: 40px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out 1s;
+        }
+
+        .partnerships.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .partner-logo {
+            width: 50px;
+            height: 50px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #667eea;
+            border: 2px solid #e9ecef;
+            transition: transform 0.3s ease;
+        }
+
+        .partner-logo:hover {
+            transform: translateY(-5px);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .count-animation {
+            animation: countUp 1s ease-out forwards;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .profile-container {
+                width: 250px;
+                height: 250px;
+            }
+
+            .floating-elements {
+                width: 300px;
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="spacer">
+        <div>Scroll down to see the About Me section</div>
+    </div>
+
+    <div class="about-section" id="aboutSection">
+        <div class="container">
+            <div class="content">
+                <h1 class="title">The Individual Counseling & Couples Therapy Expert</h1>
+                <p class="subtitle">Transforming lives through professional counseling and therapy</p>
+                <p class="description">
+                    I'm a licensed therapist with over 10 years of experience helping individuals and couples overcome challenges and build stronger relationships. My approach combines evidence-based techniques with compassionate care to create lasting positive change.
+                </p>
+                <a href="#" class="btn">Book a Session</a>
+                
+                <div class="partnerships">
+                    <div class="partner-logo">APA</div>
+                    <div class="partner-logo">UCLA</div>
+                    <div class="partner-logo">CERT</div>
+                </div>
+            </div>
+
+            <div class="image-section">
+                <div class="profile-container">
+                    <img src="https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=400&fit=crop&crop=face" alt="Therapist" class="profile-image">
+                </div>
+                
+                <div class="floating-elements">
+                    <div class="floating-item">
+                        <span class="stat-number" data-target="147">0</span>
+                        <span class="stat-label">Happy Clients</span>
+                    </div>
+                    <div class="floating-item">
+                        <span class="stat-number" data-target="50">0</span>
+                        <span class="stat-label">Success Rate</span>
+                    </div>
+                    <div class="floating-item">
+                        <span class="stat-number" data-target="138">0</span>
+                        <span class="stat-label">Sessions Completed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="spacer">
+        <div>Continue scrolling for more content</div>
+    </div>
+
+    <script>
+        // Intersection Observer for scroll trigger
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Animate main section
+                    entry.target.classList.add('animate');
+                    
+                    // Animate individual elements
+                    const elements = entry.target.querySelectorAll('.title, .subtitle, .description, .btn, .partnerships, .profile-container');
+                    elements.forEach(el => {
+                        el.classList.add('animate');
+                    });
+                    
+                    // Animate floating items
+                    const floatingItems = entry.target.querySelectorAll('.floating-item');
+                    floatingItems.forEach(item => {
+                        item.classList.add('animate');
+                    });
+                    
+                    // Start counter animation
+                    setTimeout(() => {
+                        animateCounters();
+                    }, 1000);
+                }
+            });
+        }, observerOptions);
+
+        // Observe the about section
+        const aboutSection = document.getElementById('aboutSection');
+        observer.observe(aboutSection);
+
+        // Counter animation function
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000; // 2 seconds
+                const increment = target / (duration / 16); // 60 FPS
+                let current = 0;
+                
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.textContent = Math.ceil(current);
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target;
+                    }
+                };
+                
+                counter.classList.add('count-animation');
+                updateCounter();
+            });
+        }
+
+        // Smooth scrolling for button (optional)
+        document.querySelector('.btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            // Add your booking logic here
+            alert('Booking system would open here!');
+        });
+
+        // Add some interactive hover effects
+        const floatingItems = document.querySelectorAll('.floating-item');
+        floatingItems.forEach(item => {
+            item.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.05)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>

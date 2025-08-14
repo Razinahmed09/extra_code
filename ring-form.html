@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Jewelry Purchase</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .ring-form-parent .page-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.ring-form-parent .page-title {
+    color: white;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: 300;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+
+.ring-form-parent .page-subtitle {
+    color: rgba(255,255,255,0.9);
+    font-size: 1.3rem;
+    margin-bottom: 50px;
+    line-height: 1.6;
+}
+
+.ring-form-parent .open-form-btn {
+    background: white;
+    color: #667eea;
+    border: none;
+    padding: 20px 40px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.ring-form-parent .open-form-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    background: #f8f9ff;
+}
+
+.ring-form-parent .popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.ring-form-parent .popup-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.ring-form-parent .popup-container {
+    transform: scale(0.8) translateY(50px);
+    transition: all 0.3s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 900px;
+}
+
+.ring-form-parent .popup-overlay.active .popup-container {
+    transform: scale(1) translateY(0);
+}
+
+.ring-form-parent .container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.ring-form-parent .header {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+}
+
+.ring-form-parent .header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    font-weight: 300;
+}
+
+.ring-form-parent .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ring-form-parent .close-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.ring-form-parent .form-container {
+    padding: 40px;
+}
+
+.ring-form-parent .form-section {
+    margin-bottom: 40px;
+    padding: 25px;
+    border: 2px solid #f0f0f0;
+    border-radius: 15px;
+    background: #fafafa;
+}
+
+.ring-form-parent .form-section h3 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+}
+
+.ring-form-parent .form-section h3::before {
+    content: '💍';
+    margin-right: 10px;
+}
+
+.ring-form-parent .form-group {
+    margin-bottom: 20px;
+}
+
+.ring-form-parent .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #555;
+}
+
+.ring-form-parent .form-group input,
+.ring-form-parent .form-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.ring-form-parent .form-group input:focus,
+.ring-form-parent .form-group select:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.ring-form-parent .ring-counter {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.ring-form-parent .counter-btn {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #667eea;
+    background: white;
+    color: #667eea;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ring-form-parent .counter-btn:hover {
+    background: #667eea;
+    color: white;
+}
+
+.ring-form-parent .counter-display {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    min-width: 30px;
+    text-align: center;
+}
+
+.ring-form-parent .size-calculator {
+    background: #fff;
+    border: 2px dashed #667eea;
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.ring-form-parent .camera-btn {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+    transition: transform 0.3s ease;
+}
+
+.ring-form-parent .camera-btn:hover {
+    transform: translateY(-2px);
+}
+
+.ring-form-parent .size-result {
+    margin-top: 15px;
+    padding: 10px;
+    background: #e8f4f8;
+    border-radius: 8px;
+    font-weight: bold;
+    color: #2c5aa0;
+}
+
+.ring-form-parent .subscription-plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.ring-form-parent .plan-card {
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.ring-form-parent .plan-card:hover {
+    border-color: #667eea;
+    transform: translateY(-3px);
+}
+
+.ring-form-parent .plan-card.selected {
+    border-color: #667eea;
+    background: #f0f4ff;
+}
+
+.ring-form-parent .plan-card input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+.ring-form-parent .plan-title {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.ring-form-parent .plan-price {
+    font-size: 1.2rem;
+    color: #667eea;
+    font-weight: bold;
+}
+
+.ring-form-parent .plan-discount {
+    font-size: 12px;
+    color: #28a745;
+    margin-top: 5px;
+}
+
+.ring-form-parent .payment-section h3::before {
+    content: '💳';
+}
+
+.ring-form-parent .card-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 15px;
+}
+
+.ring-form-parent .total-section {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin: 30px 0;
+}
+
+.ring-form-parent .total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.ring-form-parent .total-final {
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-top: 2px solid rgba(255,255,255,0.3);
+    padding-top: 15px;
+    margin-top: 15px;
+}
+
+.ring-form-parent .submit-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    border: none;
+    padding: 18px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.ring-form-parent .submit-btn:hover {
+    transform: translateY(-2px);
+}
+
+.ring-form-parent .hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .ring-form-parent .card-row {
+        grid-template-columns: 1fr;
+    }
+
+    .ring-form-parent .subscription-plans {
+        grid-template-columns: 1fr;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <section class="ring-form-parent">
+    <!-- Main Page Content -->
+    <div class="page-content">
+        <h1 class="page-title">✨ Premium Jewelry Collection ✨</h1>
+        <p class="page-subtitle">
+            Discover our exclusive range of handcrafted jewelry with personalized family packages,
+            <br>ring size measurement technology, and flexible subscription plans.
+        </p>
+        <button class="open-form-btn" onclick="openPurchaseForm()">
+            🛒 Start Your Purchase Journey
+        </button>
+    </div>
+
+    <!-- Popup Overlay -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-container">
+            <div class="container">
+                <div class="header">
+                    <button class="close-btn" onclick="closePurchaseForm()">×</button>
+                    <h1>✨ Premium Jewelry Purchase ✨</h1>
+                    <p>Complete your order with integrated payment</p>
+                </div>
+
+                <div class="form-container">
+                    <form id="purchaseForm">
+                        <!-- Package Selection -->
+                        <div class="form-section">
+                            <h3>Package Selection</h3>
+
+                            <div class="form-group">
+                                <label for="packageType">Select Package Type:</label>
+                                <select id="packageType" name="packageType" onchange="updatePackageOptions()">
+                                    <option value="">Choose Package</option>
+                                    <option value="individual">Individual Package</option>
+                                    <option value="family">Family Package</option>
+                                    <option value="couple">Couple Package</option>
+                                </select>
+                            </div>
+
+                            <div id="familyOptions" class="hidden">
+                                <div class="form-group">
+                                    <label>Female Rings:</label>
+                                    <div class="ring-counter">
+                                        <button type="button" class="counter-btn"
+                                            onclick="updateCounter('female', -1)">−</button>
+                                        <span class="counter-display" id="femaleCount">0</span>
+                                        <button type="button" class="counter-btn"
+                                            onclick="updateCounter('female', 1)">+</button>
+                                        <span style="margin-left: 15px; color: #666;">Female rings in package</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Male Rings:</label>
+                                    <div class="ring-counter">
+                                        <button type="button" class="counter-btn"
+                                            onclick="updateCounter('male', -1)">−</button>
+                                        <span class="counter-display" id="maleCount">0</span>
+                                        <button type="button" class="counter-btn"
+                                            onclick="updateCounter('male', 1)">+</button>
+                                        <span style="margin-left: 15px; color: #666;">Male rings in package</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ring Size Calculator -->
+                        <div class="form-section">
+                            <h3>Ring Size Calculator</h3>
+
+                            <div class="size-calculator">
+                                <h4>📱 Camera Scan Ring Size Measurement</h4>
+                                <p style="margin: 15px 0; color: #666;">Use your camera to accurately measure your
+                                    finger size</p>
+
+                                <button type="button" class="camera-btn" onclick="startCameraScan()">
+                                    📷 Start Camera Scan
+                                </button>
+
+                                <button type="button" class="camera-btn" onclick="manualSizeEntry()"
+                                    style="background: #6c757d;">
+                                    📏 Manual Size Entry
+                                </button>
+
+                                <div id="sizeResult" class="size-result hidden">
+                                    <p>Detected Ring Size: <span id="detectedSize">-</span></p>
+                                    <p>Recommended Size: <span id="recommendedSize">-</span></p>
+                                </div>
+
+                                <div id="manualSizeInput" class="hidden" style="margin-top: 20px;">
+                                    <label>Enter Ring Size:</label>
+                                    <select id="ringSize" name="ringSize">
+                                        <option value="">Select Size</option>
+                                        <option value="5">Size 5</option>
+                                        <option value="5.5">Size 5.5</option>
+                                        <option value="6">Size 6</option>
+                                        <option value="6.5">Size 6.5</option>
+                                        <option value="7">Size 7</option>
+                                        <option value="7.5">Size 7.5</option>
+                                        <option value="8">Size 8</option>
+                                        <option value="8.5">Size 8.5</option>
+                                        <option value="9">Size 9</option>
+                                        <option value="9.5">Size 9.5</option>
+                                        <option value="10">Size 10</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Subscription Plans -->
+                        <div class="form-section">
+                            <h3>Subscription Plans</h3>
+
+                            <div class="subscription-plans">
+                                <div class="plan-card" onclick="selectPlan('regular')">
+                                    <input type="radio" name="subscription" value="regular" id="regular">
+                                    <div class="plan-title">Regular Plan</div>
+                                    <div class="plan-price">$29.99</div>
+                                    <div style="color: #666; font-size: 14px;">One-time purchase</div>
+                                </div>
+
+                                <div class="plan-card" onclick="selectPlan('monthly')">
+                                    <input type="radio" name="subscription" value="monthly" id="monthly">
+                                    <div class="plan-title">Monthly Plan</div>
+                                    <div class="plan-price">$19.99/mo</div>
+                                    <div style="color: #666; font-size: 14px;">Billed monthly</div>
+                                </div>
+
+                                <div class="plan-card" onclick="selectPlan('annual')">
+                                    <input type="radio" name="subscription" value="annual" id="annual">
+                                    <div class="plan-title">Annual Plan</div>
+                                    <div class="plan-price">$199.99/yr</div>
+                                    <div class="plan-discount">Save 17%!</div>
+                                </div>
+
+                                <div class="plan-card" onclick="selectPlan('biannual')">
+                                    <input type="radio" name="subscription" value="biannual" id="biannual">
+                                    <div class="plan-title">Bi-Annual Plan</div>
+                                    <div class="plan-price">$349.99/2yr</div>
+                                    <div class="plan-discount">Save 27%!</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Customer Information -->
+                        <div class="form-section">
+                            <h3>Customer Information</h3>
+
+                            <div class="form-group">
+                                <label for="fullName">Full Name:</label>
+                                <input type="text" id="fullName" name="fullName" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address:</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Phone Number:</label>
+                                <input type="tel" id="phone" name="phone" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="address">Shipping Address:</label>
+                                <input type="text" id="address" name="address" required>
+                            </div>
+                        </div>
+
+                        <!-- Payment Integration -->
+                        <div class="form-section">
+                            <h3>Payment Information</h3>
+
+                            <div class="form-group">
+                                <label for="cardName">Name on Card:</label>
+                                <input type="text" id="cardName" name="cardName" required>
+                            </div>
+
+                            <div class="card-row">
+                                <div class="form-group">
+                                    <label for="cardNumber">Card Number:</label>
+                                    <input type="text" id="cardNumber" name="cardNumber"
+                                        placeholder="1234 5678 9012 3456" maxlength="19" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cvv">CVV:</label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="4" required>
+                                </div>
+                            </div>
+
+                            <div class="card-row">
+                                <div class="form-group">
+                                    <label for="expMonth">Expiry Month:</label>
+                                    <select id="expMonth" name="expMonth" required>
+                                        <option value="">Month</option>
+                                        <option value="01">01 - January</option>
+                                        <option value="02">02 - February</option>
+                                        <option value="03">03 - March</option>
+                                        <option value="04">04 - April</option>
+                                        <option value="05">05 - May</option>
+                                        <option value="06">06 - June</option>
+                                        <option value="07">07 - July</option>
+                                        <option value="08">08 - August</option>
+                                        <option value="09">09 - September</option>
+                                        <option value="10">10 - October</option>
+                                        <option value="11">11 - November</option>
+                                        <option value="12">12 - December</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="expYear">Expiry Year:</label>
+                                    <select id="expYear" name="expYear" required>
+                                        <option value="">Year</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                        <option value="2028">2028</option>
+                                        <option value="2029">2029</option>
+                                        <option value="2030">2030</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Order Total -->
+                        <div class="total-section">
+                            <h3 style="color: white; margin-bottom: 15px;">💰 Order Summary</h3>
+                            <div class="total-row">
+                                <span>Package Cost:</span>
+                                <span id="packageCost">$0.00</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Additional Rings:</span>
+                                <span id="ringsCost">$0.00</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Subscription:</span>
+                                <span id="subscriptionCost">$0.00</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Tax (8.5%):</span>
+                                <span id="taxAmount">$0.00</span>
+                            </div>
+                            <div class="total-row total-final">
+                                <span>Total Amount:</span>
+                                <span id="finalTotal">$0.00</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            🔒 Complete Purchase & Pay Now
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+        <script>
+            let femaleRings = 0;
+            let maleRings = 0;
+            let selectedPlan = null;
+
+            function openPurchaseForm() {
+                document.getElementById('popupOverlay').classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }
+
+            function closePurchaseForm() {
+                document.getElementById('popupOverlay').classList.remove('active');
+                document.body.style.overflow = 'auto'; // Restore background scrolling
+            }
+
+            // Close popup when clicking outside the form
+            document.getElementById('popupOverlay').addEventListener('click', function (e) {
+                if (e.target === this) {
+                    closePurchaseForm();
+                }
+            });
+
+            // Close popup with Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    closePurchaseForm();
+                }
+            });
+
+            function updatePackageOptions() {
+                const packageType = document.getElementById('packageType').value;
+                const familyOptions = document.getElementById('familyOptions');
+
+                if (packageType === 'family') {
+                    familyOptions.classList.remove('hidden');
+                } else {
+                    familyOptions.classList.add('hidden');
+                    femaleRings = 0;
+                    maleRings = 0;
+                    document.getElementById('femaleCount').textContent = '0';
+                    document.getElementById('maleCount').textContent = '0';
+                }
+                updateTotal();
+            }
+
+            function updateCounter(type, change) {
+                if (type === 'female') {
+                    femaleRings = Math.max(0, femaleRings + change);
+                    document.getElementById('femaleCount').textContent = femaleRings;
+                } else {
+                    maleRings = Math.max(0, maleRings + change);
+                    document.getElementById('maleCount').textContent = maleRings;
+                }
+                updateTotal();
+            }
+
+            function startCameraScan() {
+                // Simulate camera scan
+                document.getElementById('sizeResult').classList.remove('hidden');
+
+                // Simulate detection process
+                setTimeout(() => {
+                    const sizes = ['6', '6.5', '7', '7.5', '8'];
+                    const detectedSize = sizes[Math.floor(Math.random() * sizes.length)];
+                    document.getElementById('detectedSize').textContent = detectedSize;
+                    document.getElementById('recommendedSize').textContent = detectedSize;
+                    document.getElementById('ringSize').value = detectedSize;
+                }, 2000);
+            }
+
+            function manualSizeEntry() {
+                document.getElementById('manualSizeInput').classList.remove('hidden');
+            }
+
+            function selectPlan(planType) {
+                // Remove selected class from all plans
+                document.querySelectorAll('.plan-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+
+                // Add selected class to clicked plan
+                event.currentTarget.classList.add('selected');
+
+                // Update radio button
+                document.getElementById(planType).checked = true;
+                selectedPlan = planType;
+
+                updateTotal();
+            }
+
+            function updateTotal() {
+                const packageType = document.getElementById('packageType').value;
+                let packageCost = 0;
+                let ringsCost = 0;
+                let subscriptionCost = 0;
+
+                // Calculate package cost
+                switch (packageType) {
+                    case 'individual':
+                        packageCost = 29.99;
+                        break;
+                    case 'family':
+                        packageCost = 79.99;
+                        break;
+                    case 'couple':
+                        packageCost = 49.99;
+                        break;
+                }
+
+                // Calculate additional rings cost
+                if (packageType === 'family') {
+                    const totalRings = femaleRings + maleRings;
+                    if (totalRings > 4) { // Assuming family package includes 4 rings
+                        ringsCost = (totalRings - 4) * 15.99;
+                    }
+                }
+
+                // Calculate subscription cost
+                if (selectedPlan) {
+                    switch (selectedPlan) {
+                        case 'regular':
+                            subscriptionCost = 29.99;
+                            break;
+                        case 'monthly':
+                            subscriptionCost = 19.99;
+                            break;
+                        case 'annual':
+                            subscriptionCost = 199.99;
+                            break;
+                        case 'biannual':
+                            subscriptionCost = 349.99;
+                            break;
+                    }
+                }
+
+                const subtotal = packageCost + ringsCost + subscriptionCost;
+                const taxAmount = subtotal * 0.085;
+                const finalTotal = subtotal + taxAmount;
+
+                // Update display
+                document.getElementById('packageCost').textContent = `$${packageCost.toFixed(2)}`;
+                document.getElementById('ringsCost').textContent = `$${ringsCost.toFixed(2)}`;
+                document.getElementById('subscriptionCost').textContent = `$${subscriptionCost.toFixed(2)}`;
+                document.getElementById('taxAmount').textContent = `$${taxAmount.toFixed(2)}`;
+                document.getElementById('finalTotal').textContent = `$${finalTotal.toFixed(2)}`;
+            }
+
+            // Format card number input
+            document.getElementById('cardNumber').addEventListener('input', function (e) {
+                let value = e.target.value.replace(/\s/g, '').replace(/[^0-9]/gi, '');
+                let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+                e.target.value = formattedValue;
+            });
+
+            // Form submission
+            document.getElementById('purchaseForm').addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                // Simulate payment processing
+                const submitBtn = document.querySelector('.submit-btn');
+                const originalText = submitBtn.textContent;
+
+                submitBtn.textContent = '⏳ Processing Payment...';
+                submitBtn.disabled = true;
+
+                setTimeout(() => {
+                    alert('✅ Payment Successful! Your order has been confirmed. You will receive a confirmation email shortly.');
+                    submitBtn.textContent = originalText;
+                    submitBtn.disabled = false;
+                }, 3000);
+            });
+        </script>
+</body>
+
+</html>

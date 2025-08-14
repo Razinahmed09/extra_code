@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Video Gallery</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 50px 20px;
+        }
+
+        .unique_video .swiper {
+            width: 100%;
+            height: 100%;
+            padding: 4rem 0;
+        }
+
+        .unique_video .swiper-slide {
+            /* text-align: center; */
+            font-size: 18px;
+            /* background: #444; */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .unique_video .swiper-slide img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .swiper-pagination-bullet {
+            width: 20px !important;
+            height: 10px !important;
+            border-radius: 20px;
+            transition: all .6s ease-in-out;
+        }
+
+        .swiper-pagination-bullet-active {
+            width: 50px !important;
+            background-color: #B27A01 !important;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .unique_video .header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .unique_video .header h1 {
+            color: white;
+            font-size: 3rem;
+            font-weight: 300;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .unique_video .header .underline {
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            margin: 0 auto;
+            border-radius: 2px;
+        }
+
+        .unique_video .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .unique_video .video-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 12px;
+            border-top: 3px solid #b27a01;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow: hidden;
+            position: relative;
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+            border-top: 3px solid #b27a01;
+            border-bottom: 3px solid #b27a01;
+        }
+
+        .unique_video .video-card:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .unique_video .video-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .unique_video .video-card:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        .unique_video .video-card:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+
+        .unique_video .video-card:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+
+        .unique_video .video-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 215, 0, 0.5);
+        }
+
+        .unique_video .video-thumbnail {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .unique_video .video-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%);
+            z-index: 1;
+        }
+
+        .unique_video .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .unique_video .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid #333;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 4px;
+        }
+
+        .unique_video .video-card:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: rgba(255, 215, 0, 0.9);
+        }
+
+        .unique_video .video-info {
+            padding: 25px;
+            color: white;
+        }
+
+        .unique_video .video-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .unique_video .video-description {
+            color: rgba(255, 255, 255, 0.8);
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .unique_video .video-duration {
+            display: inline-block;
+            /* background: rgb(0 0 0 / 0%); */
+            color: #b27a01;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        /* Modal Styles */
+        .unique_video .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .unique_video .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 800px;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            animation: modalSlideIn 0.4s ease-out;
+        }
+
+        .unique_video .modal-header {
+            background: linear-gradient(45deg, #333, #555);
+            padding: 20px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .unique_video .modal-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .unique_video .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .unique_video .close:hover {
+            color: #fff;
+        }
+
+        .unique_video .modal-video {
+            width: 100%;
+            height: 450px;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .unique_video .header h1 {
+                font-size: 2rem;
+            }
+
+            .unique_video .video-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .unique_video .modal-content {
+                width: 95%;
+                margin: 20px;
+            }
+
+            .unique_video .modal-video {
+                height: 250px;
+            }
+        }
+
+        /* Loading animation for thumbnails */
+        .unique_video .video-thumbnail {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientShift 4s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+       .unique_video .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+       .unique_video .modal-content {
+            background-color: #0000006e;
+            /* margin: 5% auto; */
+            padding: 20px;
+            width: 80%;
+            max-width: 800px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+       .unique_video .close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+       .unique_video .modal-video {
+            position: relative;
+            padding-bottom: 56.25%;
+            /* 16:9 aspect ratio */
+            height: 0;
+        }
+
+       .unique_video .modal-video iframe,
+        .unique_video .modal-video video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="unique_video">
+        <div class="container">
+            <div class="header">
+                <h1>Featured Videos</h1>
+                <div class="underline"></div>
+            </div>
+
+            <div class="video-grid">
+                <!-- Swiper -->
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="video-card"
+                                onclick="openModal('Nature Documentary', 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4')">
+                                <div class="video-thumbnail">
+                                    <img src="healer3.jpg" alt="">
+                                    <div class="play-button"></div>
+                                </div>
+                                <div class="video-info">
+                                    <h3 class="video-title">Nature Documentary</h3>
+                                    <p class="video-description">Explore the wonders of wildlife and discover the beauty
+                                        of our natural world through stunning cinematography.</p>
+                                    <span class="video-duration">$72.00</span>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="video-card"
+                                onclick="openModal('Tech Innovation', 'https://youtu.be/uzx2JskiDF4?si=j_0nT3cQ98js84cI')">
+                                <div class="video-thumbnail" style="filter: brightness(.7);">
+                                    <img src="healer1.jpg" alt="Healer’s Breath Mindfulness">
+                                    <div class="play-button"></div>
+                                </div>
+                                <div class="video-info">
+                                    <h3 class="video-title">Healer’s Breath Mindfulness</h3>
+                                    <p class="video-description">
+                                        Flow through breath-centered practices in this calming video—
+                                        cultivating presence, peace, and connection.
+                                    </p>
+                                    <span class="video-duration">$53.00</span>
+                                </div>
+                            </div>
+
+                            
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="video-card"
+                                onclick="openModal('Creative Arts', 'https:https://youtu.be/qyGiLfqklBY?si=dS7Xgpiwmh_DUC5y')">
+                                <div class="video-thumbnail">
+                                    <img src="header2.jpg" alt="">
+                                    <div class="play-button"></div>
+                                </div>
+                                <div class="video-info">
+                                    <h3 class="video-title">Vibrational Healing Soundscape</h3>
+                                    <p class="video-description">Bathe in soothing sound waves—ambient tones designed to
+                                        recalibrate energetic flow and open intuitive channels.</p>
+                                    <span class="video-duration">$88.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="video-card"
+                                onclick="openModal('Travel Adventure', 'https://youtu.be/x6LEv1m7pP0?si=KS3O5jnGfG7VeqjJ')">
+                                <div class="video-thumbnail">
+                                    <img src="healer4.jpg" alt="">
+                                    <div class="play-button"></div>
+                                </div>
+                                <div class="video-info">
+                                    <h3 class="video-title">Energy Realignment Journey</h3>
+                                    <p class="video-description">Visual and auditory guidance to realign your energy
+                                        bodies—bringing harmony and holistic balance.</p>
+                                    <span class="video-duration">$102.00</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="video-card"
+                                onclick="openModal('Wellness Journey', 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4')">
+                                <div class="video-thumbnail">
+                                    <img src="healer5.jpg" alt="">
+                                    <div class="play-button"></div>
+                                </div>
+                                <div class="video-info">
+                                    <h3 class="video-title">Wellness Journey</h3>
+                                    <p class="video-description">Transform your lifestyle with mindful practices and
+                                        wellness techniques for better living.</p>
+                                    <span class="video-duration">$22.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Modal -->
+                            <div id="videoModal" class="modal">
+                                <div class="modal-content">
+                                    <span class="close" onclick="closeModal()">&times;</span>
+                                    <h2 id="modalTitle"></h2>
+                                    <div id="modalVideoContainer" class="modal-video"></div>
+                                </div>
+                            </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Modal -->
+        <div id="videoModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="modalTitle">Video Title</h2>
+                    <span class="close" onclick="closeModal()">&times;</span>
+                </div>
+                <video class="modal-video" id="modalVideo" controls autoplay>
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </section>
+    <script>
+        function openModal(title, videoUrl) {
+            const modal = document.getElementById('videoModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalVideoContainer = document.getElementById('modalVideoContainer');
+
+            modalTitle.textContent = title;
+
+            let videoHtml = '';
+            if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+                let videoId = '';
+
+                if (videoUrl.includes('youtu.be')) {
+                    videoId = videoUrl.split('/').pop().split('?')[0];
+                } else {
+                    const urlParams = new URL(videoUrl);
+                    videoId = urlParams.searchParams.get('v');
+                }
+
+                if (!videoId && videoUrl.includes('?si=')) {
+                    videoId = videoUrl.split('/').pop().split('?')[0];
+                }
+
+                videoHtml = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1"
+                         frameborder="0"
+                         allow="autoplay; encrypted-media"
+                         allowfullscreen></iframe>`;
+            } else {
+                videoHtml = `<video src="${videoUrl}" controls autoplay></video>`;
+            }
+
+            modalVideoContainer.innerHTML = videoHtml;
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('videoModal');
+            const modalVideoContainer = document.getElementById('modalVideoContainer');
+
+            modal.style.display = 'none';
+            modalVideoContainer.innerHTML = ''; // Stop playback
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function (event) {
+            const modal = document.getElementById('videoModal');
+            if (event.target === modal) closeModal();
+        };
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') closeModal();
+        });
+    </script>
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            loop: true,
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+            },
+            breakpoints: {
+                // When window width is >= 1024px
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                },
+                // When window width is >= 768px
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                // When window width is < 768px
+                0: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

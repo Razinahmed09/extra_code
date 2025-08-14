@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modern Form</title>
+  <style>
+    body {
+      background: linear-gradient(145deg, #f7f7ff, #eef1ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .modern-form {
+      background: #fff;
+      width: 360px;
+      padding: 30px 25px;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .modern-form h2 {
+      font-size: 20px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      outline: none;
+      font-size: 14px;
+    }
+
+    .website-field {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .website-field span {
+      padding: 12px;
+      background-color: #f0f0f0;
+      font-size: 14px;
+      border-right: 1px solid #ccc;
+    }
+
+    .website-field input {
+      border: none;
+      padding: 12px;
+      flex-grow: 1;
+    }
+
+    .website-field button.copy-btn {
+      border: none;
+      background: none;
+      padding: 0 12px;
+      font-size: 14px;
+      color: #666;
+      cursor: pointer;
+    }
+
+    .add-btn {
+      display: inline-block;
+      background-color: #fafafa;
+      border: 1px dashed #ccc;
+      color: #333;
+      font-weight: 500;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .submit-btn {
+      margin-top: 20px;
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      background-color: #7b61ff;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .submit-btn:hover {
+      background-color: #654de0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="modern-form">
+    <form>
+      <div class="form-group">
+        <label for="fullname">Full Name*</label>
+        <input type="text" id="fullname" placeholder="Type your name" required>
+      </div>
+
+      <div class="form-group">
+        <label for="website">Website*</label>
+        <div class="website-field">
+          <span>http://</span>
+          <input type="text" id="website" value="ashikurr.com" readonly>
+          <button class="copy-btn" type="button" onclick="copyWebsite()">Copy</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email*</label>
+        <input type="email" id="email" placeholder="Type your email address" required>
+      </div>
+
+      <div class="form-group">
+        <button type="button" class="add-btn">+ Add another</button>
+      </div>
+
+      <button type="submit" class="submit-btn">
+        Submit <span>&rarr;</span>
+      </button>
+    </form>
+  </div>
+
+  <script>
+    function copyWebsite() {
+      const input = document.getElementById('website');
+      navigator.clipboard.writeText(input.value).then(() => {
+        alert("Website copied!");
+      });
+    }
+  </script>
+
+</body>
+</html>

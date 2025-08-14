@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Royalties Card</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #0f0f1b;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #161625, #0f0f1b);
+      color: white;
+      border-radius: 20px;
+      width: 300px;
+      padding: 24px;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+    }
+
+    .card h2 {
+      font-size: 22px;
+      margin: 0 0 8px 0;
+    }
+
+    .card p {
+      margin: 0 0 20px 0;
+      color: #aaa;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .wallet {
+      background: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      color: #000;
+      font-weight: bold;
+      position: relative;
+      z-index: 1;
+    }
+
+    .wallet p {
+      font-size: 12px;
+      margin: 0;
+      color: #666;
+    }
+
+    .wallet h3 {
+      font-size: 28px;
+      margin: 5px 0;
+    }
+
+    .wallet button {
+      margin-top: 10px;
+      background: #8e44ff;
+      border: none;
+      color: white;
+      padding: 6px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .badge {
+      position: absolute;
+      z-index: 2;
+      background: #1db954;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge.apple {
+      background: #141414;
+      top: 85%;
+      left: 70%;
+    }
+
+    .badge.spotify {
+      background: #1db954;
+      top: 70%;
+      left: 10%;
+    }
+
+    .coin {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background: radial-gradient(circle, #ffd700, #b8860b);
+      border-radius: 50%;
+      z-index: 0;
+      animation: float 4s infinite ease-in-out;
+    }
+
+    .coin1 { top: 30%; left: 60%; }
+    .coin2 { top: 55%; left: 15%; }
+    .coin3 { top: 75%; left: 45%; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Keep 100% of your royalties.</h2>
+    <p>Start releasing &gt;</p>
+    
+    <div class="wallet">
+      <p>Your total balance</p>
+      <h3>$1,643.53</h3>
+      <button>Withdraw</button>
+    </div>
+
+    <div class="badge spotify">Spotify +$142.50</div>
+    <div class="badge apple"> Music +$84.10</div>
+
+    <div class="coin coin1"></div>
+    <div class="coin coin2"></div>
+    <div class="coin coin3"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features Section</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #2a1a42, #000000, #420087);
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .features-container {
+            min-height: 100vh;
+            padding: 80px 20px;
+            position: relative;
+        }
+
+        .hero-section {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 100px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+        }
+
+        .main-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            background: linear-gradient(135deg, #ffffff, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 400;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideInUp 0.8s ease-out forwards;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(168, 85, 247, 0.3);
+            border-color: rgba(168, 85, 247, 0.5);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #a855f7, transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .feature-header {
+            margin-bottom: 25px;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+
+        .feature-description {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .feature-link {
+            color: #a855f7;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .feature-link:hover {
+            color: #c084fc;
+        }
+
+        .feature-visual {
+            height: 200px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            margin-top: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Animated Elements */
+        .phone-mockup {
+            width: 80px;
+            height: 140px;
+            background: linear-gradient(145deg, #1f1f1f, #333);
+            border-radius: 12px;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .phone-screen {
+            width: 70px;
+            height: 120px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 8px;
+            position: absolute;
+            top: 10px;
+            left: 5px;
+        }
+
+        .collab-circles {
+            position: relative;
+            width: 150px;
+            height: 100px;
+        }
+
+        .circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            position: absolute;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .circle:nth-child(1) {
+            background: #ff6b6b;
+            top: 0;
+            left: 0;
+            animation-delay: 0s;
+        }
+
+        .circle:nth-child(2) {
+            background: #4ecdc4;
+            top: 0;
+            right: 0;
+            animation-delay: 0.5s;
+        }
+
+        .circle:nth-child(3) {
+            background: #45b7d1;
+            bottom: 0;
+            left: 25px;
+            animation-delay: 1s;
+        }
+
+        .platform-icons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .platform-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 8px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .platform-icon:nth-child(even) {
+            animation-delay: 0.5s;
+        }
+
+        .revenue-display {
+            text-align: center;
+            animation: countUp 2s ease-out infinite;
+        }
+
+        .revenue-amount {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4ade80;
+            margin-bottom: 10px;
+        }
+
+        .stats-visual {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: end;
+        }
+
+        .stat-bar {
+            width: 15px;
+            background: linear-gradient(to top, #a855f7, #ec4899);
+            border-radius: 3px;
+            animation: grow 2s ease-out infinite;
+        }
+
+        .stat-bar:nth-child(1) { height: 30px; animation-delay: 0.1s; }
+        .stat-bar:nth-child(2) { height: 60px; animation-delay: 0.2s; }
+        .stat-bar:nth-child(3) { height: 45px; animation-delay: 0.3s; }
+        .stat-bar:nth-child(4) { height: 75px; animation-delay: 0.4s; }
+        .stat-bar:nth-child(5) { height: 55px; animation-delay: 0.5s; }
+
+        .sync-animation {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-logo {
+            width: 60px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        /* Keyframe Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(2deg); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes countUp {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes grow {
+            0% { transform: scaleY(0); }
+            100% { transform: scaleY(1); }
+        }
+
+        @keyframes glow {
+            0% { box-shadow: 0 0 5px rgba(168, 85, 247, 0.5); }
+            100% { box-shadow: 0 0 20px rgba(168, 85, 247, 0.8); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-card {
+                padding: 30px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="features-container">
+        <div class="hero-section">
+            <h1 class="main-title">Much more than interior design.</h1>
+            <p class="subtitle">Create and launch stunning spaces in just a few minutes. Access everything you need to make it in design.</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-header">
+                    <h3 class="feature-title">Free Pre-Design concepts with every project</h3>
+                    <p class="feature-description">Get preliminary design concepts before committing to full services.</p>
+                    <a href="#" class="feature-link">Find out more ></a>
+                </div>
+                <div class="feature-visual">
+                    <div class="phone-mockup">
+                        <div class="phone-screen"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-header">
+                    <h3 class="feature-title">Auto-split budgets with collaborators</h3>
+                    <p class="feature-description">Seamlessly manage project costs with automatic budget distribution.</p>
+                    <a href="#" class="feature-link">More about splits ></a>
+                </div>
+                <div class="feature-visual">
+                    <div class="collab-circles">
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-header">
+                    <h3 class="feature-title">Unlimited access to every major platform</h3>
+                    <p class="feature-description">Connect with all leading design and project management platforms.</p>
+                    <a href="#" class="feature-link">View platform guide ></a>
+                </div>
+                <div class="feature-visual">
+                    <div class="platform-icons">
+                        <div class="platform-icon"></div>
+                        <div class="platform-icon"></div>
+                        <div class="platform-icon"></div>
+                        <div class="platform-icon"></div>
+                        <div class="platform-icon"></div>
+                        <div class="platform-icon"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-header">
+                    <h3 class="feature-title">Keep 100% of your project value</h3>
+                    <p class="feature-description">Retain full value from every project with transparent pricing.</p>
+                    <a href="#" class="feature-link">Start designing ></a>
+                </div>
+                <div class="feature-visual">
+                    <div class="revenue-display">
+                        <div class="revenue-amount">$2,547</div>
+                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.6);">Project Value</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-header">
+                    <h3 class="feature-title">Track your progress from the mobile app</h3>
+                    <p class="feature-description">Monitor project status and analytics on the go with our mobile app.</p>
+                    <a href="#" class="feature-link">Explore the app ></a>
+                </div>
+                <div class="feature-visual">
+                    <div class="stats-visual">
+                        <div class="stat-bar"></div>
+                        <div class="stat-bar"></div>
+                        <div class="stat-bar"></div>
+                        <div class="stat-bar"></div>
+                        <div class="stat-bar"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-header">
+                    <h3 class="feature-title">Pitch your designs with sync placement</h3>
+                    <p class="feature-description">Present designs seamlessly across all major platforms and channels.</p>
+                    <a href="#" class="feature-link">Join Design Pro ></a>
+                </div>
+                <div class="feature-visual">
+                    <div class="sync-animation">
+                        <div class="brand-logo">HGTV</div>
+                        <div class="brand-logo">DWELL</div>
+                        <div class="brand-logo">AD</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

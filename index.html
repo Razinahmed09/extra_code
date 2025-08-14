@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>General Enquiry Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #b71c1c;
+        }
+
+        form {
+            display: grid;
+            grid-gap: 20px;
+        }
+
+        label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: black !important;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #b71c1c;
+            box-shadow: 0 0 0 3px rgba(183,28,28,0.1);
+            outline: none;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 20px;
+        }
+
+        .radio-group label,
+        .checkbox-group label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+
+        button {
+            background-color: #b71c1c;
+            color: #fff;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #d32f2f;
+        }
+
+        .note {
+            font-size: 12px;
+            color: #555;
+            margin-top: -10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>General Enquiry</h1>
+    <h2>General Enquiry Form</h2>
+    <form>
+        <div class="grid-2">
+            <div>
+                <label>First Name</label>
+                <input type="text" placeholder="First Name" required>
+            </div>
+            <div>
+                <label>Last Name</label>
+                <input type="text" placeholder="Last Name" required>
+            </div>
+        </div>
+
+        <label>Company/Club/Brand Name</label>
+        <input type="text" placeholder="Your Company Name">
+
+        <label>Email</label>
+        <input type="email" placeholder="example@domain.com" required>
+
+        <label>Phone Number</label>
+        <input type="tel" placeholder="+92" required>
+
+        <label>Trading Status</label>
+        <select required>
+            <option value="">Select</option>
+            <option value="Business">Business</option>
+            <option value="Individual">Individual</option>
+        </select>
+
+        <label>Reason for Enquiry</label>
+        <div class="radio-group">
+            <label><input type="radio" name="reason"> Embroidery</label>
+            <label><input type="radio" name="reason"> Printing</label>
+            <label><input type="radio" name="reason"> Re-Branding</label>
+            <label><input type="radio" name="reason"> Merchandise</label>
+            <label><input type="radio" name="reason"> Promotional</label>
+            <label><input type="radio" name="reason"> Badges/Pennants/Banners</label>
+            <label><input type="radio" name="reason"> Leisurewear</label>
+            <label><input type="radio" name="reason" checked> Sportswear</label>
+            <label><input type="radio" name="reason"> Workwear</label>
+        </div>
+
+        <label>Enquiry Details</label>
+        <textarea rows="4" placeholder="Describe your enquiry..."></textarea>
+
+        <div class="grid-2">
+            <div>
+                <label>Deadline</label>
+                <input type="date">
+            </div>
+            <div>
+                <label>Quantity</label>
+                <input type="number" min="1" placeholder="Enter quantity">
+            </div>
+        </div>
+
+        <label>Unit of Measurement</label>
+        <div class="radio-group">
+            <label><input type="radio" name="unit"> mm</label>
+            <label><input type="radio" name="unit"> cm</label>
+            <label><input type="radio" name="unit" checked> inch</label>
+        </div>
+
+        <div class="grid-2">
+            <div>
+                <label>Size (height)</label>
+                <input type="text" placeholder="Height">
+            </div>
+            <div>
+                <label>Size (width)</label>
+                <input type="text" placeholder="Width">
+            </div>
+        </div>
+
+        <label>Upload Your Image File</label>
+        <input type="file">
+
+        <label>How would you prefer us to contact you?</label>
+        <div class="checkbox-group">
+            <label><input type="checkbox"> Email</label>
+            <label><input type="checkbox"> Phone</label>
+        </div>
+
+        <label>How did you find us?</label>
+        <input type="text" placeholder="Referral, Google, etc.">
+
+        <label>Voucher Code</label>
+        <input type="text" placeholder="Enter voucher code">
+
+        <label>Are you happy for us to keep your data on file?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="keepdata"> Yes</label>
+            <label><input type="radio" name="keepdata"> No</label>
+        </div>
+
+        <label>I have the right/given rights to this image</label>
+        <div class="radio-group">
+            <label><input type="radio" name="rights"> Yes</label>
+            <label><input type="radio" name="rights"> No</label>
+        </div>
+
+        <label>I have read & accept the terms and conditions</label>
+        <div class="radio-group">
+            <label><input type="radio" name="terms"> Yes</label>
+            <label><input type="radio" name="terms"> No</label>
+        </div>
+
+        <label>Any additional details</label>
+        <textarea rows="3" placeholder="Other notes..."></textarea>
+
+        <label>Would you like to receive emails about new products?</label>
+        <div class="radio-group">
+            <label><input type="radio" name="emails"> Yes Please</label>
+            <label><input type="radio" name="emails"> No Thank you</label>
+        </div>
+
+        <button type="submit">Submit</button>
+        <p class="note">* If you’re not happy for us to keep your images on file, we will need to charge you again for the setup on repeat orders.</p>
+    </form>
+</div>
+
+</body>
+</html>

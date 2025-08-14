@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Royalty Collection - SingWithMe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #0e0e0e;
+      color: #fff;
+    }
+
+    header {
+      background: #1e1e1e;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #333;
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      color: #ff4081;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 40px;
+    }
+
+    .stat-card {
+      background: #1e1e1e;
+      border-radius: 12px;
+      padding: 20px;
+      border: 1px solid #333;
+      transition: transform 0.2s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-card h2 {
+      font-size: 1.2rem;
+      color: #aaa;
+      margin-bottom: 10px;
+    }
+
+    .stat-card p {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .chart-placeholder {
+      background: #1a1a1a;
+      height: 250px;
+      border-radius: 12px;
+      border: 1px dashed #444;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      font-size: 1.1rem;
+      margin-bottom: 40px;
+    }
+
+    .payout-section {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .payout-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .payout-btn {
+      background: #ff4081;
+      color: #fff;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .payout-btn:hover {
+      background: #e7336b;
+    }
+
+    .payout-history table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #1e1e1e;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .payout-history th,
+    .payout-history td {
+      padding: 14px 20px;
+      border-bottom: 1px solid #333;
+      text-align: left;
+    }
+
+    .payout-history th {
+      background: #2a2a2a;
+      color: #ccc;
+    }
+
+    .payout-history tr:hover {
+      background: #2b2b2b;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SingWithMe</h1>
+    <span>Royalty Collection</span>
+  </header>
+
+  <div class="container">
+    <!-- Stats Overview -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h2>Total Streams</h2>
+        <p>3.2M</p>
+      </div>
+      <div class="stat-card">
+        <h2>Total Earnings</h2>
+        <p>$45,230</p>
+      </div>
+      <div class="stat-card">
+        <h2>Pending Payout</h2>
+        <p>$4,500</p>
+      </div>
+      <div class="stat-card">
+        <h2>Last Payout</h2>
+        <p>June 15, 2025</p>
+      </div>
+    </div>
+
+    <!-- Monthly Chart -->
+    <div class="chart-placeholder">
+      Monthly Earnings Graph (Coming Soon)
+    </div>
+
+    <!-- Payout Section -->
+    <div class="payout-section">
+      <h2>Request Payout</h2>
+      <button class="payout-btn">Withdraw Funds</button>
+    </div>
+
+    <!-- Payout History -->
+    <div class="payout-history">
+      <h2 style="margin-bottom: 10px;">Payout History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>June 15, 2025</td>
+            <td>$5,000</td>
+            <td>Completed</td>
+          </tr>
+          <tr>
+            <td>May 10, 2025</td>
+            <td>$3,200</td>
+            <td>Completed</td>
+          </tr>
+          <tr>
+            <td>April 6, 2025</td>
+            <td>$2,750</td>
+            <td>Completed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
