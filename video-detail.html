@@ -912,6 +912,7 @@
 <body>
     <div class="container">
         <!-- Product Header -->
+<<<<<<< HEAD
         <div class="container">
             <div class="product-section">
                 <div class="video-container">
@@ -924,8 +925,35 @@
                             Your browser does not support the video tag.
                         </video>
                         <div class="play-overlay"></div>
+=======
+         <div class="container">
+        <div class="product-section">
+            <div class="video-container">
+                <div class="video-wrapper">
+                    <video  muted loop>
+                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="play-overlay"></div>
+                </div>  
+            </div>
+            
+            <div class="product-details">
+                <span class="badge">Nature</span>
+                
+                <h1 class="product-title">Nature Documentary</h1>
+                
+                <div class="rating">
+                    <div class="stars">
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star">★</span>
+                        <span class="star empty">★</span>
+>>>>>>> a3d151f1502188b03da6741688ec6652962183a7
                     </div>
                 </div>
+<<<<<<< HEAD
 
                 <div class="product-details">
                     <span class="badge">Healer’s</span>
@@ -950,6 +978,16 @@
                     </p>
 
                     <!-- <div class="features">
+=======
+                
+                <div class="price">$299.99</div>
+                
+                <p class="description">
+                    A captivating journey into the wild, showcasing breathtaking landscapes, fascinating wildlife, and the delicate balance of ecosystems, inspiring a deeper connection with the natural world.An immersive exploration of Earth’s wonders, revealing the beauty, diversity, and hidden stories of nature through stunning visuals and compelling storytelling.
+                </p>
+                
+                <!-- <div class="features">
+>>>>>>> a3d151f1502188b03da6741688ec6652962183a7
                     <h4>Key Features</h4>
                     <div class="feature-list">
                         <div class="feature-item">
@@ -1112,6 +1150,7 @@
     </div>
 
     <script>
+<<<<<<< HEAD
         const video = document.getElementById('hoverVideo');
 
         video.addEventListener('mouseenter', () => {
@@ -1133,14 +1172,25 @@
             if (newValue >= 1) {
                 quantityInput.value = newValue;
             }
+=======
+    // Quantity controls
+    function changeQuantity(change) {
+        const quantityInput = document.getElementById('quantity');
+        let currentValue = parseInt(quantityInput.value);
+        let newValue = currentValue + change;
+        if (newValue >= 1) {
+            quantityInput.value = newValue;
+>>>>>>> a3d151f1502188b03da6741688ec6652962183a7
         }
+    }
 
-        // Add to cart function
-        function addToCart() {
-            const quantity = document.getElementById('quantity').value;
-            alert(`Added ${quantity} item(s) to cart!`);
-        }
+    // Add to cart function
+    function addToCart() {
+        const quantity = document.getElementById('quantity').value;
+        alert(`Added ${quantity} item(s) to cart!`);
+    }
 
+<<<<<<< HEAD
         // Tab functionality
         function showTab(event, tabId) {
             // Remove active class from all tabs and content
@@ -1151,8 +1201,19 @@
             event.target.classList.add('active');
             document.getElementById(tabId).classList.add('active');
         }
+=======
+    // Tab functionality
+    function showTab(event, tabId) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+        event.target.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+    }
+>>>>>>> a3d151f1502188b03da6741688ec6652962183a7
 
+    document.addEventListener('DOMContentLoaded', function () {
         // Video functionality
+<<<<<<< HEAD
         document.addEventListener('DOMContentLoaded', function () {
             const videoCards = document.querySelectorAll('.video-card');
 
@@ -1221,10 +1282,72 @@
                 card.querySelector('.video-controls').addEventListener('click', (e) => {
                     e.stopPropagation();
                 });
+=======
+        const videoCards = document.querySelectorAll('.video-card');
+        videoCards.forEach(card => {
+            const video = card.querySelector('video');
+            const playPauseBtn = card.querySelector('.play-pause-btn');
+            const volumeBtn = card.querySelector('.volume-btn');
+            const volumeSlider = card.querySelector('.volume-slider');
+            let isPlaying = false;
+
+            video.volume = volumeSlider.value;
+
+            card.addEventListener('mouseenter', () => {
+                video.play();
+                isPlaying = true;
+                updatePlayPauseIcon();
+            });
+
+            card.addEventListener('mouseleave', () => {
+                video.pause();
+                isPlaying = false;
+                updatePlayPauseIcon();
+            });
+
+            playPauseBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isPlaying) {
+                    video.pause();
+                    isPlaying = false;
+                } else {
+                    video.play();
+                    isPlaying = true;
+                }
+                updatePlayPauseIcon();
+            });
+
+            volumeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (video.muted) {
+                    video.muted = false;
+                    volumeBtn.textContent = '🔊';
+                    volumeSlider.value = video.volume;
+                } else {
+                    video.muted = true;
+                    volumeBtn.textContent = '🔇';
+                    volumeSlider.value = 0;
+                }
+            });
+
+            volumeSlider.addEventListener('input', (e) => {
+                e.stopPropagation();
+                video.volume = e.target.value;
+                video.muted = e.target.value === '0';
+                volumeBtn.textContent = video.muted ? '🔇' : '🔊';
+            });
+
+            function updatePlayPauseIcon() {
+                playPauseBtn.textContent = isPlaying ? '⏸️' : '▶️';
+            }
+
+            card.querySelector('.video-controls').addEventListener('click', (e) => {
+                e.stopPropagation();
+>>>>>>> a3d151f1502188b03da6741688ec6652962183a7
             });
         });
 
-        // Smooth scrolling for better UX
+        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1234,9 +1357,12 @@
             });
         });
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> a3d151f1502188b03da6741688ec6652962183a7
         // Tab switching
         document.querySelectorAll('.tab-btn').forEach(button => {
             button.addEventListener('click', () => {
@@ -1249,6 +1375,7 @@
         });
 
         // Review submission
+<<<<<<< HEAD
         document.getElementById('review-form').addEventListener('submit', function (e) {
             e.preventDefault();
             const name = document.getElementById('reviewer-name').value.trim();
@@ -1266,6 +1393,30 @@
             }
         });
     </script>
+=======
+        const reviewForm = document.getElementById('review-form');
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+                const name = document.getElementById('reviewer-name').value.trim();
+                const text = document.getElementById('review-text').value.trim();
+
+                if (name && text) {
+                    const reviewList = document.getElementById('review-list');
+                    const newReview = document.createElement('div');
+                    newReview.classList.add('review');
+                    newReview.textContent = `${name}: ${text}`;
+                    reviewList.appendChild(newReview);
+
+                    document.getElementById('reviewer-name').value = '';
+                    document.getElementById('review-text').value = '';
+                }
+            });
+        }
+    });
+</script>
+
+>>>>>>> a3d151f1502188b03da6741688ec6652962183a7
 </body>
 
 </html>

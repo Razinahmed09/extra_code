@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Recording Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f4f4f4;
+    }
+
+    .product-container {
+      display: flex;
+      gap: 20px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .product-video {
+      width: 300px;
+      height: 300px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .product-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-details {
+      flex-grow: 1;
+    }
+
+    .related-recordings {
+      margin-top: 40px;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .video-thumbnail {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .video-thumbnail video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    h2 {
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Main Product Section -->
+  <div class="product-container">
+    <div class="product-video">
+      <video src="videos/fearless.mp4" muted autoplay loop playsinline></video>
+    </div>
+    <div class="product-details">
+      <h1>Fearless Video</h1>
+      <p><strong>Price:</strong> A$25.00</p>
+      <p>This immersive visual recording helps you overcome fear with guided affirmations and calming visuals.</p>
+      <button>Add to Cart</button>
+    </div>
+  </div>
+
+  <!-- Related Recordings Section -->
+  <div class="related-recordings">
+    <h2>Related Recordings</h2>
+    <div class="related-grid">
+      <div class="video-thumbnail">
+        <video src="videos/weight-control.mp4" muted loop></video>
+      </div>
+      <div class="video-thumbnail">
+        <video src="videos/relaxing-music.mp4" muted loop></video>
+      </div>
+      <div class="video-thumbnail">
+        <video src="videos/happy-day.mp4" muted loop></video>
+      </div>
+      <div class="video-thumbnail">
+        <video src="videos/helpful-day.mp4" muted loop></video>
+      </div>
+      <div class="video-thumbnail">
+        <video src="videos/meditation-mindset.mp4" muted loop></video>
+      </div>
+      <div class="video-thumbnail">
+        <video src="videos/last-breath.mp4" muted loop></video>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Play video on hover
+    document.querySelectorAll('.video-thumbnail video').forEach(video => {
+      video.addEventListener('mouseenter', () => video.play());
+      video.addEventListener('mouseleave', () => {
+        video.pause();
+        video.currentTime = 0;
+      });
+    });
+  </script>
+
+</body>
+</html>
