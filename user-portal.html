@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SingWithMe - User Portal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #667eea;
+        }
+
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .user-name {
+            font-weight: 600;
+            color: #333;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* User Portal Scoped Styles */
+.user-portal .welcome-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.8s ease-out;
+}
+
+.user-portal .welcome-title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.user-portal .welcome-subtitle {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.user-portal .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.user-portal .stat-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.user-portal .stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.user-portal .stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.user-portal .stat-label {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Subscription Plans Section */
+.user-portal .section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    animation: slideUp 0.8s ease-out;
+}
+
+.user-portal .section-title {
+        font-size: 55px;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #9f54f5;
+    position: relative;
+    padding-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.user-portal .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 2px;
+}
+
+.user-portal .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.user-portal .plan-card {
+    background: white;
+    border: 3px solid #e1e8ed;
+    border-radius: 15px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}   
+
+.user-portal .plan-card.popular {
+    border-color: #9f54f5;
+    transform: scale(1.05);
+}
+
+.user-portal .plan-card.popular::before {
+    content: 'Most Popular';
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: linear-gradient(135deg, #921aff 0%, #472866 100%);
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-bottom-left-radius: 10px;
+}
+
+.user-portal .plan-card:hover {
+    border-color: #667eea;
+    box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+    transform: translateY(-5px);
+}
+
+.user-portal .plan-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.user-portal .plan-price {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 0.5rem;
+}
+
+.user-portal .plan-period {
+    color: #ccc;
+    margin-bottom: 1.5rem;
+}
+
+.user-portal .plan-features {
+    list-style: none;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.user-portal .plan-features li {
+    padding: 0.5rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.user-portal .plan-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #667eea;
+    font-weight: bold;
+}
+
+.user-portal .plan-button {
+    width: 100%;
+    padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-portal .plan-button.primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.user-portal .plan-button.secondary {
+    background: transparent;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.user-portal .plan-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Playlist Section */
+.user-portal .playlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.user-portal .playlist-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.user-portal .playlist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.user-portal .playlist-cover {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+}
+
+.user-portal .playlist-info {
+    padding: 1.5rem;
+}
+
+.user-portal .playlist-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.user-portal .playlist-details {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.user-portal .playlist-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.user-portal .action-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #667eea;
+    background: transparent;
+    color: #667eea;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.user-portal .action-btn:hover, 
+.user-portal .action-btn.active {
+    background: #667eea;
+    color: white;
+}
+
+.user-portal .create-playlist-btn {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+}
+
+.user-portal .create-playlist-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+/* Favorites Section */
+.user-portal .favorites-list {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.user-portal .favorite-item {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.user-portal .favorite-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.user-portal .song-cover {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.user-portal .song-info {
+    flex: 1;
+}
+
+.user-portal .song-title {
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+}
+
+.user-portal .song-artist {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.user-portal .song-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.user-portal .song-btn {
+    background: none;
+    border: none;
+    color: #667eea;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.user-portal .song-btn:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+/* Animations */
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .user-portal .nav-links {
+        display: none;
+    }
+    
+    .user-portal .container {
+        padding: 1rem;
+    }
+    
+    .user-portal .welcome-title {
+        font-size: 2rem;
+    }
+    
+    .user-portal .plans-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .user-portal .playlist-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+    
+    .user-portal .plan-card.popular {
+        transform: none;
+    }
+}
+
+/* Loading states */
+.user-portal .loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(102, 126, 234, 0.3);
+    border-radius: 50%;
+    border-top-color: #667eea;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">SINGWITHME</div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Dashboard</a></li>
+                <li><a href="#subscription">Subscription</a></li>
+                <li><a href="#playlists">Playlists</a></li>
+                <li><a href="#favorites">Favorites</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+            <div class="user-profile">
+                <div class="user-avatar">JD</div>
+                <span class="user-name">John Doe</span>
+            </div>
+        </nav>
+    </header>
+    <section class="user-portal">
+    <div class="container">
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <h1 class="welcome-title">Welcome back, John! 🎵</h1>
+            <p class="welcome-subtitle">Ready to discover new music and manage your collections? Here's your music journey overview.</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Playlists Created</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">157</div>
+                    <div class="stat-label">Favorite Songs</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">23h</div>
+                    <div class="stat-label">Hours Listened</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">45</div>
+                    <div class="stat-label">Artists Followed</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subscription Plans Section -->
+        <section class="section" id="subscription">
+            <h2 class="section-title">🎯 Subscription Plans</h2>
+            <p>Choose the perfect plan for your music journey. Upgrade anytime!</p>
+            
+            <div class="plans-grid">
+                <div class="plan-card">
+                    <h3 class="plan-name">Free</h3>
+                    <div class="plan-price">$0</div>
+                    <div class="plan-period">forever</div>
+                    <ul class="plan-features">
+                        <li>Limited music streaming</li>
+                        <li>Ads between songs</li>
+                        <li>Basic playlist creation</li>
+                        <li>Mobile app access</li>
+                        <li>Community features</li>
+                    </ul>
+                    <button class="plan-button secondary">Current Plan</button>
+                </div>
+
+                <div class="plan-card popular">
+                    <h3 class="plan-name">Premium</h3>
+                    <div class="plan-price">$9.99</div>
+                    <div class="plan-period">per month</div>
+                    <ul class="plan-features">
+                        <li>Unlimited music streaming</li>
+                        <li>No advertisements</li>
+                        <li>Offline downloads</li>
+                        <li>High-quality audio</li>
+                        <li>Unlimited playlists</li>
+                        <li>Exclusive content</li>
+                        <li>Priority support</li>
+                    </ul>
+                    <button class="plan-button primary" onclick="upgradeSubscription('premium')">Upgrade Now</button>
+                </div>
+
+                <div class="plan-card">
+                    <h3 class="plan-name">Family</h3>
+                    <div class="plan-price">$14.99</div>
+                    <div class="plan-period">per month</div>
+                    <ul class="plan-features">
+                        <li>Up to 6 family members</li>
+                        <li>All Premium features</li>
+                        <li>Individual profiles</li>
+                        <li>Parental controls</li>
+                        <li>Shared family playlists</li>
+                        <li>Mix for family</li>
+                    </ul>
+                    <button class="plan-button primary" onclick="upgradeSubscription('family')">Choose Family</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Playlists Section -->
+        <section class="section" id="playlists">
+            <h2 class="section-title">🎵 My Playlists</h2>
+            <p>Organize your favorite tracks into custom playlists</p>
+            
+            <button class="create-playlist-btn" onclick="createNewPlaylist()">
+                + Create New Playlist
+            </button>
+
+            <div class="playlist-grid">
+                <div class="playlist-card" onclick="openPlaylist('liked-songs')">
+                    <div class="playlist-cover">💜</div>
+                    <div class="playlist-info">
+                        <div class="playlist-name">Liked Songs</div>
+                        <div class="playlist-details">157 songs • 8h 23m</div>
+                        <div class="playlist-actions">
+                            <button class="action-btn active">▶️ Play</button>
+                            <button class="action-btn">🔀 Shuffle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="playlist-card" onclick="openPlaylist('workout-beats')">
+                    <div class="playlist-cover">💪</div>
+                    <div class="playlist-info">
+                        <div class="playlist-name">Workout Beats</div>
+                        <div class="playlist-details">45 songs • 2h 31m</div>
+                        <div class="playlist-actions">
+                            <button class="action-btn">▶️ Play</button>
+                            <button class="action-btn">✏️ Edit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="playlist-card" onclick="openPlaylist('chill-vibes')">
+                    <div class="playlist-cover">🌙</div>
+                    <div class="playlist-info">
+                        <div class="playlist-name">Chill Vibes</div>
+                        <div class="playlist-details">32 songs • 1h 47m</div>
+                        <div class="playlist-actions">
+                            <button class="action-btn">▶️ Play</button>
+                            <button class="action-btn">📤 Share</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="playlist-card" onclick="openPlaylist('road-trip')">
+                    <div class="playlist-cover">🚗</div>
+                    <div class="playlist-info">
+                        <div class="playlist-name">Road Trip Mix</div>
+                        <div class="playlist-details">67 songs • 4h 12m</div>
+                        <div class="playlist-actions">
+                            <button class="action-btn">▶️ Play</button>
+                            <button class="action-btn">❤️ Like</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="playlist-card" onclick="openPlaylist('party-time')">
+                    <div class="playlist-cover">🎉</div>
+                    <div class="playlist-info">
+                        <div class="playlist-name">Party Time</div>
+                        <div class="playlist-details">89 songs • 5h 55m</div>
+                        <div class="playlist-actions">
+                            <button class="action-btn">▶️ Play</button>
+                            <button class="action-btn">🔀 Shuffle</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="playlist-card" onclick="openPlaylist('focus-flow')">
+                    <div class="playlist-cover">🧠</div>
+                    <div class="playlist-info">
+                        <div class="playlist-name">Focus Flow</div>
+                        <div class="playlist-details">24 songs • 1h 38m</div>
+                        <div class="playlist-actions">
+                            <button class="action-btn">▶️ Play</button>
+                            <button class="action-btn">➕ Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Favorites Collection Section -->
+        <section class="section" id="favorites">
+            <h2 class="section-title">❤️ Favorite Collection</h2>
+            <p>Your most loved tracks from various artists and genres</p>
+
+            <div class="favorites-list">
+                <div class="favorite-item">
+                    <div class="song-cover">🎵</div>
+                    <div class="song-info">
+                        <div class="song-title">Shape of You</div>
+                        <div class="song-artist">Ed Sheeran • ÷ (Deluxe)</div>
+                    </div>
+                    <div class="song-actions">
+                        <button class="song-btn" onclick="playSong('shape-of-you')">▶️</button>
+                        <button class="song-btn" onclick="removeFavorite('shape-of-you')">💔</button>
+                        <button class="song-btn" onclick="addToPlaylist('shape-of-you')">➕</button>
+                    </div>
+                </div>
+
+                <div class="favorite-item">
+                    <div class="song-cover">🎤</div>
+                    <div class="song-info">
+                        <div class="song-title">Blinding Lights</div>
+                        <div class="song-artist">The Weeknd • After Hours</div>
+                    </div>
+                    <div class="song-actions">
+                        <button class="song-btn" onclick="playSong('blinding-lights')">▶️</button>
+                        <button class="song-btn" onclick="removeFavorite('blinding-lights')">💔</button>
+                        <button class="song-btn" onclick="addToPlaylist('blinding-lights')">➕</button>
+                    </div>
+                </div>
+
+                <div class="favorite-item">
+                    <div class="song-cover">🎸</div>
+                    <div class="song-info">
+                        <div class="song-title">Bohemian Rhapsody</div>
+                        <div class="song-artist">Queen • A Night at the Opera</div>
+                    </div>
+                    <div class="song-actions">
+                        <button class="song-btn" onclick="playSong('bohemian-rhapsody')">▶️</button>
+                        <button class="song-btn" onclick="removeFavorite('bohemian-rhapsody')">💔</button>
+                        <button class="song-btn" onclick="addToPlaylist('bohemian-rhapsody')">➕</button>
+                    </div>
+                </div>
+
+                <div class="favorite-item">
+                    <div class="song-cover">🌟</div>
+                    <div class="song-info">
+                        <div class="song-title">Levitating</div>
+                        <div class="song-artist">Dua Lipa • Future Nostalgia</div>
+                    </div>
+                    <div class="song-actions">
+                        <button class="song-btn" onclick="playSong('levitating')">▶️</button>
+                        <button class="song-btn" onclick="removeFavorite('levitating')">💔</button>
+                        <button class="song-btn" onclick="addToPlaylist('levitating')">➕</button>
+                    </div>
+                </div>
+
+                <div class="favorite-item">
+                    <div class="song-cover">🔥</div>
+                    <div class="song-info">
+                        <div class="song-title">Good 4 U</div>
+                        <div class="song-artist">Olivia Rodrigo • SOUR</div>
+                    </div>
+                    <div class="song-actions">
+                        <button class="song-btn" onclick="playSong('good-4-u')">▶️</button>
+                        <button class="song-btn" onclick="removeFavorite('good-4-u')">💔</button>
+                        <button class="song-btn" onclick="addToPlaylist('good-4-u')">➕</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    </section>
+
+    <script>
+        // Subscription upgrade functionality
+function upgradeSubscription(planType) {
+    const button = event.target;
+    const originalText = button.textContent;
+    
+    button.innerHTML = '<div class="loading"></div>';
+    button.disabled = true;
+    
+    setTimeout(() => {
+        button.textContent = originalText;
+        button.disabled = false;
+        alert(`Upgrading to ${planType} plan! You'll be redirected to payment.`);
+        // Here you would typically redirect to a payment processor
+    }, 2000);
+}
+
+// Playlist functionality
+function createNewPlaylist() {
+    const playlistName = prompt("Enter playlist name:");
+    if (playlistName) {
+        alert(`Creating playlist: "${playlistName}"`);
+        // Add new playlist to the grid dynamically
+        addPlaylistToGrid(playlistName);
+    }
+}
+
+function addPlaylistToGrid(name) {
+    const grid = document.querySelector('.playlist-grid');
+    const newPlaylist = document.createElement('div');
+    newPlaylist.className = 'playlist-card';
+    newPlaylist.onclick = () => openPlaylist(name.toLowerCase().replace(' ', '-'));
+    newPlaylist.innerHTML = `
+        <div class="playlist-cover">🎵</div>
+        <div class="playlist-info">
+            <div class="playlist-name">${name}</div>
+            <div class="playlist-details">0 songs • 0m</div>
+            <div class="playlist-actions">
+                <button class="action-btn">▶️ Play</button>
+                <button class="action-btn">✏️ Edit</button>
+            </div>
+        </div>
+    `;
+    grid.appendChild(newPlaylist);
+}
+
+function openPlaylist(playlistId) {
+    alert(`Opening playlist: ${playlistId}`);
+    // Here you would typically navigate to playlist view
+}
+
+// Song functionality
+function playSong(songId) {
+    alert(`Playing song: ${songId}`);
+    // Here you would typically start audio playback
+}
+
+function removeFavorite(songId) {
+    if (confirm('Remove this song from favorites?')) {
+        const item = event.target.closest('.favorite-item');
+        item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+        item.style.opacity = '0';
+        item.style.transform = 'translateX(50px)';
+        setTimeout(() => {
+            item.remove();
+            alert(`Removed ${songId} from favorites`);
+        }, 300);
+    }
+}
+
+function addToPlaylist(songId) {
+    alert(`Adding ${songId} to a playlist...`);
+    // You can open a modal or selection UI here
+}
+
+    </script>
+</body>
+</html>

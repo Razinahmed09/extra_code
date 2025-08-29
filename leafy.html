@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chef Microgreens Frustrations - Card Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #f8fdf8 0%, #e8f5e8 100%);
+            color: #2d4a2d;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .frustration-section {
+    padding: 100px 0;
+    position: relative;
+}
+
+.frustration-section .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.frustration-section .section-header {
+    text-align: center;
+    margin-bottom: 80px;
+    position: relative;
+    padding: 10px;
+}
+
+.frustration-section .section-title {
+    font-size: 45px;
+    font-weight: 800;
+    color: #2d5a2d;
+    margin-bottom: 24px;
+    background: linear-gradient(135deg, #23682b 0%, #29604e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.2;
+}
+
+.frustration-section .section-subtitle {
+    font-size: 1.4rem;
+    color: #4a6b4a;
+    font-weight: 400;
+    max-width: 800px;
+    margin: 10px auto 0 auto;
+    opacity: 0.9;
+}
+
+.frustration-section .cards-container {
+    position: relative;
+    height: 600px;
+    perspective: 1000px;
+}
+
+.frustration-section .cards-wrapper {
+    display: flex;
+    transition: transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+    height: 100%;
+    gap: 30px;
+    padding: 0 15px;
+}
+
+.frustration-section .card {
+    min-width: 380px;
+    height: 520px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 24px;
+    padding: 50px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(116, 185, 116, 0.2);
+    box-shadow: 0 20px 60px rgba(45, 90, 45, 0.08);
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    transform-style: preserve-3d;
+}
+
+.frustration-section .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(116, 185, 116, 0.05) 0%, rgba(74, 124, 74, 0.08) 100%);
+    border-radius: 24px;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+.frustration-section .card:hover {
+    transform: translateY(-15px) rotateX(5deg);
+    box-shadow: 0 40px 100px rgba(45, 90, 45, 0.2);
+}
+
+.frustration-section .card:hover::before {
+    opacity: 1;
+}
+
+.frustration-section .card.active {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 30px 80px rgba(45, 90, 45, 0.15);
+}
+
+.frustration-section .icon-container {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.frustration-section .icon-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #a8d5a8 0%, #74b974 100%);
+    border-radius: 50%;
+    animation: pulse 3s ease-in-out infinite;
+    opacity: 0.2;
+}
+
+.frustration-section .card:hover .icon-bg {
+    animation: rotate 2s linear infinite, pulse 3s ease-in-out infinite;
+}
+
+.frustration-section .animated-icon {
+    font-size: 3.5rem;
+    z-index: 2;
+    position: relative;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    filter: drop-shadow(0 4px 8px rgba(45, 90, 45, 0.2));
+}
+
+.frustration-section .animated-icon lord-icon {
+    width: 100px;
+    height: 100px;
+}
+
+.frustration-section .card:hover .animated-icon {
+    transform: scale(1.2) rotate(10deg);
+    animation: bounce 0.8s ease;
+}
+
+/* Individual card colors */
+.frustration-section .card:nth-child(1) { border-top: 4px solid #2d5a2d; }
+.frustration-section .card:nth-child(1) .icon-bg { background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); }
+.frustration-section .card:nth-child(1) .animated-icon { animation: shake 2s ease-in-out infinite; }
+
+.frustration-section .card:nth-child(2) { border-top: 4px solid #2d5a2d; }
+.frustration-section .card:nth-child(2) .icon-bg { background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); }
+.frustration-section .card:nth-child(2) .animated-icon { animation: swing 3s ease-in-out infinite; }
+
+.frustration-section .card:nth-child(3) { border-top: 4px solid #2d5a2d; }
+.frustration-section .card:nth-child(3) .icon-bg { background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); }
+.frustration-section .card:nth-child(3) .animated-icon { animation: fadeInOut 2.5s ease-in-out infinite; }
+
+.frustration-section .card:nth-child(4) { border-top: 4px solid #2d5a2d; }
+.frustration-section .card:nth-child(4) .icon-bg { background: linear-gradient(135deg, #ffeee6 0%, #ffd4b3 100%); }
+.frustration-section .card:nth-child(4) .animated-icon { animation: question 2s ease-in-out infinite; }
+
+.frustration-section .card:nth-child(5) { border-top: 4px solid #2d5a2d; }
+.frustration-section .card:nth-child(5) .icon-bg { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
+.frustration-section .card:nth-child(5) .animated-icon { animation: cycle 3s linear infinite; }
+
+.frustration-section .card:nth-child(6) { border-top: 4px solid #2d5a2d; }
+.frustration-section .card:nth-child(6) .icon-bg { background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); }
+.frustration-section .card:nth-child(6) .animated-icon { animation: money 2.5s ease-in-out infinite; }
+
+.frustration-section .card-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #2d5a2d;
+    margin-bottom: 20px;
+    line-height: 1.3;
+}
+
+.frustration-section .card-description {
+    font-size: 1.1rem;
+    color: #4a6b4a;
+    line-height: 1.7;
+    opacity: 0.9;
+    flex-grow: 1;
+}
+
+.frustration-section .navigation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.frustration-section .nav-btn {
+    border: 2px solid #2d5a2d;
+    color: #2d5a2d;
+    padding: 16px 28px;
+    border-radius: 60px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 25px rgba(74, 124, 74, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.frustration-section .nav-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.frustration-section .nav-btn:hover::before { left: 100%; }
+.frustration-section .nav-btn:hover { transform: translateY(-3px); box-shadow: 0 12px 35px rgba(45, 90, 45, 0.35); }
+.frustration-section .nav-btn:active { transform: translateY(-1px); }
+
+.frustration-section .dots-container {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+.frustration-section .dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: rgba(74, 124, 74, 0.25);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.frustration-section .dot::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0;
+    height: 0;
+    background: #4a7c4a;
+    border-radius: 50%;
+    transition: all 0.4s ease;
+}
+
+.frustration-section .dot.active::before {
+    width: 100%;
+    height: 100%;
+}
+
+.frustration-section .dot.active {
+    background: rgba(74, 124, 74, 0.1);
+    transform: scale(1.3);
+    box-shadow: 0 0 20px rgba(74, 124, 74, 0.4);
+}
+
+.frustration-section .solution-cta {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 253, 248, 0.95) 100%);
+    backdrop-filter: blur(20px);
+    padding: 60px;
+    border-radius: 32px;
+    text-align: center;
+    box-shadow: 0 25px 80px rgba(45, 90, 45, 0.1);
+    border: 1px solid rgba(116, 185, 116, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.frustration-section .solution-cta::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(from 0deg, #04581e00, rgb(2 169 2 / 20%), #000e0100);
+    animation: rotate 10s linear infinite;
+    z-index: -1;
+}
+
+.frustration-section .cta-title {
+    font-size: 2.5rem;
+    color: #2d5a2d;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.frustration-section .cta-text {
+    font-size: 1.2rem;
+    color: #4a6b4a;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0.9;
+}
+
+.frustration-section .cta-button {
+    background: linear-gradient(135deg, #4a7c4a 0%, #2d5a2d 100%);
+    color: white;
+    padding: 20px 50px;
+    border: none;
+    border-radius: 60px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 30px rgba(45, 90, 45, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.frustration-section .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.6s ease;
+}
+
+.frustration-section .cta-button:hover::before { left: 100%; }
+.frustration-section .cta-button:hover { transform: translateY(-4px); box-shadow: 0 15px 40px rgba(45, 90, 45, 0.4); }
+
+/* Animations remain global (can’t nest under parent) */
+@keyframes pulse { 0%,100% {transform:scale(1);} 50% {transform:scale(1.1);} }
+@keyframes rotate { 0% {transform:rotate(0deg);} 100% {transform:rotate(360deg);} }
+@keyframes bounce { 0%,20%,50%,80%,100% {transform:translateY(0) scale(1.2) rotate(10deg);} 40% {transform:translateY(-10px) scale(1.2) rotate(10deg);} 60% {transform:translateY(-5px) scale(1.2) rotate(10deg);} }
+@keyframes shake { 0%,100% {transform:translateX(0);} 10%,30%,50%,70%,90% {transform:translateX(-2px);} 20%,40%,60%,80% {transform:translateX(2px);} }
+@keyframes swing { 0%,100% {transform:rotate(-5deg);} 50% {transform:rotate(5deg);} }
+@keyframes fadeInOut { 0%,100% {opacity:1;} 50% {opacity:0.5;} }
+@keyframes question { 0%,100% {transform:scale(1) rotate(0deg);} 25% {transform:scale(1.1) rotate(-5deg);} 75% {transform:scale(1.1) rotate(5deg);} }
+@keyframes cycle { 0% {transform:rotate(0deg);} 100% {transform:rotate(360deg);} }
+@keyframes money { 0%,100% {transform:translateY(0px);} 50% {transform:translateY(-5px);} }
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .frustration-section .card { min-width: 350px; }
+}
+
+@media (max-width: 768px) {
+    .frustration-section .section-title { font-size: 2.5rem; }
+    .frustration-section .cards-container { height: 500px; }
+    .frustration-section .card { min-width: 300px; height: 450px; padding: 40px 30px; }
+    .frustration-section .icon-container { width: 100px; height: 100px; margin-bottom: 30px; }
+    .frustration-section .animated-icon { font-size: 3rem; }
+    .frustration-section .card-title { font-size: 1.5rem; }
+    .frustration-section .card-description { font-size: 1rem; }
+    .frustration-section .navigation { flex-direction: column; gap: 15px; }
+    .frustration-section .solution-cta { padding: 40px 30px; }
+    .frustration-section .cta-title { font-size: 2rem; }
+    .frustration-section .cta-text { font-size: 1.1rem; }
+}
+
+@media (max-width: 480px) {
+    .frustration-section .card { min-width: 280px; }
+}
+
+/* Auto-play progress indicator */
+.frustration-section .progress-indicator {
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #4a7c4a, #2d5a2d);
+    border-radius: 2px;
+    transition: width 0.1s ease;
+    box-shadow: 0 2px 10px rgba(74, 124, 74, 0.3);
+}
+
+    </style>
+</head>
+
+<body>
+    <section class="frustration-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Chef, are you finding yourself frustrated with microgreens that:</h2>
+                <p class="section-subtitle">We understand the challenges you face with inconsistent microgreen
+                    suppliers. Let us solve these problems for you.</p>
+            </div>
+
+            <div class="cards-container">
+                <div class="cards-wrapper" id="cardsWrapper">
+                    <div class="card">
+                        <div class="icon-container">
+                            <div class="icon-bg"></div>
+                            <div class="animated-icon"><lord-icon src="https://cdn.lordicon.com/hqkfqrrm.json"
+                                    trigger="loop" colors="primary:#0a5c49,secondary:#9cf4a7,tertiary:#198f67">
+                                </lord-icon></div>
+                        </div>
+                        <h3 class="card-title">Are spoiled on arrival?</h3>
+                        <p class="card-description">Nothing ruins your day like opening a delivery of microgreens only
+                            to find them wilted, slimy, or completely unusable. Fresh quality should never be a gamble.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div class="icon-container">
+                            <div class="icon-bg"></div>
+                            <div class="animated-icon"><lord-icon src="https://cdn.lordicon.com/wrjtqsvf.json"
+                                    trigger="loop" delay="2000"
+                                    colors="primary:#0a5c49,secondary:#9cf4a7,tertiary:#0a5c15,quaternary:#a1ccfa">
+                                </lord-icon></div>
+                        </div>
+                        <h3 class="card-title">Have unreliable availability?</h3>
+                        <p class="card-description">Your menu depends on consistent supply. When your microgreen
+                            supplier can't guarantee availability, your dishes suffer and your customers notice.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="icon-container">
+                            <div class="icon-bg"></div>
+                            <div class="animated-icon"><lord-icon src="https://cdn.lordicon.com/nnhjoynp.json"
+                                    trigger="loop" delay="2000"
+                                    colors="primary:#0a5c15,secondary:#9cf4a7,tertiary:#d1fad7">
+                                </lord-icon></div>
+                        </div>
+                        <h3 class="card-title">Don't last more than a few days?</h3>
+                        <p class="card-description">Microgreens should maintain their freshness and crunch for at least
+                            a week when properly stored. Short shelf life means constant waste and frequent ordering.
+                        </p>
+                    </div>
+
+                    <div class="card">
+                        <div class="icon-container">
+                            <div class="icon-bg"></div>
+                            <div class="animated-icon"><lord-icon src="https://cdn.lordicon.com/yuauyzdy.json"
+                                    trigger="loop" delay="2000"
+                                    colors="primary:#0a5c15,secondary:#d1fad7,tertiary:#9cf4a7">
+                                </lord-icon></div>
+                        </div>
+                        <h3 class="card-title">Leave you wondering if they're still useable?</h3>
+                        <p class="card-description">The uncertainty of whether your microgreens will be fresh enough for
+                            service creates unnecessary stress in an already demanding kitchen environment.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="icon-container">
+                            <div class="icon-bg"></div>
+                            <div class="animated-icon"><lord-icon src="https://cdn.lordicon.com/brkvhuny.json"
+                                    trigger="loop" delay="2000"
+                                    colors="primary:#0a5c15,secondary:#198f67,tertiary:#d1fad7,quaternary:#d1fad7">
+                                </lord-icon></div>
+                        </div>
+                        <h3 class="card-title">Need multiple orders per week?</h3>
+                        <p class="card-description">Constantly reordering microgreens disrupts your workflow and ties up
+                            valuable time that could be better spent creating exceptional dishes.</p>
+                    </div>
+
+                    <div class="card">
+                        <div class="icon-container">
+                            <div class="icon-bg"></div>
+                            <div class="animated-icon"><lord-icon src="https://cdn.lordicon.com/frsgbxcf.json"
+                                    trigger="loop" colors="primary:#0a5c15,secondary:#9cf4a7,tertiary:#fcb4cd">
+                                </lord-icon></div>
+                        </div>
+                        <h3 class="card-title">Drive up costs with waste?</h3>
+                        <p class="card-description">When microgreens spoil quickly or arrive in poor condition, the
+                            waste directly impacts your bottom line and food cost percentages.</p>
+                    </div>
+                </div>
+                <!-- <div class="progress-indicator" id="progressIndicator"></div> -->
+            </div>
+
+            <div class="navigation">
+                <button class="nav-btn" id="prevBtn">← Previous</button>
+                <button class="nav-btn" id="nextBtn">Next →</button>
+            </div>
+
+            <div class="dots-container" id="dotsContainer"></div>
+
+            <div class="solution-cta">
+                <h3 class="cta-title">End Your Microgreen Frustrations Today</h3>
+                <p class="cta-text">At Microleaves, we guarantee fresh, consistently available microgreens with extended
+                    shelf life. Our reliable supply chain ensures your kitchen runs smoothly without waste or worry.</p>
+                <button class="cta-button">Get Premium Microgreens</button>
+            </div>
+        </div>
+    </section>
+
+    <script>
+   class CardSlider {
+    constructor() {
+        this.currentSlide = 0;
+        this.totalSlides = 6;
+        this.cardWidth = 410;
+        this.autoPlayInterval = null;
+        this.autoPlayDuration = 4000;
+        this.isAutoPlaying = true;
+
+        this.cardsWrapper = document.getElementById('cardsWrapper');
+        this.prevBtn = document.getElementById('prevBtn');
+        this.nextBtn = document.getElementById('nextBtn');
+        this.dotsContainer = document.getElementById('dotsContainer');
+
+        this.init();
+    }
+
+    init() {
+        this.createDots();
+        this.bindEvents();
+        this.updateCardWidth();
+        this.startAutoPlay();
+        this.updateActiveCard();
+    }
+
+    createDots() {
+        for (let i = 0; i < this.totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => this.goToSlide(i));
+            this.dotsContainer.appendChild(dot);
+        }
+    }
+
+    updateCardWidth() {
+        const card = document.querySelector('.card');
+        if (card) {
+            const styles = window.getComputedStyle(card);
+            this.cardWidth = card.offsetWidth + (parseInt(styles.marginRight) || 30);
+        }
+    }
+
+    bindEvents() {
+        this.prevBtn.addEventListener('click', () => this.prevSlide());
+        this.nextBtn.addEventListener('click', () => this.nextSlide());
+
+        // Pause autoplay on hover
+        const container = document.querySelector('.cards-container');
+        container.addEventListener('mouseenter', () => this.pauseAutoPlay());
+        container.addEventListener('mouseleave', () => this.startAutoPlay());
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') this.prevSlide();
+            if (e.key === 'ArrowRight') this.nextSlide();
+        });
+
+        // Swipe support
+        let startX = null, startY = null;
+        container.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            startY = e.touches[0].clientY;
+        });
+        container.addEventListener('touchend', (e) => {
+            if (!startX) return;
+            const endX = e.changedTouches[0].clientX;
+            const endY = e.changedTouches[0].clientY;
+            const diffX = startX - endX, diffY = startY - endY;
+            if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+                diffX > 0 ? this.nextSlide() : this.prevSlide();
+            }
+            startX = startY = null;
+        });
+
+        // Resize
+        window.addEventListener('resize', () => {
+            this.updateCardWidth();
+            this.updateSlider();
+        });
+    }
+
+    goToSlide(index) {
+        // 🔄 Loop instead of clamp
+        this.currentSlide = (index + this.totalSlides) % this.totalSlides;
+        this.updateSlider();
+        this.updateDots();
+        this.updateActiveCard();
+        this.resetAutoPlay();
+    }
+
+    nextSlide() { this.goToSlide(this.currentSlide + 1); }
+    prevSlide() { this.goToSlide(this.currentSlide - 1); }
+
+    updateSlider() {
+        this.cardsWrapper.style.transform = `translateX(${-this.currentSlide * this.cardWidth}px)`;
+    }
+
+    updateDots() {
+        this.dotsContainer.querySelectorAll('.dot').forEach((dot, i) =>
+            dot.classList.toggle('active', i === this.currentSlide)
+        );
+    }
+
+    updateActiveCard() {
+        document.querySelectorAll('.card').forEach((c, i) =>
+            c.classList.toggle('active', i === this.currentSlide)
+        );
+    }
+
+    startAutoPlay() {
+        if (!this.isAutoPlaying) return;
+        this.autoPlayInterval = setInterval(() => this.nextSlide(), this.autoPlayDuration);
+    }
+
+    pauseAutoPlay() {
+        clearInterval(this.autoPlayInterval);
+    }
+
+    resetAutoPlay() {
+        this.pauseAutoPlay();
+        setTimeout(() => this.startAutoPlay(), 100);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    new CardSlider();
+
+    // Animate on scroll (cards + CTA)
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.card, .solution-cta').forEach((el, i) => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(40px)';
+        el.style.transition = `opacity 0.8s ease ${i * 0.1}s, transform 0.8s ease ${i * 0.1}s`;
+        observer.observe(el);
+    });
+});
+
+</script>
+
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+</body>
+
+</html>

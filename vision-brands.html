@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Skyrocket Section – Dark Theme</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --brand-1: #ffcd00;
+            /* primary */
+            --brand-2: #f29903;
+            /* accent */
+            --brand-3: #000000;
+            /* base dark */
+            --text: #EAEAEA;
+            --muted: #A5A5A5;
+            --card: #0c0c0c;
+            --card-b: #151515;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            margin: 0;
+            font-family: Poppins, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial;
+            color: var(--text);
+            background: radial-gradient(1200px 700px at 80% -10%, rgba(242, 153, 3, 0.25), transparent 60%),
+                radial-gradient(900px 600px at 10% 10%, rgba(255, 205, 0, 0.2), transparent 60%),
+                linear-gradient(180deg, #040404, #0b0b0b 40%, #000 100%);
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        /* Navbar */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: saturate(140%) blur(8px);
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.4));
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06)
+        }
+
+        .nav-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 18px
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: .5px
+        }
+
+        .logo {
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            background: conic-gradient(from 220deg, var(--brand-1), var(--brand-2));
+            display: grid;
+            place-items: center;
+            color: #000;
+            font-weight: 900
+        }
+
+        .nav-links {
+            margin-left: auto;
+            display: flex;
+            gap: 24px;
+            align-items: center
+        }
+
+        .nav-links a {
+            opacity: .85
+        }
+
+        .nav-links a:hover {
+            opacity: 1
+        }
+
+        .btn {
+            padding: 10px 16px;
+            border-radius: 14px;
+            font-weight: 600;
+            border: 1px solid transparent;
+            transition: transform .2s ease, box-shadow .2s ease, background .2s
+        }
+
+        .btn-outline {
+            border-color: rgba(255, 255, 255, 0.18)
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--brand-2), var(--brand-1));
+            color: #000
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(242, 153, 3, .25)
+        }
+
+        /* Hero */
+        .hero {
+            position: relative
+        }
+
+        .hero-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 64px 24px 40px;
+            display: grid;
+            grid-template-columns: 1.05fr .95fr;
+            gap: 40px;
+            align-items: center
+        }
+
+        @media (max-width: 980px) {
+            .hero-wrap {
+                grid-template-columns: 1fr;
+                padding-top: 40px
+            }
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 2.6px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--brand-1)
+        }
+
+        .title {
+            font-size: 60px;
+            line-height: 1.02;
+            font-weight: 900;
+            margin: .35em 0 .25em
+        }
+
+        .title .stroke {
+            color: transparent;
+            -webkit-text-stroke: 2px var(--brand-1)
+        }
+
+        @media (max-width:680px) {
+            .title {
+                font-size: 40px
+            }
+        }
+
+        .sub {
+            color: #cfcfcf;
+            max-width: 56ch
+        }
+
+        .cta {
+            display: flex;
+            gap: 14px;
+            margin-top: 28px
+        }
+
+        /* Feature Cards */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+            margin-top: 38px
+        }
+
+        @media (max-width:980px) {
+            .features {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .card {
+            background: linear-gradient(180deg, var(--card), var(--card-b));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 18px;
+            padding: 18px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .card:before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            border-radius: 18px;
+            padding: 1px;
+            background: linear-gradient(120deg, rgba(255, 205, 0, .22), rgba(242, 153, 3, .0) 30%, rgba(255, 255, 255, .06));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude
+        }
+
+        /* vectors */
+
+        /* From Uiverse.io by Praashoo7 */ 
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loaders,
+.loadersB {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  position: absolute;
+  width: 1.15em;
+  height: 13em;
+  border-radius: 50px;
+  background: #e0e0e0;
+}
+.loader:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1.15em;
+  height: 5em;
+  background: #e0e0e0;
+  border-radius: 50px;
+  border: 1px solid #e2e2e2;
+  box-shadow:
+    inset 5px 5px 15px #d3d2d2ab,
+    inset -5px -5px 15px #e9e9e9ab;
+  mask-image: linear-gradient(
+    to bottom,
+    black calc(100% - 48px),
+    transparent 100%
+  );
+}
+.loader::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 1.15em;
+  height: 4.5em;
+  background: #e0e0e0;
+  border-radius: 50px;
+  border: 1px solid #e2e2e2;
+  box-shadow:
+    inset 5px 5px 15px #d3d2d2ab,
+    inset -5px -5px 15px #e9e9e9ab;
+  mask-image: linear-gradient(
+    to top,
+    black calc(100% - 48px),
+    transparent 100%
+  );
+}
+.loaderA {
+  position: absolute;
+  width: 1.15em;
+  height: 13em;
+  border-radius: 50px;
+  background: transparent;
+}
+.ball0,
+.ball1,
+.ball2,
+.ball3,
+.ball4,
+.ball5,
+.ball6,
+.ball7,
+.ball8,
+.ball9 {
+  width: 1.15em;
+  height: 1.15em;
+  box-shadow:
+    rgba(0, 0, 0, 0.17) 0px -10px 10px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -15px 15px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -40px 20px 0px inset,
+    rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px,
+    rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px,
+    rgba(0, 0, 0, 0.09) 0px 32px 16px,
+    0px -1px 15px -8px rgba(0, 0, 0, 0.09);
+  border-radius: 50%;
+  transition: transform 800ms cubic-bezier(1, -0.4, 0, 1.4);
+  background-color: rgb(232, 232, 232, 1);
+  animation: 3.63s move ease-in-out infinite;
+}
+.loader:nth-child(2) {
+  transform: rotate(20deg);
+}
+.loader:nth-child(3) {
+  transform: rotate(40deg);
+}
+.loader:nth-child(4) {
+  transform: rotate(60deg);
+}
+.loader:nth-child(5) {
+  transform: rotate(80deg);
+}
+.loader:nth-child(6) {
+  transform: rotate(100deg);
+}
+.loader:nth-child(7) {
+  transform: rotate(120deg);
+}
+.loader:nth-child(8) {
+  transform: rotate(140deg);
+}
+.loader:nth-child(9) {
+  transform: rotate(160deg);
+}
+
+.loaderA:nth-child(2) {
+  transform: rotate(20deg);
+}
+.loaderA:nth-child(3) {
+  transform: rotate(40deg);
+}
+.loaderA:nth-child(4) {
+  transform: rotate(60deg);
+}
+.loaderA:nth-child(5) {
+  transform: rotate(80deg);
+}
+.loaderA:nth-child(6) {
+  transform: rotate(100deg);
+}
+.loaderA:nth-child(7) {
+  transform: rotate(120deg);
+}
+.loaderA:nth-child(8) {
+  transform: rotate(140deg);
+}
+.loaderA:nth-child(9) {
+  transform: rotate(160deg);
+}
+
+.ball1 {
+  animation-delay: 0.2s;
+}
+.ball2 {
+  animation-delay: 0.4s;
+}
+.ball3 {
+  animation-delay: 0.6s;
+}
+.ball4 {
+  animation-delay: 0.8s;
+}
+.ball5 {
+  animation-delay: 1s;
+}
+.ball6 {
+  animation-delay: 1.2s;
+}
+.ball7 {
+  animation-delay: 1.4s;
+}
+.ball8 {
+  animation-delay: 1.6s;
+}
+.ball9 {
+  animation-delay: 1.8s;
+}
+
+@keyframes move {
+  0% {
+    transform: translateY(0em);
+  }
+  50% {
+    transform: translateY(12em);
+  }
+  100% {
+    transform: translateY(0em);
+  }
+}
+
+
+        /* vectors */
+
+
+        .card h3 {
+            margin: 6px 0 8px;
+            font-size: 18px
+        }
+
+        .card p {
+            color: #bdbdbd;
+            font-size: 14px;
+            line-height: 1.5
+        }
+
+        /* Right Visual */
+        .visual {
+            position: relative;
+            height: 520px
+        }
+
+        @media (max-width:980px) {
+            .visual {
+                height: 420px
+            }
+        }
+
+        .starfield {
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(1px 1px at 20% 30%, rgba(255, 255, 255, .7), transparent),
+                radial-gradient(1.5px 1.5px at 70% 40%, rgba(255, 255, 255, .9), transparent),
+                radial-gradient(1px 1px at 40% 80%, rgba(255, 255, 255, .6), transparent),
+                radial-gradient(1px 1px at 85% 70%, rgba(255, 255, 255, .8), transparent);
+            opacity: .6;
+            animation: twinkle 4s linear infinite
+        }
+
+        @keyframes twinkle {
+            50% {
+                opacity: .3
+            }
+        }
+
+        .rocket {
+           position: absolute;
+            right: 5%;
+            bottom: 110px;
+            z-index: 2;
+            width: 320px;
+            filter: drop-shadow(0 24px 40px rgba(242, 153, 3, .25));
+            animation: float 4.2s ease-in-out infinite;
+        }
+
+        @media (max-width:980px) {
+            .rocket {
+                right: 50%;
+                transform: translateX(50%)
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-14px)
+            }
+        }
+
+        .cloud {
+                position: absolute;
+                right: 0;
+                bottom: 66px;
+                width: 45%;
+                opacity: .9;
+                animation: puff 6s ease-in-out infinite;
+        }
+
+        @keyframes puff {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1)
+            }
+
+            50% {
+                transform: translateY(6px) scale(1.02)
+            }
+        }
+
+        .geo {
+            position: absolute;
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            background: linear-gradient(140deg, rgba(255, 205, 0, .25), rgba(242, 153, 3, .1));
+            border: 1px solid rgba(255, 255, 255, .08);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .04);
+            animation: bob 5.5s ease-in-out infinite
+        }
+
+        .geo.g1 {
+            top: 12%;
+            right: 46%;
+            rotate: -8deg
+        }
+
+        .geo.g2 {
+            top: 30%;
+            right: 8%;
+            rotate: 12deg;
+            animation-delay: -1s
+        }
+
+        .geo.g3 {
+            top: 64%;
+            right: 30%;
+            width: 58px;
+            height: 58px;
+            rotate: 22deg;
+            animation-delay: -2s
+        }
+
+        @keyframes bob {
+
+            0%,
+            100% {
+                transform: translateY(0)
+            }
+
+            50% {
+                transform: translateY(-8px)
+            }
+        }
+
+        /* Badges / counters */
+        .awarded {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, .06);
+            border: 1px solid rgba(255, 255, 255, .08);
+            color: #d7d7d7;
+            font-size: 12px
+        }
+
+        .spark {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle at 30% 30%, var(--brand-1), var(--brand-2));
+            border-radius: 50%;
+            box-shadow: 0 0 18px var(--brand-1)
+        }
+
+        /* Small helper */
+        .muted {
+            color: var(--muted)
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="nav">
+        <div class="nav-wrap">
+            <a class="brand" href="#">
+                <div class="logo">A</div>
+                <span>AWEBCO</span>
+            </a>
+            <nav class="nav-links">
+                <a href="#services">Services</a>
+                <a href="#resources">Resources</a>
+                <a href="#work">Work</a>
+                <a href="#industries">Industries</a>
+                <a class="btn btn-outline" href="#login">Log in</a>
+                <a class="btn btn-primary" href="#start">Start a project</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-wrap">
+            <div>
+                <span class="awarded"><span class="spark"></span> AWARD‑WINNING WEB DESIGN COMPANY</span>
+                <h1 class="title"><span class="stroke">SKYROCKET</span><br />YOUR WEBSITE</h1>
+                <p class="sub">A premium website solution for business owners who want to blast past the competition
+                    with modern design, lightning performance, and conversion‑driven strategy.</p>
+                <div class="cta">
+                    <a href="#start" class="btn btn-primary">Start a project</a>
+                    <a href="#work" class="btn btn-outline">View our work</a>
+                </div>
+                <div class="unique_vectors">
+                    <div class="main">
+  <div class="up">
+    <div class="loaders">
+      <div class="loader"></div>
+      <div class="loader"></div>
+      <div class="loader"></div>
+      <div class="loader"></div>
+      <div class="loader"></div>
+      <div class="loader"></div>
+      <div class="loader"></div>
+      <div class="loader"></div>
+      <div class="loader"></div>
+      <div class="loader"></div>
+    </div>
+    <div class="loadersB">
+      <div class="loaderA">
+        <div class="ball0"></div>
+      </div>
+      <div class="loaderA">
+        <div class="ball1"></div>
+      </div>
+      <div class="loaderA">
+        <div class="ball2"></div>
+      </div>
+      <div class="loaderA">
+        <div class="ball3"></div>
+      </div>
+      <div class="loaderA">
+        <div class="ball4"></div>
+      </div>
+      <div class="loaderA">
+        <div class="ball5"></div>
+      </div>
+      <div class="loaderA">
+        <div class="ball6"></div>
+      </div>
+      <div class="loaderA">
+        <div class="ball7"></div>
+      </div>
+      <div class="loaderA">
+        <div class="ball8"></div>
+      </div>
+    </div>
+  </div>
+</div>
+                </div>
+                <!-- Features -->
+                <!-- <div class="features" id="services">
+                    <article class="card">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true">
+                            <path d="M4 6h16M4 12h10M4 18h7" stroke="url(#g1)" stroke-width="2"
+                                stroke-linecap="round" />
+                            <defs>
+                                <linearGradient id="g1" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#f29903" />
+                                    <stop offset="1" stop-color="#ffcd00" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <h3>Web Design</h3>
+                        <p>Pixel‑perfect, conversion‑focused designs tailored to your brand and audience.</p>
+                    </article>
+                    <article class="card">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true">
+                            <path d="M4 4h16v10H4z" stroke="url(#g2)" stroke-width="2" />
+                            <path d="M4 18h16" stroke="url(#g2)" stroke-width="2" />
+                            <defs>
+                                <linearGradient id="g2" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#f29903" />
+                                    <stop offset="1" stop-color="#ffcd00" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <h3>Web Development</h3>
+                        <p>Fast, secure, and scalable builds using modern frameworks and best practices.</p>
+                    </article>
+                    <article class="card">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true">
+                            <path d="M4 14c2-4 6-6 8-6s6 2 8 6" stroke="url(#g3)" stroke-width="2" fill="none" />
+                            <circle cx="12" cy="14" r="2" fill="url(#g3)" />
+                            <defs>
+                                <linearGradient id="g3" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#f29903" />
+                                    <stop offset="1" stop-color="#ffcd00" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <h3>S.E.O.</h3>
+                        <p>Technical audits and content strategy to rank higher and convert better.</p>
+                    </article>
+                </div> -->
+            </div>
+
+            <div class="visual">
+                <div class="starfield" aria-hidden="true"></div>
+                <!-- Decorative floating tiles -->
+                <div class="geo g1"></div>
+                <div class="geo g2"></div>
+                <div class="geo g3"></div>
+
+                <!-- Rocket SVG -->
+               
+                <img class="rocket" src="rocketimg-MUMh8D8m.png" alt="">
+                <!-- cloud -->
+                <!-- <svg  viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path
+                        d="M40 140c0-26 22-48 48-48 8 0 16 2 22 5 10-24 34-41 62-41 30 0 56 19 66 46 6-3 14-5 22-5 26 0 48 22 48 48H40Z"
+                        fill="rgba(255,255,255,0.9)" />
+                </svg> -->
+            </div>
+            <img class="cloud" src="cloud.png" alt="">
+        </div>
+    </section>
+
+    <script>
+        // Small parallax for floating shapes
+        const visuals = document.querySelector('.visual');
+        const geos = document.querySelectorAll('.geo');
+        visuals.addEventListener('mousemove', (e) => {
+            const r = visuals.getBoundingClientRect();
+            const x = (e.clientX - r.left) / r.width - .5;
+            const y = (e.clientY - r.top) / r.height - .5;
+            geos.forEach((el, i) => {
+                const depth = (i + 1) * 8;
+                el.style.transform = `translate(${x * depth}px, ${y * depth}px)`;
+            });
+        });
+        
+    </script>
+</body>
+
+</html>

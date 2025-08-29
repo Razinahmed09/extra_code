@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microgreens Solution Section</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #8fbc8f 0%, #6b8e6b 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .solution-section {
+            position: relative;
+            padding: 120px 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .solution-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .floating-leaf {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        .floating-leaf:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-leaf:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1.5s;
+        }
+
+        .floating-leaf:nth-child(3) {
+            bottom: 30%;
+            left: 5%;
+            animation-delay: 3s;
+        }
+
+        .floating-leaf:nth-child(4) {
+            bottom: 10%;
+            right: 10%;
+            animation-delay: 4.5s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 30px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 80px;
+            line-height: 1.2;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 0.2s;
+        }
+
+        .main-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.6), transparent);
+            border-radius: 2px;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 100px;
+        }
+
+        .problem-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 40px 35px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            opacity: 0;
+            transform: translateY(50px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .problem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .problem-card:hover::before {
+            left: 100%;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .problem-card.animate {
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .problem-card:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .problem-card:nth-child(2) {
+            animation-delay: 0.5s;
+        }
+
+        .problem-card:nth-child(3) {
+            animation-delay: 0.7s;
+        }
+
+        .problem-card:nth-child(4) {
+            animation-delay: 0.9s;
+        }
+
+        .problem-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            font-size: 2.5rem;
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .problem-icon lord-icon {
+            width: 100px;
+            height: 100px;
+        }
+
+        .problem-card:hover .problem-icon {
+            transform: scale(1.1) rotate(5deg);
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .problem-text {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.95);
+            font-weight: 400;
+        }
+
+        .solution-statement {
+            text-align: center;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 1.4s;
+        }
+
+        .solution-text {
+            font-size: 1.4rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 800px;
+            margin: 0 auto;
+            font-weight: 400;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-section {
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 1.6s;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #4a7c4a 0%, #2d5a2d 100%);
+            color: white;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 60px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            box-shadow: 0 15px 40px rgba(45, 90, 45, 0.4);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease forwards 1.8s;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(45, 90, 45, 0.5);
+            background: linear-gradient(135deg, #2d5a2d 0%, #1a3d1a 100%);
+        }
+
+        .cta-button:active {
+            transform: translateY(-2px);
+        }
+
+        /* Pulse effect for button */
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transition: all 0.6s ease;
+        }
+
+        .cta-button:hover::after {
+            width: 300px;
+            height: 300px;
+            opacity: 0;
+        }
+
+        /* Decorative elements */
+        .decorative-line {
+            position: absolute;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            opacity: 0;
+            animation: expandLine 2s ease forwards 2s;
+        }
+
+        .line-1 {
+            top: 30%;
+            left: 10%;
+            width: 200px;
+            transform: rotate(-15deg);
+        }
+
+        .line-2 {
+            bottom: 40%;
+            right: 15%;
+            width: 150px;
+            transform: rotate(20deg);
+            animation-delay: 2.5s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .solution-section {
+                padding: 80px 0;
+            }
+
+            .container {
+                padding: 0 20px;
+            }
+
+            .main-title {
+                font-size: 2.5rem;
+                margin-bottom: 60px;
+            }
+
+            .problems-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+                margin-bottom: 80px;
+            }
+
+            .problem-card {
+                padding: 35px 30px;
+            }
+
+            .problem-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2.2rem;
+            }
+
+            .problem-text {
+                font-size: 1.1rem;
+            }
+
+            .solution-text {
+                font-size: 1.2rem;
+            }
+
+            .cta-title {
+                font-size: 2.2rem;
+                margin-bottom: 40px;
+            }
+
+            .cta-button {
+                padding: 18px 40px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 2rem;
+            }
+
+            .problem-card {
+                padding: 30px 25px;
+            }
+
+            .cta-title {
+                font-size: 1.8rem;
+            }
+
+            .solution-text {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            33% {
+                transform: translateY(-20px) rotate(5deg);
+            }
+
+            66% {
+                transform: translateY(-10px) rotate(-3deg);
+            }
+        }
+
+        @keyframes expandLine {
+            from {
+                width: 0;
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Interactive particle effect on mouse move */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleFloat 3s ease-out forwards;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100px) scale(0);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="solution-section">
+        <!-- Floating decorative elements -->
+        <div class="floating-elements">
+            <div class="floating-leaf">🌿</div>
+            <div class="floating-leaf">🍃</div>
+            <div class="floating-leaf">🌱</div>
+            <div class="floating-leaf">🥬</div>
+        </div>
+
+        <!-- Decorative lines -->
+        <div class="decorative-line line-1"></div>
+        <div class="decorative-line line-2"></div>
+
+        <div class="container">
+            <h1 class="main-title">
+                Join local chefs who choose microgreens that last, by working directly with their farmer
+            </h1>
+
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <div class="problem-icon"><lord-icon src="https://cdn.lordicon.com/hlfocnwl.json" trigger="loop"
+                            delay="2000" colors="primary:#0a5c15,secondary:#9cf4a7">
+                        </lord-icon></div>
+                    <p class="problem-text">
+                        We know how frustrating it is for you to pay for microgreens that spoil quickly.
+                    </p>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-icon"><lord-icon src="https://cdn.lordicon.com/edcgvlnw.json" trigger="loop"
+                            colors="primary:#0a5c15,secondary:#9cf4a7">
+                        </lord-icon></div>
+                    <p class="problem-text">
+                        You're tired of ordering multiple times per week just to keep fresh product on hand for your
+                        next service.
+                    </p>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-icon"><lord-icon src="https://cdn.lordicon.com/fwusljyl.json" trigger="loop"
+                            delay="2000" colors="primary:#0a5c15,secondary:#9cf4a7">
+                        </lord-icon></div>
+                    <p class="problem-text">
+                        You don't print the microgreens on the menu, because you can never rely on the quality or
+                        availability.
+                    </p>
+                </div>
+
+                <div class="problem-card">
+                    <div class="problem-icon">🎨</div>
+                    <p class="problem-text">
+                        You want color and flavor to elevate your plates, but you wonder if they're even worth the
+                        hassle.
+                    </p>
+                </div>
+            </div>
+
+            <div class="solution-statement">
+                <p class="solution-text">
+                    That's why we work directly with chefs, so that we can provide microgreens that actually last.
+                </p>
+            </div>
+
+            <div class="cta-section">
+                <h2 class="cta-title">READY TO GIVE US A TRY?</h2>
+                <a href="#contact" class="cta-button">Schedule a meeting</a>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        // Observe problem cards
+        document.addEventListener('DOMContentLoaded', () => {
+            const problemCards = document.querySelectorAll('.problem-card');
+            problemCards.forEach(card => {
+                observer.observe(card);
+            });
+
+            // Particle effect on mouse move
+            let particleId = 0;
+            document.addEventListener('mousemove', (e) => {
+                if (Math.random() > 0.85) { // Only create particles 15% of the time
+                    createParticle(e.clientX, e.clientY);
+                }
+            });
+
+            function createParticle(x, y) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                document.body.appendChild(particle);
+
+                // Remove particle after animation
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 3000);
+            }
+
+            // Smooth scrolling for CTA button
+            const ctaButton = document.querySelector('.cta-button');
+            ctaButton.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                // Add click ripple effect
+                const ripple = document.createElement('div');
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.5)';
+                ripple.style.transform = 'scale(0)';
+                ripple.style.animation = 'ripple 0.6s linear';
+                ripple.style.left = '50%';
+                ripple.style.top = '50%';
+                ripple.style.width = '20px';
+                ripple.style.height = '20px';
+                ripple.style.marginLeft = '-10px';
+                ripple.style.marginTop = '-10px';
+
+                ctaButton.appendChild(ripple);
+
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+
+            // Add ripple animation keyframe
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes ripple {
+                    to {
+                        transform: scale(4);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+
+            // Parallax effect for floating elements
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const parallaxElements = document.querySelectorAll('.floating-leaf');
+
+                parallaxElements.forEach((element, index) => {
+                    const speed = 0.5 + (index * 0.1);
+                    element.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+            });
+
+            // Enhanced hover effects for problem cards
+            const cards = document.querySelectorAll('.problem-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    // Add glow effect
+                    card.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.2), 0 0 30px rgba(255, 255, 255, 0.1)';
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    // Remove glow effect
+                    card.style.boxShadow = '0 15px 35px rgba(0, 0, 0, 0.1)';
+                });
+            });
+        });
+
+        // Dynamic background color shift based on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            const section = document.querySelector('.solution-section');
+
+            const hue1 = 120 - (scrollPercent * 10); // Shift from green to more blue-green
+            const hue2 = 90 - (scrollPercent * 15);
+
+            section.style.background = `linear-gradient(135deg, hsl(${hue1}, 35%, 60%) 0%, hsl(${hue2}, 30%, 45%) 100%)`;
+        });
+    </script>
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+</body>
+
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,6 +34,7 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -184,7 +186,7 @@
         }
 
         .video-gallery {
-            padding: 0 40px 40px;
+            padding: 30px 40px 40px;
         }
 
         .gallery-title {
@@ -236,7 +238,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-               background: linear-gradient(45deg, rgb(178 122 1 / 28%), rgb(209 161 2 / 36%));
+            background: linear-gradient(45deg, rgb(178 122 1 / 28%), rgb(209 161 2 / 36%));
             display: flex;
             align-items: center;
             justify-content: center;
@@ -396,8 +398,15 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .specs-grid {
@@ -454,117 +463,124 @@
         }
 
 
-    .product-tabs {
-    /* max-width: 900px; */
-    margin: auto;
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-}
+        .product-tabs {
+            /* max-width: 900px; */
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+        }
 
-/* Tab Header */
-.product-tabs .tab-header {
-    display: flex;
-    border-bottom: 2px solid #d1a102;
-}
+        /* Tab Header */
+        .product-tabs .tab-header {
+            display: flex;
+            border-bottom: 2px solid #d1a102;
+        }
 
-.product-tabs .tab-btn {
-    flex: 1;
-    padding: 15px;
-    background: white;
-    border: none;
-    border-right: 1px solid #eee;
-    color: #444;
-    font-weight: 600;
-    font-size: 14px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
+        .product-tabs .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: white;
+            border: none;
+            border-right: 1px solid #eee;
+            color: #444;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
 
-.product-tabs .tab-btn:last-child {
-    border-right: none;
-}
+        .product-tabs .tab-btn:last-child {
+            border-right: none;
+        }
 
-.product-tabs .tab-btn.active {
-    border-bottom: 3px solid #b27a01;
-    color: #b27a01;
-    background: #fff8e1;
-}
+        .product-tabs .tab-btn.active {
+            border-bottom: 3px solid #b27a01;
+            color: #b27a01;
+            background: #fff8e1;
+        }
 
-/* Tab Content */
-.product-tabs .tab-content {
-    display: none;
-    padding: 20px;
-    animation: productTabsFadeIn 0.4s ease forwards;
-}
+        /* Tab Content */
+        .product-tabs .tab-content {
+            display: none;
+            padding: 20px;
+            animation: productTabsFadeIn 0.4s ease forwards;
+        }
 
-.product-tabs .tab-content.active {
-    display: block;
-}
+        .product-tabs .tab-content.active {
+            display: block;
+        }
 
-.product-tabs .tab-content h3 {
-    color: #b27a01;
-    margin-bottom: 15px;
-}
+        .product-tabs .tab-content h3 {
+            color: #b27a01;
+            margin-bottom: 15px;
+        }
 
-/* Review Form */
-.product-tabs .review-form {
-    margin-top: 20px;
-    border-top: 1px solid #eee;
-    padding-top: 15px;
-}
+        /* Review Form */
+        .product-tabs .review-form {
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 15px;
+        }
 
-.product-tabs .review-form input, 
-.product-tabs .review-form textarea {
-    width: 100%;
-    padding: 8px;
-    margin: 6px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+        .product-tabs .review-form input,
+        .product-tabs .review-form textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0;
+            border: 1px solid #b27a01;
+            border-radius: 5px;
+        }
 
-.product-tabs .review-form button {
-    background: #b27a01;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
+        .product-tabs .review-form button {
+            background: #b27a01;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-.product-tabs .review-form button:hover {
-    background: #926401;
-}
+        .product-tabs .review-form button:hover {
+            background: #926401;
+        }
 
-.product-tabs .review {
-    border-bottom: 1px solid #eee;
-    padding: 10px 0;
-}
+        .product-tabs .review {
+            border-bottom: 1px solid #eee;
+            padding: 10px 0;
+        }
 
-/* Images tab */
-.product-tabs .image-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
+        /* Images tab */
+        .product-tabs .image-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
 
-.product-tabs .image-gallery img {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-}
+        .product-tabs .image-gallery img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
 
-/* Animation */
-@keyframes productTabsFadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
-}
+        /* Animation */
+        @keyframes productTabsFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
 
-.product-section {
+        .product-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 0;
@@ -643,7 +659,7 @@
             transform: translate(-50%, -50%) scale(1.2);
         }
 
-        .demo-video:not([muted]) ~ .play-overlay {
+        .demo-video:not([muted])~.play-overlay {
             opacity: 0;
         }
 
@@ -674,6 +690,7 @@
                 opacity: 0;
                 transform: translateX(-20px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
@@ -889,50 +906,50 @@
                 grid-template-columns: 1fr;
             }
         }
-        
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Product Header -->
-         <div class="container">
-        <div class="product-section">
-            <div class="video-container">
-                <div class="video-wrapper">
-                    <video  muted loop>
-                        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="play-overlay"></div>
-                </div>
-            </div>
-            
-            <div class="product-details">
-                <span class="badge">Audio Equipment</span>
-                
-                <h1 class="product-title">Premium Wireless Headphones</h1>
-                
-                <div class="rating">
-                    <div class="stars">
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star">★</span>
-                        <span class="star empty">★</span>
+        <div class="container">
+            <div class="product-section">
+                <div class="video-container">
+                    <div class="video-wrapper">
+                        <video id="hoverVideo" muted loop playsinline
+                            poster="https://new-jaded.jadedilluzions.com/assets/images/banner/healer1.jpg">
+                            <source
+                                src="BigBuckBunny (1).mp4"
+                                type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <div class="play-overlay"></div>
                     </div>
-                    <span class="rating-text">4.2 (124 reviews)</span>
                 </div>
-                
-                <div class="price">$299.99</div>
-                
-                <p class="description">
-                    Experience superior sound quality with our premium wireless headphones. 
-                    Featuring active noise cancellation, 30-hour battery life, and premium 
-                    comfort for all-day listening. Perfect for music lovers, professionals, 
-                    and anyone seeking exceptional audio quality.
-                </p>
-                
-                <!-- <div class="features">
+
+                <div class="product-details">
+                    <span class="badge">Healer’s</span>
+
+                    <h1 class="product-title">Healer’s Breath Mindfulness</h1>
+
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star empty">★</span>
+                        </div>
+                        <span class="rating-text">4.2 (124 reviews)</span>
+                    </div>
+
+                    <div class="price">$299.99</div>
+
+                    <p class="description">
+                       A gentle practice that invites you to slow down, center your thoughts, and reconnect with your inner calm. Through mindful breathing, you nurture both body and spirit, creating space for healing, clarity, and peace in your everyday life.
+                    </p>
+
+                    <!-- <div class="features">
                     <h4>Key Features</h4>
                     <div class="feature-list">
                         <div class="feature-item">
@@ -961,22 +978,22 @@
                         </div>
                     </div>
                 </div> -->
-                
-                <div class="purchase-section">
-                    <div class="quantity-selector">
-                        <span class="quantity-label">Quantity:</span>
-                        <div class="quantity-controls">
-                            <button class="qty-btn" onclick="updateQuantity(-1)">−</button>
-                            <input type="number" class="qty-input" value="1" min="1" max="10" id="quantity">
-                            <button class="qty-btn" onclick="updateQuantity(1)">+</button>
+
+                    <div class="purchase-section">
+                        <div class="quantity-selector">
+                            <span class="quantity-label">Quantity:</span>
+                            <div class="quantity-controls">
+                                <button class="qty-btn" onclick="updateQuantity(-1)">−</button>
+                                <input type="number" class="qty-input" value="1" min="1" max="10" id="quantity">
+                                <button class="qty-btn" onclick="updateQuantity(1)">+</button>
+                            </div>
                         </div>
+
+                        <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
                     </div>
-                    
-                    <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
                 </div>
             </div>
         </div>
-    </div>
 
         <!-- Video Gallery -->
         <div class="video-gallery">
@@ -985,7 +1002,9 @@
                 <div class="video-card">
                     <div class="video-container">
                         <video muted loop>
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+                            <source
+                                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                                type="video/mp4">
                         </video>
                         <div class="video-overlay">
                             <div class="play-icon">▶</div>
@@ -1002,7 +1021,9 @@
                 <div class="video-card">
                     <div class="video-container">
                         <video muted loop>
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4">
+                            <source
+                                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"
+                                type="video/mp4">
                         </video>
                         <div class="video-overlay">
                             <div class="play-icon">▶</div>
@@ -1019,7 +1040,9 @@
                 <div class="video-card">
                     <div class="video-container">
                         <video muted loop>
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+                            <source
+                                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+                                type="video/mp4">
                         </video>
                         <div class="video-overlay">
                             <div class="play-icon">▶</div>
@@ -1036,7 +1059,8 @@
                 <div class="video-card">
                     <div class="video-container">
                         <video muted loop>
-                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4" type="video/mp4">
+                            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4"
+                                type="video/mp4">
                         </video>
                         <div class="video-overlay">
                             <div class="play-icon">▶</div>
@@ -1054,39 +1078,51 @@
 
         <!-- Product Tabs -->
         <div class="product-tabs">
-    <div class="tab-header">
-        <button class="tab-btn active" data-tab="description">DESCRIPTION</button>
-        <button class="tab-btn" data-tab="reviews">REVIEWS</button>
-        <button class="tab-btn" data-tab="info">ADDITIONAL INFO</button>
-    </div>
+            <div class="tab-header">
+                <button class="tab-btn active" data-tab="description">DESCRIPTION</button>
+                <button class="tab-btn" data-tab="reviews">REVIEWS</button>
+               
+            </div>
 
-    <div class="tab-content active" id="description">
-        <h3>Product Description</h3>
-        <p>Immerse yourself in a transformative audio experience designed to enhance your mental wellness journey.</p>
-        <p>This recording offers a sanctuary of peace in your daily routine, with expert guidance and soothing soundscapes.</p>
-    </div>
+            <div class="tab-content active" id="description">
+                <h3>Product Description</h3>
+                <p>Immerse yourself in a transformative audio experience designed to enhance your mental wellness
+                    journey.</p>
+                <p>This recording offers a sanctuary of peace in your daily routine, with expert guidance and soothing
+                    soundscapes.</p>
+            </div>
 
-    <div class="tab-content" id="reviews">
-        <h3>Customer Reviews</h3>
-        <div id="review-list">
-            <div class="review">⭐⭐⭐⭐⭐ - Amazing product!</div>
-            <div class="review">⭐⭐⭐⭐ - Very calming and helpful.</div>
+            <div class="tab-content" id="reviews">
+                <h3>Customer Reviews</h3>
+                <div>
+                <div id="review-list">
+                    <div class="review">⭐⭐⭐⭐⭐ - Amazing product!</div>
+                    <div class="review">⭐⭐⭐⭐ - Very calming and helpful.</div>
+                </div>
+
+                <form class="review-form" id="review-form">
+                    <input type="text" id="reviewer-name" placeholder="Your name" required>
+                    <textarea id="review-text" placeholder="Write your review" rows="3" required></textarea>
+                    <button type="submit">Submit Review</button>
+                </form>
+                </div>
+            </div>
+           
         </div>
+    </div>
 
-        <form class="review-form" id="review-form">
-            <input type="text" id="reviewer-name" placeholder="Your name" required>
-            <textarea id="review-text" placeholder="Write your review" rows="3" required></textarea>
-            <button type="submit">Submit Review</button>
-        </form>
-    </div>
-    <div class="tab-content" id="info">
-        <h3>Additional Information</h3>
-        <p>Format: MP3 Download</p>
-        <p>Length: 45 minutes</p>
-        <p>Language: English</p>
-    </div>
-        </div>
-    </div>
+    <script>
+        const video = document.getElementById('hoverVideo');
+
+        video.addEventListener('mouseenter', () => {
+            video.play();
+        });
+
+        video.addEventListener('mouseleave', () => {
+            video.pause();
+            video.currentTime = 0; // optional: reset to start when hover ends
+        });
+    </script>
 
     <script>
         // Quantity controls
@@ -1110,39 +1146,39 @@
             // Remove active class from all tabs and content
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            
+
             // Add active class to clicked tab and corresponding content
             event.target.classList.add('active');
             document.getElementById(tabId).classList.add('active');
         }
 
         // Video functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const videoCards = document.querySelectorAll('.video-card');
-            
+
             videoCards.forEach(card => {
                 const video = card.querySelector('video');
                 const playPauseBtn = card.querySelector('.play-pause-btn');
                 const volumeBtn = card.querySelector('.volume-btn');
                 const volumeSlider = card.querySelector('.volume-slider');
                 let isPlaying = false;
-                
+
                 // Set initial volume
                 video.volume = volumeSlider.value;
-                
+
                 // Hover to play/pause
                 card.addEventListener('mouseenter', () => {
                     video.play();
                     isPlaying = true;
                     updatePlayPauseIcon();
                 });
-                
+
                 card.addEventListener('mouseleave', () => {
                     video.pause();
                     isPlaying = false;
                     updatePlayPauseIcon();
                 });
-                
+
                 // Play/Pause button
                 playPauseBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -1155,7 +1191,7 @@
                     }
                     updatePlayPauseIcon();
                 });
-                
+
                 // Volume controls
                 volumeBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -1169,18 +1205,18 @@
                         volumeSlider.value = 0;
                     }
                 });
-                
+
                 volumeSlider.addEventListener('input', (e) => {
                     e.stopPropagation();
                     video.volume = e.target.value;
                     video.muted = e.target.value === '0';
                     volumeBtn.textContent = video.muted ? '🔇' : '🔊';
                 });
-                
+
                 function updatePlayPauseIcon() {
                     playPauseBtn.textContent = isPlaying ? '⏸️' : '▶️';
                 }
-                
+
                 // Prevent video controls from triggering card events
                 card.querySelector('.video-controls').addEventListener('click', (e) => {
                     e.stopPropagation();
@@ -1201,34 +1237,35 @@
 
 
 
-          // Tab switching
-    document.querySelectorAll('.tab-btn').forEach(button => {
-        button.addEventListener('click', () => {
-            const tabId = button.getAttribute('data-tab');
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+                document.getElementById(tabId).classList.add('active');
+            });
         });
-    });
 
-    // Review submission
-    document.getElementById('review-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const name = document.getElementById('reviewer-name').value.trim();
-        const text = document.getElementById('review-text').value.trim();
+        // Review submission
+        document.getElementById('review-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const name = document.getElementById('reviewer-name').value.trim();
+            const text = document.getElementById('review-text').value.trim();
 
-        if(name && text) {
-            const reviewList = document.getElementById('review-list');
-            const newReview = document.createElement('div');
-            newReview.classList.add('review');
-            newReview.textContent = `${name}: ${text}`;
-            reviewList.appendChild(newReview);
+            if (name && text) {
+                const reviewList = document.getElementById('review-list');
+                const newReview = document.createElement('div');
+                newReview.classList.add('review');
+                newReview.textContent = `${name}: ${text}`;
+                reviewList.appendChild(newReview);
 
-            document.getElementById('reviewer-name').value = '';
-            document.getElementById('review-text').value = '';
-        }
-    });
+                document.getElementById('reviewer-name').value = '';
+                document.getElementById('review-text').value = '';
+            }
+        });
     </script>
 </body>
+
 </html>

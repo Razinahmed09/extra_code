@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Tabs Interface</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .sec_tabs .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sec_tabs .main-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            color: #2c3e50;
+            /* margin-bottom: 60px; */
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .second_title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            background: linear-gradient(90deg, #57b9ff, #4b0560);
+            text-align: center;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            /* For Firefox */
+            color: transparent;
+            animation: fadeInDown 1s ease-out;
+            margin-bottom: 60px;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Tab Navigation */
+        .sec_tabs .tab-navigation {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 0;
+            background: white;
+            border-radius: 50px;
+            padding: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            position: relative;
+            animation: fadeInUp 1s ease-out 0.3s both;
+            max-width: 600px;
+            margin: 0 auto 0 auto;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .sec_tabs .tab-btn {
+            flex: 1;
+            padding: 16px 24px;
+            background: none;
+            border: none;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            border-radius: 40px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            z-index: 2;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .sec_tabs .tab-btn:hover {
+            color: #475569;
+        }
+
+        .sec_tabs .tab-btn.active {
+            color: white;
+        }
+
+        /* Active tab indicator */
+        .sec_tabs .tab-indicator {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            height: calc(100% - 16px);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 40px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+            box-shadow: 0 4px 16px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Content Container */
+        .sec_tabs .content-container {
+            margin-top: 40px;
+            position: relative;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            transition: height 0.5s ease;
+        }
+
+        .sec_tabs .tab-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px) scale(0.95);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .sec_tabs .tab-content.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+            position: relative;
+        }
+
+        /* Content Card */
+        .sec_tabs .content-card {
+            background: #1a1a1a;
+            border-radius: 24px;
+            padding: 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            min-height: 500px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sec_tabs .content-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgb(235 251 255) 0%, rgb(147 185 255 / 86%) 100%);
+            z-index: 0;
+        }
+
+        .sec_tabs .content-text {
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .sec_tabs .content-title {
+            font-size: 45px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            /* color: white; */
+            animation: slideInLeft 0.8s ease-out;
+            background: linear-gradient(135deg, #708aff 0%, #000000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            /* For Firefox */
+            color: transparent;
+        }
+        .lets_img {
+            position: relative;
+        }
+        .lets_img img {
+           
+        }
+        .lets_img .lets_shape {
+            position: absolute;
+            width: 185px;
+            animation: move 10s infinite ease-in-out;
+        }
+        @keyframes move {
+            0% {
+            }
+            50% {
+                transform: translate(20px, 0px) rotate(15deg);
+                /* background: #000; */
+                /* opacity: 0.2; */
+                border-radius: 0;
+            }
+            100% {
+            }
+        }
+        .lets_image {
+            position: relative;
+            width: 40%;
+            z-index: 1;
+        }
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .sec_tabs .content-description {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #606060;
+            margin-bottom: 40px;
+            animation: slideInLeft 0.8s ease-out 0.2s both;
+        }
+
+        .sec_tabs .learn-more-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-size: 200% auto;
+            /* make gradient larger for movement */
+            background-position: left center;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-position 0.5s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            animation: slideInLeft 0.8s ease-out 0.4s both;
+            box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
+        }
+
+        .sec_tabs .learn-more-btn:hover {
+            background-position: right center;
+            /* animate gradient shift */
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Device Mockup */
+        .sec_tabs .device-container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideInRight 0.8s ease-out;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .sec_tabs .phone-mockup {
+            /* width: 280px; */
+            /* height: 560px; */
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 35px;
+            /* padding: 20px; */
+            box-shadow: 0 20px 60px rgba(255, 255, 255, 0.205);
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .screen-content img {
+            width: 100%;
+        }
+
+        .sec_tabs .phone-mockup:hover {
+            transform: translateY(-10px) rotateY(5deg);
+            box-shadow: 0 30px 80px rgba(255, 255, 255, 0.5);
+        }
+
+        .sec_tabs .phone-screen {
+            width: 100%;
+            height: 100%;
+            /* background: #000; */
+            border-radius: 25px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .sec_tabs .screen-content {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Different screen contents for each tab */
+        .sec_tabs .dedication-screen {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .sec_tabs .dedication-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .sec_tabs .reputability-screen {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .sec_tabs .consistency-screen {
+            /* background: #000; */
+            padding: 20px;
+            /* color: #00ff88; */
+            /* font-family: 'Courier New', monospace; */
+            overflow: hidden;
+        }
+
+        .cta_number {
+            margin-bottom: 3rem;
+            display: flex;
+            gap: 15px;
+        }
+
+        .sec_tabs .cta_number a {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            padding: 10px 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            /* justify-content: space-between; */
+            /* width: 260px; */
+            padding: 10px 20px;
+        }
+
+        .sec_tabs .cta_number a lord-icon {
+            background-color: white;
+            border-radius: 12px;
+            height: 50px;
+            width: 60px;
+        }
+
+        .sec_tabs .trading-chart {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #00ff88 0%, #00ccff 50%, #ff0066 100%);
+            margin: 20px 0;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sec_tabs .chart-line {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: #00ff88;
+            top: 50%;
+            animation: chartMove 3s ease-in-out infinite;
+        }
+
+        @keyframes chartMove {
+
+            0%,
+            100% {
+                transform: translateY(0) scaleX(1);
+            }
+
+            50% {
+                transform: translateY(-20px) scaleX(1.2);
+            }
+        }
+
+        .sec_tabs .trading-analytics-screen {
+            /* background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            /* padding: 40px 20px; */
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sec_tabs .tab-navigation {
+                padding: 6px;
+                margin: 0 20px 0 20px;
+            }
+
+            .sec_tabs .tab-btn {
+                padding: 12px 16px;
+                font-size: 12px;
+            }
+
+            .sec_tabs .content-card {
+                grid-template-columns: 1fr;
+                padding: 40px 30px;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .sec_tabs .content-title {
+                font-size: 2rem;
+            }
+
+            .sec_tabs .phone-mockup {
+                width: 240px;
+                height: 480px;
+            }
+
+            .sec_tabs .main-title {
+                margin-bottom: 40px;
+            }
+        }
+
+        /* Loading animations */
+        .sec_tabs .content-card>* {
+            animation-fill-mode: both;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="sec_tabs">
+        <div class="container">
+            <h1 class="main-title">WE CAN BOOST YOUR BUSINESS</h1>
+            <h2 class="second_title">Need a Consultant For Your Business?</h2>
+
+            <nav class="tab-navigation">
+                <div class="tab-indicator"></div>
+                <button class="tab-btn active" data-tab="consistency">Contact Us Now</button>
+                <button class="tab-btn" data-tab="analytics">Check out our work</button>
+            </nav>
+
+            <div class="content-container">
+                <!-- Consistency Tab -->
+                <div class="tab-content active" id="consistency">
+                    <div class="content-card">
+                        <div class="content-text">
+                            <div>
+                            <div class="lets_img">
+                            <img class="lets_shape" src="about_3_1-shape.png" alt="">
+                            <img class="lets_image" src="about_3_1.png" alt="">
+                            </div>
+                            <h2 class="content-title">Lets Connect</h2>
+                            </div>
+                            <p class="content-description">
+                                We’d love to hear from you! Whether you have a question, feedback, or just want to
+                                connect, feel free to reach out.
+                            </p>
+                            <div class="cta_number">
+                                <a href="mailto:example@gmail.com"><lord-icon
+                                        src="https://cdn.lordicon.com/vpbspaec.json" trigger="loop" delay="1500"
+                                        state="in-assembly" colors="primary:#2516c7,secondary:#7166ee">
+                                    </lord-icon>example@gmail.com</a>
+                                <a href="tel:+1234567890"><lord-icon src="https://cdn.lordicon.com/nnzfcuqw.json"
+                                        trigger="loop" delay="1500" state="in-reveal"
+                                        colors="primary:#2516c7,secondary:#7166ee">
+                                    </lord-icon> +123 456 7890</a>
+                            </div>
+                            <button class="learn-more-btn">Learn more</button>
+                        </div>
+                        <div class="device-container">
+                            <div class="phone-mockup">
+                                <div class="phone-screen">
+                                    <div class="screen-content consistency-screen">
+                                        <!-- <div style="color: #00ff88; margin-bottom: 10px;">₿ 2,072.01</div>
+                                    <div style="color: #666; font-size: 12px;">Commodities ↑</div>
+                                    <div class="trading-chart">
+                                        <div class="chart-line"></div>
+                                    </div>
+                                    <div style="display: flex; justify-content: space-between; font-size: 10px; color: #666;">
+                                        <span>1D</span><span>1W</span><span>1M</span><span>3M</span><span>1Y</span><span>All</span>
+                                    </div> -->
+                                        <img src="about_1.gif" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trading Analytics Tab -->
+                <div class="tab-content" id="analytics">
+                    <div class="content-card">
+                        <div class="content-text">
+                            <h2 class="content-title">Having 20+ Years Of Experience.</h2>
+                            <p class="content-description">
+                                Where you can get full stack services to uplift your Brand/Business with Website Application Designing / Development, Content Management Solution, iOS, Android and Windows Application Development, Digital Marketing & Branding services.
+                            </p>
+                            <button class="learn-more-btn">About More</button>
+                        </div>
+                        <div class="device-container">
+                            <div class="phone-mockup">
+                                <div class="phone-screen">
+                                    <div class="screen-content trading-analytics-screen">
+                                        <img src="future_img.jpg" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        // Tab functionality with smooth animations
+        function initTabs() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            const tabIndicator = document.querySelector('.tab-indicator');
+
+            function updateIndicator(activeButton) {
+                const buttonRect = activeButton.getBoundingClientRect();
+                const navRect = activeButton.parentNode.getBoundingClientRect();
+                const offsetLeft = buttonRect.left - navRect.left;
+                const width = buttonRect.width;
+
+                tabIndicator.style.left = `${offsetLeft}px`;
+                tabIndicator.style.width = `${width}px`;
+            }
+
+            // Set initial indicator position
+            const activeButton = document.querySelector('.tab-btn.active');
+            updateIndicator(activeButton);
+
+            tabButtons.forEach((button, index) => {
+                button.addEventListener('click', () => {
+                    const targetTab = button.getAttribute('data-tab');
+
+                    // Remove active class from all tabs and contents
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+
+                    // Add active class to clicked tab and corresponding content
+                    button.classList.add('active');
+                    document.getElementById(targetTab).classList.add('active');
+
+                    // Update indicator position
+                    updateIndicator(button);
+
+                    // Add click feedback
+                    button.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        button.style.transform = '';
+                    }, 150);
+                });
+            });
+
+            // Update indicator on window resize
+            window.addEventListener('resize', () => {
+                const activeButton = document.querySelector('.tab-btn.active');
+                updateIndicator(activeButton);
+            });
+        }
+
+        // Add hover effects to learn more buttons
+        function initButtons() {
+            const learnMoreButtons = document.querySelectorAll('.learn-more-btn');
+
+            learnMoreButtons.forEach(button => {
+                button.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Create ripple effect
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.style.position = 'absolute';
+                    ripple.style.borderRadius = '50%';
+                    ripple.style.background = 'rgba(0, 0, 0, 0.3)';
+                    ripple.style.transform = 'scale(0)';
+                    ripple.style.animation = 'ripple 0.6s linear';
+                    ripple.style.pointerEvents = 'none';
+
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        }
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize everything when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            initTabs();
+            initButtons();
+        });
+
+        // Add smooth scroll behavior for content changes
+        function smoothScrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
+    <script src="https://cdn.lordicon.com/lordicon.js"></script>
+</body>
+
+</html>
