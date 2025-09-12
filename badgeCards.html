@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badges, Banners & Labels</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #1a1a1a;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+/* Animated Background */
+.premiumSec .animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+    animation: backgroundShift 20s ease-in-out infinite;
+}
+
+.premiumSec .floating-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.premiumSec .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(212, 175, 55, 0.3);
+    border-radius: 50%;
+    animation: float 15s infinite ease-in-out;
+}
+
+.premiumSec .particle:nth-child(1) {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+    animation-duration: 12s;
+}
+
+.premiumSec .particle:nth-child(2) {
+    top: 20%;
+    right: 20%;
+    animation-delay: 3s;
+    animation-duration: 18s;
+}
+
+.premiumSec .particle:nth-child(3) {
+    bottom: 30%;
+    left: 30%;
+    animation-delay: 6s;
+    animation-duration: 14s;
+}
+
+.premiumSec .particle:nth-child(4) {
+    bottom: 20%;
+    right: 10%;
+    animation-delay: 9s;
+    animation-duration: 16s;
+}
+
+.premiumSec .particle:nth-child(5) {
+    top: 60%;
+    left: 50%;
+    animation-delay: 12s;
+    animation-duration: 20s;
+}
+
+.premiumSec .section-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.premiumSec .section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    opacity: 0;
+    animation: fadeInUp 1s ease-out 0.5s forwards;
+}
+
+.premiumSec .section-title {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #d4af37, #f4d03f, #d4af37);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease-in-out infinite;
+    margin-bottom: 1rem;
+}
+
+.premiumSec .section-subtitle {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.premiumSec .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.premiumSec .product-card {
+    background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    transform: translateY(50px);
+    opacity: 0;
+    animation: cardSlideIn 0.8s ease-out forwards;
+}
+
+.premiumSec .product-card:nth-child(1) {
+    animation-delay: 0.2s;
+}
+
+.premiumSec .product-card:nth-child(2) {
+    animation-delay: 0.4s;
+}
+
+.premiumSec .product-card:nth-child(3) {
+    animation-delay: 0.6s;
+}
+
+.premiumSec .product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+    transition: left 0.8s ease;
+    z-index: 1;
+}
+
+.premiumSec .product-card:hover::before {
+    left: 100%;
+}
+
+.premiumSec .product-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(212, 175, 55, 0.2),
+        inset 0 1px 0 rgba(212, 175, 55, 0.1);
+}
+
+.premiumSec .image-container {
+    height: 250px;
+    position: relative;
+    overflow: hidden;
+    background: #333;
+}
+
+.premiumSec .product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: all 0.6s ease;
+    filter: brightness(0.9) contrast(1.1);
+}
+
+.premiumSec .product-card:hover .product-image {
+    transform: scale(1.05);
+    filter: brightness(1.1) contrast(1.2);
+}
+
+.premiumSec .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(212, 175, 55, 0.05));
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.premiumSec .product-card:hover .image-overlay {
+    opacity: 1;
+}
+
+.premiumSec .content-section {
+    padding: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.premiumSec .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #d4af37;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.premiumSec .card-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #d4af37, transparent);
+    transition: left 0.6s ease;
+}
+
+.premiumSec .product-card:hover .card-title::after {
+    left: 100%;
+}
+
+.premiumSec .card-description {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.7;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+}
+
+.premiumSec .product-card:hover .card-description {
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.premiumSec .decorative-line {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #d4af37, #f4d03f);
+    margin: 1.5rem 0;
+    border-radius: 2px;
+    transition: width 0.4s ease;
+}
+
+.premiumSec .product-card:hover .decorative-line {
+    width: 100px;
+}
+
+@keyframes backgroundShift {
+    0%, 100% {
+        background-position: 0% 0%;
+    }
+    50% {
+        background-position: 100% 100%;
+    }
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+        opacity: 0.3;
+    }
+    25% {
+        transform: translateY(-20px) rotate(90deg);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(-40px) rotate(180deg);
+        opacity: 0.5;
+    }
+    75% {
+        transform: translateY(-20px) rotate(270deg);
+        opacity: 0.8;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(50px) rotateX(10deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+    }
+}
+
+/* Glow effect for cards */
+.premiumSec .product-card::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #d4af37, #f4d03f, #d4af37, #f4d03f);
+    background-size: 400% 400%;
+    border-radius: 20px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    animation: gradientRotate 4s ease infinite;
+}
+
+.premiumSec .product-card:hover::after {
+    opacity: 0.3;
+}
+
+@keyframes gradientRotate {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .premiumSec .section-container {
+        padding: 2rem 1rem;
+    }
+    
+    .premiumSec .section-title {
+        font-size: 2rem;
+    }
+    
+    .premiumSec .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .premiumSec .product-card {
+        margin: 0 0.5rem;
+    }
+}
+
+/* Mouse cursor effects */
+.premiumSec .product-card {
+    cursor: pointer;
+}
+
+.premiumSec .product-card:hover {
+    cursor: pointer;
+}
+
+/* Additional sparkle effect */
+.premiumSec .sparkle {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: #d4af37;
+    border-radius: 50%;
+    animation: sparkle 2s linear infinite;
+    opacity: 0;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+    </style>
+</head>
+<body>
+    <section class="premiumSec">
+    <div class="animated-background"></div>
+    
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="section-container">
+        <div class="section-header">
+            <h1 class="section-title">Our Signature Collection</h1>
+            <p class="section-subtitle">Discover premium badges, banners, and labels that define excellence and distinction</p>
+        </div>
+
+        <div class="cards-grid">
+            <div class="product-card" data-category="badges">
+                <div class="image-container">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23333;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%231a1a1a;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='250' fill='url(%23bg)'/%3E%3Cpath d='M50 180 Q100 160 150 180 T250 180 T350 180' fill='none' stroke='%23d4af37' stroke-width='3'/%3E%3Cg transform='translate(50, 180)'%3E%3Cpath d='M0 0 L5 15 L10 12 L15 18 L20 10 L25 16 L30 8 L35 20 L40 5 L45 17 L50 12 L55 19 L60 7 L65 15 L70 11 L75 18 L80 9 L85 16 L90 13 L95 20 L100 6 L105 14 L110 10 L115 17 L120 12 L125 19 L130 8 L135 15 L140 11 L145 18 L150 9 L155 16 L160 13 L165 20 L170 6 L175 14 L180 10 L185 17 L190 12 L195 19 L200 8 L205 15 L210 11 L215 18 L220 9 L225 16 L230 13 L235 20 L240 6 L245 14 L250 10 L255 17 L260 12 L265 19 L270 8 L275 15 L280 11 L285 18 L290 9 L295 16 L300 13' fill='none' stroke='%23d4af37' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E" alt="Golden fringe trim" class="product-image">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="content-section">
+                    <h2 class="card-title">Badges: A Symbol of Identity and Distinction</h2>
+                    <div class="decorative-line"></div>
+                    <p class="card-description">
+                        Badges are more than just decorative elements—they represent identity, achievement, and belonging. Whether used for branding, recognition, or personal expression, our premium badge collection offers unparalleled quality and craftsmanship.
+                    </p>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="banners">
+                <div class="image-container">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250'%3E%3Cdefs%3E%3ClinearGradient id='bg2' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23333;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%231a1a1a;stop-opacity:1' /%3E%3C/linearGradient%3E%3ClinearGradient id='banner' x1='0%25' y1='0%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' style='stop-color:%23d4af37;stop-opacity:1' /%3E%3Cstop offset='50%25' style='stop-color:%23f4d03f;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23d4af37;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='250' fill='url(%23bg2)'/%3E%3Cpath d='M80 60 L320 60 L300 100 L320 140 L80 140 L100 100 Z' fill='url(%23banner)' opacity='0.8'/%3E%3Cpath d='M80 60 L320 60 L300 100 L320 140 L80 140 L100 100 Z' fill='none' stroke='%23000' stroke-width='2' opacity='0.3'/%3E%3Cpattern id='weave2' x='0' y='0' width='10' height='10' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0 0 L10 10 M10 0 L0 10' stroke='%23000' stroke-width='0.5' opacity='0.2'/%3E%3C/pattern%3E%3Cpath d='M80 60 L320 60 L300 100 L320 140 L80 140 L100 100 Z' fill='url(%23weave2)'/%3E%3C/svg%3E" alt="Black braided trim" class="product-image">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="content-section">
+                    <h2 class="card-title">Banners: Bold and Impactful Visual Communication</h2>
+                    <div class="decorative-line"></div>
+                    <p class="card-description">
+                        Banners are a powerful way to capture attention, convey messages, and enhance brand visibility. Whether for events, promotions, storefronts, or celebrations, banners provide a high-impact display that leaves a lasting impression.
+                    </p>
+                </div>
+            </div>
+
+            <div class="product-card" data-category="labels">
+                <div class="image-container">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250'%3E%3Cdefs%3E%3ClinearGradient id='bg3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23333;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%231a1a1a;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='250' fill='url(%23bg3)'/%3E%3Cpath d='M50 100 Q100 80 150 100 T250 100 T350 100' fill='none' stroke='%23d4af37' stroke-width='4'/%3E%3Cpath d='M50 150 Q100 130 150 150 T250 150 T350 150' fill='none' stroke='%23d4af37' stroke-width='3'/%3E%3Cg transform='translate(0, 100)'%3E%3Cpath d='M50 0 Q60 -5 70 0 T90 0 T110 0 T130 0 T150 0 T170 0 T190 0 T210 0 T230 0 T250 0 T270 0 T290 0 T310 0 T330 0 T350 0' fill='none' stroke='%23d4af37' stroke-width='2' opacity='0.7'/%3E%3Cpath d='M50 25 Q60 20 70 25 T90 25 T110 25 T130 25 T150 25 T170 25 T190 25 T210 25 T230 25 T250 25 T270 25 T290 25 T310 25 T330 25 T350 25' fill='none' stroke='%23d4af37' stroke-width='2' opacity='0.7'/%3E%3Cpath d='M50 50 Q60 45 70 50 T90 50 T110 50 T130 50 T150 50 T170 50 T190 50 T210 50 T230 50 T250 50 T270 50 T290 50 T310 50 T330 50 T350 50' fill='none' stroke='%23d4af37' stroke-width='2' opacity='0.7'/%3E%3C/g%3E%3C/svg%3E" alt="Cord braid trim" class="product-image">
+                    <div class="image-overlay"></div>
+                </div>
+                <div class="content-section">
+                    <h2 class="card-title">Labels: Essential for Branding</h2>
+                    <div class="decorative-line"></div>
+                    <p class="card-description">
+                        Labels play a crucial role in branding, product identification, and consumer information. Whether used for packaging, apparel, or promotional materials, they enhance product presentation and communicate vital details with style.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    <script>
+        // Add sparkle effects on hover
+        function createSparkle(e) {
+            const card = e.currentTarget;
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            sparkle.style.left = x + 'px';
+            sparkle.style.top = y + 'px';
+            
+            card.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 2000);
+        }
+
+        // Add event listeners to cards
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', createSparkle);
+            
+            card.addEventListener('mousemove', (e) => {
+                if (Math.random() > 0.9) {
+                    createSparkle(e);
+                }
+            });
+
+            // Add click interaction
+            card.addEventListener('click', () => {
+                const category = card.dataset.category;
+                console.log(`Clicked on ${category} card`);
+                
+                // Add pulse effect
+                card.style.animation = 'none';
+                setTimeout(() => {
+                    card.style.animation = 'pulse 0.6s ease-out';
+                }, 10);
+            });
+        });
+
+        // Add pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.05); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Smooth scroll reveal for better performance
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            observer.observe(card);
+        });
+
+        // Add mouse trail effect
+        let mouseTrail = [];
+        document.addEventListener('mousemove', (e) => {
+            mouseTrail.push({ x: e.clientX, y: e.clientY, time: Date.now() });
+            
+            // Limit trail length
+            if (mouseTrail.length > 10) {
+                mouseTrail.shift();
+            }
+        });
+
+        // Clean up old trail points
+        setInterval(() => {
+            const now = Date.now();
+            mouseTrail = mouseTrail.filter(point => now - point.time < 1000);
+        }, 100);
+    </script>
+</body>
+</html>

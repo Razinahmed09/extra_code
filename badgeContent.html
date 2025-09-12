@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artwork & Digitizing Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0b0f;
+            color: #e4e7ec;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .services-section {
+            padding: 100px 20px;
+            /* background: linear-gradient(135deg, #0a0b0f 0%, #1a1d29 50%, #0a0b0f 100%); */
+            position: relative;
+        }
+
+        .services-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .services-section .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .services-section .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .services-section .section-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: gradientShift 3s ease-in-out infinite alternate;
+        }
+
+       .services-section .section-subtitle {
+            font-size: 1.2rem;
+            color: #9ca3af;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-section .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .services-section .service-card {
+            background: rgba(17, 24, 39, 0.6);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .services-section .service-card:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .services-section .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+            transition: left 0.6s ease;
+        }
+
+        .services-section .service-card:hover::before {
+            left: 100%;
+        }
+
+        .services-section .service-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+        }
+
+        .services-section .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            transition: transform 0.3s ease;
+        }
+
+        .services-section .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+       .services-section .service-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+       .services-section .service-description {
+            color: #d1d5db;
+            margin-bottom: 25px;
+            font-size: 1rem;
+        }
+
+       .services-section .benefits-list {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+       .services-section .benefits-list li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 12px;
+            color: #e5e7eb;
+            transition: color 0.3s ease;
+        }
+
+       .services-section .benefits-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: #10b981;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+       .services-section .service-card:hover .benefits-list li::before {
+            transform: scale(1.2);
+        }
+
+       .services-section .file-formats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+       .services-section .format-tag {
+            background: rgba(139, 92, 246, 0.2);
+            color: #c4b5fd;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+       .services-section .format-tag:hover {
+            background: rgba(139, 92, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+       .services-section .cost-notice {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(251, 146, 60, 0.1));
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 40px 0;
+            text-align: center;
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+       .services-section .cost-notice-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fbbf24;
+            margin-bottom: 10px;
+        }
+
+       .services-section .cost-notice-text {
+            color: #fcd34d;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+       .services-section .floating-element {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @media (max-width: 768px) {
+           .services-section .services-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+           .services-section .section-title {
+                font-size: 2.5rem;
+            }
+            
+           .services-section .service-card {
+                padding: 30px 25px;
+            }
+            
+           .services-section .services-section {
+                padding: 60px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+           .services-section .section-title {
+                font-size: 2rem;
+            }
+            
+           .services-section .file-formats {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="services-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Services</h2>
+                <p class="section-subtitle">Transform your ideas into high-quality artwork and embroidery with our professional design services</p>
+            </div>
+
+            <div class="services-grid">
+                <div class="service-card floating-element">
+                    <div class="service-icon">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                            <circle cx="8.5" cy="8.5" r="1.5"/>
+                            <polyline points="21,15 16,10 5,21"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Artwork Enhancement</h3>
+                    <p class="service-description">
+                        Our in-house designers can re-draw your low resolution images into superb high resolution artwork. We can even develop an image from scratch using just your description or hand-drawn sketch.
+                    </p>
+                    
+                    <p class="service-description">
+                        Your artwork can be blurred, uneven or poorly coloured, yet we can quickly and efficiently enhance it to ensure your brand and logo meets the quality standards you desire.
+                    </p>
+
+                    <h4 style="color: #8b5cf6; margin-bottom: 15px; font-weight: 600;">Vector Image Benefits:</h4>
+                    <ul class="benefits-list">
+                        <li>Print at any resolution without quality loss</li>
+                        <li>Scale up and down infinitely while maintaining sharpness</li>
+                        <li>Quickly change colors without affecting quality</li>
+                    </ul>
+
+                    <div style="margin-top: 25px;">
+                        <p style="color: #9ca3af; margin-bottom: 15px; font-weight: 600;">Accepted Formats:</p>
+                        <div class="file-formats">
+                            <span class="format-tag">JPEG</span>
+                            <span class="format-tag">PNG</span>
+                            <span class="format-tag">PDF</span>
+                            <span class="format-tag">EPS</span>
+                            <span class="format-tag">AI</span>
+                            <span class="format-tag">PSD</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card floating-element">
+                    <div class="service-icon">
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="m9 9 3 3m0 0 3-3m-3 3V4m0 5H4m16 0H12"/>
+                            <path d="M21 16v2a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-2"/>
+                            <path d="m15 10-4 4-4-4"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Embroidery Digitizing</h3>
+                    <p class="service-description">
+                        Whatever your logo, we can create it as an embroidery. All we require is a good standard piece of artwork to work from.
+                    </p>
+                    
+                    <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: 10px; padding: 20px; margin: 20px 0;">
+                        <p style="color: #fca5a5; font-weight: 600; margin-bottom: 8px;">Important Note:</p>
+                        <p style="color: #fed7d7; font-size: 0.95rem;">
+                            With embroidery we create logos with physical properties (thread). The smaller the logo, the less clear fine details or text will appear.
+                        </p>
+                    </div>
+
+                    <div style="margin-top: 25px;">
+                        <p style="color: #9ca3af; margin-bottom: 15px; font-weight: 600;">Accepted Formats:</p>
+                        <div class="file-formats">
+                            <span class="format-tag">JPEG</span>
+                            <span class="format-tag">PNG</span>
+                            <span class="format-tag">PDF</span>
+                            <span class="format-tag">EPS</span>
+                            <span class="format-tag">PSD</span>
+                            <span class="format-tag">AI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cost-notice">
+                <div class="cost-notice-title">💡 Cost-Effective Tip</div>
+                <div class="cost-notice-text">
+                    The better the artwork quality you provide, the lower the cost. More work involved in reaching your desired standard means higher costs.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Add intersection observer for scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.service-card, .section-header, .cost-notice').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add hover effect for format tags
+        document.querySelectorAll('.format-tag').forEach(tag => {
+            tag.addEventListener('mouseenter', () => {
+                tag.style.transform = 'translateY(-3px) scale(1.05)';
+            });
+            
+            tag.addEventListener('mouseleave', () => {
+                tag.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add subtle parallax effect to floating elements
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.floating-element');
+            
+            parallaxElements.forEach((element, index) => {
+                const speed = 0.5 + (index * 0.1);
+                const yPos = -(scrolled * speed);
+                element.style.transform = `translateY(${yPos}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

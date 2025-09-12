@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Examples Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .example_boxes .examples-container {
+    max-width: 1200px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.example_boxes .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.example_boxes .section-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    letter-spacing: -0.02em;
+}
+
+.example_boxes .section-subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 300;
+}
+
+.example_boxes .slider-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.example_boxes .slider-wrapper {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.example_boxes .slide {
+    min-width: 100%;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+}
+
+.example_boxes .slide-content {
+    text-align: center;
+    max-width: 800px;
+}
+
+.example_boxes .slide-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideInUp 0.8s ease-out 0.3s forwards;
+}
+
+.example_boxes .slide-image {
+    width: 100%;
+    max-width: 600px;
+    height: 300px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border-radius: 12px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transform: scale(0.9);
+    animation: slideInScale 0.8s ease-out 0.1s forwards;
+    overflow: hidden;
+    position: relative;
+}
+
+.example_boxes .slide-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="20" fill="%23ffffff" opacity="0.1"/><rect y="25" width="100" height="20" fill="%23ffffff" opacity="0.05"/><rect y="50" width="100" height="20" fill="%23ffffff" opacity="0.08"/></svg>');
+}
+
+.example_boxes .slide-image-placeholder {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    font-weight: 500;
+    z-index: 1;
+    position: relative;
+}
+
+.example_boxes .slide-description {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideInUp 0.8s ease-out 0.5s forwards;
+}
+
+.example_boxes .nav-buttons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    color: white;
+    font-size: 1.2rem;
+    z-index: 10;
+}
+
+.example_boxes .nav-buttons:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.example_boxes .nav-prev {
+    left: 20px;
+}
+
+.example_boxes .nav-next {
+    right: 20px;
+}
+
+.example_boxes .dots-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.example_boxes .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.example_boxes .dot.active {
+    background: white;
+    transform: scale(1.2);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.example_boxes .dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.1);
+}
+
+@keyframes slideInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInScale {
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.example_boxes .slide.active .slide-title,
+.example_boxes .slide.active .slide-image,
+.example_boxes .slide.active .slide-description {
+    animation-play-state: running;
+}
+
+@media (max-width: 768px) {
+    .example_boxes .examples-container {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .example_boxes .section-title {
+        font-size: 2rem;
+    }
+    
+    .example_boxes .slide {
+        padding: 20px;
+    }
+    
+    .example_boxes .slide-title {
+        font-size: 1.5rem;
+    }
+    
+    .example_boxes .slide-image {
+        height: 200px;
+    }
+    
+    .example_boxes .nav-buttons {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="example_boxes">
+    <div class="examples-container">
+        <div class="section-header">
+            <h2 class="section-title">Examples</h2>
+            <p class="section-subtitle">Explore our premium fixing solutions</p>
+        </div>
+        
+        <div class="slider-container">
+            <div class="slider-wrapper" id="sliderWrapper">
+                <div class="slide active">
+                    <div class="slide-content">
+                        <h3 class="slide-title">Envelope Fixing</h3>
+                        <div class="slide-image">
+                            <span class="slide-image-placeholder">Standard Envelope Solution</span>
+                        </div>
+                        <p class="slide-description">Professional envelope fixing system designed for optimal performance and reliability in various applications.</p>
+                    </div>
+                </div>
+                
+                <div class="slide">
+                    <div class="slide-content">
+                        <h3 class="slide-title">Extended Envelope Fixing</h3>
+                        <div class="slide-image">
+                            <span class="slide-image-placeholder">Extended Coverage System</span>
+                        </div>
+                        <p class="slide-description">Enhanced envelope fixing solution with extended coverage for larger applications and improved durability.</p>
+                    </div>
+                </div>
+                
+                <div class="slide">
+                    <div class="slide-content">
+                        <h3 class="slide-title">Vertical Velcro Loop Fixing - Black</h3>
+                        <div class="slide-image">
+                            <span class="slide-image-placeholder">Black Velcro Loop System</span>
+                        </div>
+                        <p class="slide-description">Premium black vertical velcro loop fixing system offering superior grip and professional appearance.</p>
+                    </div>
+                </div>
+                
+                <div class="slide">
+                    <div class="slide-content">
+                        <h3 class="slide-title">Vertical Velcro Loop Fixing - White</h3>
+                        <div class="slide-image">
+                            <span class="slide-image-placeholder">White Velcro Loop System</span>
+                        </div>
+                        <p class="slide-description">Clean white vertical velcro loop fixing system perfect for applications requiring a pristine aesthetic.</p>
+                    </div>
+                </div>
+                
+                <div class="slide">
+                    <div class="slide-content">
+                        <h3 class="slide-title">Horizontal Velcro Loop Fixing with Wooden Dowel</h3>
+                        <div class="slide-image">
+                            <span class="slide-image-placeholder">Wooden Dowel Integration</span>
+                        </div>
+                        <p class="slide-description">Innovative horizontal fixing solution combining velcro technology with natural wooden dowel reinforcement.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="nav-buttons nav-prev" onclick="previousSlide()">‹</button>
+            <button class="nav-buttons nav-next" onclick="nextSlide()">›</button>
+        </div>
+        
+        <div class="dots-container" id="dotsContainer">
+            <div class="dot active" onclick="currentSlide(1)"></div>
+            <div class="dot" onclick="currentSlide(2)"></div>
+            <div class="dot" onclick="currentSlide(3)"></div>
+            <div class="dot" onclick="currentSlide(4)"></div>
+            <div class="dot" onclick="currentSlide(5)"></div>
+        </div>
+    </div>
+    </div>
+    <script>
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const sliderWrapper = document.getElementById('sliderWrapper');
+
+        function showSlide(index) {
+            // Remove active class from all slides and dots
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Add active class to current slide and dot
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            
+            // Move slider
+            sliderWrapper.style.transform = `translateX(-${index * 100}%)`;
+            
+            currentSlideIndex = index;
+        }
+
+        function nextSlide() {
+            const nextIndex = (currentSlideIndex + 1) % slides.length;
+            showSlide(nextIndex);
+        }
+
+        function previousSlide() {
+            const prevIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+            showSlide(prevIndex);
+        }
+
+        function currentSlide(index) {
+            showSlide(index - 1);
+        }
+
+        // Auto-play slider
+        setInterval(nextSlide, 5000);
+
+        // Touch/swipe support
+        let startX = 0;
+        let endX = 0;
+
+        sliderWrapper.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        sliderWrapper.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            const deltaX = startX - endX;
+            
+            if (Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                    nextSlide();
+                } else {
+                    previousSlide();
+                }
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                previousSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+    </script>
+</body>
+</html>

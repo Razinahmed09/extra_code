@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Fringing Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .fringing_slider .fringing-section {
+    max-width: 1400px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(30px);
+    border-radius: 40px;
+    padding: 80px 60px;
+    box-shadow: 
+        0 40px 80px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ambient background effects */
+.fringing_slider .fringing-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle at 20% 30%, rgba(255, 107, 107, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(107, 255, 170, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(107, 170, 255, 0.05) 0%, transparent 50%);
+    animation: ambientFlow 25s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.fringing_slider .content-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.fringing_slider .section-header {
+    text-align: center;
+    margin-bottom: 80px;
+    opacity: 0;
+    animation: fadeInDown 1s ease-out 0.3s forwards;
+}
+
+.fringing_slider .section-title {
+    font-size: 4rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 50%, #6bcf7f 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    letter-spacing: -0.03em;
+    text-shadow: 0 10px 40px rgba(255, 107, 107, 0.2);
+    position: relative;
+}
+
+.fringing_slider .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6b6b, #ffd93d);
+    border-radius: 2px;
+    animation: titleUnderline 1s ease-out 1.3s forwards;
+    transform-origin: center;
+    scale: 0 1;
+}
+
+.fringing_slider .section-subtitle {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.fringing_slider .section-description {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.6);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Slider Container */
+.fringing_slider .slider-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 32px;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 40px 20px;
+    margin-bottom: 50px;
+}
+
+.fringing_slider .slider-track {
+    display: flex;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 30px;
+}
+
+.fringing_slider .slide {
+    min-width: calc(33.333% - 20px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0.6;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: scale(0.85);
+    flex-shrink: 0;
+}
+
+.fringing_slider .slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.fringing_slider .slide.adjacent {
+    opacity: 0.8;
+    transform: scale(0.92);
+}
+
+.fringing_slider .fringe-sample {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 30px;
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.15);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    cursor: pointer;
+}
+
+.fringing_slider .slide:hover .fringe-sample,
+.fringing_slider .slide.active .fringe-sample {
+    box-shadow: 
+        0 30px 60px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Individual fringe styles */
+.fringing_slider .fringe-navy {
+    background: radial-gradient(circle at center, #1e3a8a 0%, #1e40af 50%, #1d4ed8 100%),
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px);
+}
+.fringing_slider .fringe-navy::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.2) 0px,
+        transparent 1px,
+        transparent 4px,
+        rgba(255, 255, 255, 0.2) 5px
+    );
+}
+
+.fringing_slider .fringe-white {
+    background: radial-gradient(circle at center, #f8fafc 0%, #e2e8f0 50%, #cbd5e1 100%),
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px);
+}
+.fringing_slider .fringe-white::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        transparent 1px,
+        transparent 4px,
+        rgba(0, 0, 0, 0.1) 5px
+    );
+}
+
+.fringing_slider .fringe-gold {
+    background: radial-gradient(circle at center, #fbbf24 0%, #f59e0b 50%, #d97706 100%),
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.3) 2px, rgba(255,255,255,0.3) 4px);
+}
+.fringing_slider .fringe-gold::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.4) 0px,
+        transparent 1px,
+        transparent 4px,
+        rgba(255, 255, 255, 0.4) 5px
+    );
+}
+
+.fringing_slider .fringe-cream {
+    background: radial-gradient(circle at center, #fef3c7 0%, #fde68a 50%, #f59e0b 100%),
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px);
+}
+.fringing_slider .fringe-cream::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.1) 0px,
+        transparent 1px,
+        transparent 4px,
+        rgba(0, 0, 0, 0.1) 5px
+    );
+}
+
+.fringing_slider .fringe-black {
+    background: radial-gradient(circle at center, #1f2937 0%, #111827 50%, #000000 100%),
+                repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px);
+}
+.fringing_slider .fringe-black::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.2) 0px,
+        transparent 1px,
+        transparent 4px,
+        rgba(255, 255, 255, 0.2) 5px
+    );
+}
+
+.fringing_slider .sample-label {
+    text-align: center;
+}
+
+.fringing_slider .sample-name {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.fringing_slider .sample-description {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.4;
+    max-width: 180px;
+}
+
+/* Navigation Controls */
+.fringing_slider .nav-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.fringing_slider .nav-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fringing_slider .nav-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.fringing_slider .nav-btn:active {
+    transform: translateY(0);
+}
+
+/* Dots Indicator */
+.fringing_slider .dots-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.fringing_slider .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.fringing_slider .dot.active {
+    background: white;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    transform: scale(1.3);
+}
+
+.fringing_slider .dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.1);
+}
+
+/* Progress bar */
+.fringing_slider .progress-bar {
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 1px;
+    margin: 30px 0;
+    overflow: hidden;
+}
+
+.fringing_slider .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff6b6b, #ffd93d);
+    border-radius: 1px;
+    transition: width 0.8s ease;
+    width: 20%;
+}
+
+/* Floating particles */
+.fringing_slider .particle {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    animation: particleFloat 12s linear infinite;
+}
+
+.fringing_slider .particle:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+.fringing_slider .particle:nth-child(2) { top: 20%; right: 15%; animation-delay: 3s; }
+.fringing_slider .particle:nth-child(3) { bottom: 30%; left: 20%; animation-delay: 6s; }
+.fringing_slider .particle:nth-child(4) { bottom: 15%; right: 25%; animation-delay: 9s; }
+
+/* Animations (global keyframes stay unchanged) */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes titleUnderline {
+    to { scale: 1 1; }
+}
+
+@keyframes ambientFlow {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(30px, -30px) rotate(90deg); }
+    50% { transform: translate(60px, 0) rotate(180deg); }
+    75% { transform: translate(30px, 30px) rotate(270deg); }
+}
+
+@keyframes particleFloat {
+    0%, 100% { transform: translate(0, 0) scale(0.5); opacity: 0.3; }
+    25% { transform: translate(100px, -50px) scale(1); opacity: 1; }
+    50% { transform: translate(200px, 0px) scale(0.8); opacity: 0.7; }
+    75% { transform: translate(300px, 50px) scale(1.2); opacity: 0.9; }
+}
+
+/* Responsive Design Breakpoints */
+@media (min-width: 1200px) {
+    .fringing_slider .slide { min-width: calc(33.333% - 20px); }
+}
+
+@media (max-width: 1199px) and (min-width: 992px) {
+    .fringing_slider .slide { min-width: calc(33.333% - 20px); }
+    .fringing_slider .fringe-sample { width: 180px; height: 180px; }
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+    .fringing_slider .slide { min-width: calc(50% - 15px); }
+    .fringing_slider .fringing-section { padding: 60px 40px; }
+    .fringing_slider .section-title { font-size: 3rem; }
+    .fringing_slider .fringe-sample { width: 160px; height: 160px; }
+}
+
+@media (max-width: 767px) and (min-width: 576px) {
+    .fringing_slider .slide { min-width: calc(50% - 15px); }
+    .fringing_slider .fringing-section { padding: 40px 30px; }
+    .fringing_slider .section-title { font-size: 2.5rem; }
+    .fringing_slider .fringe-sample { width: 140px; height: 140px; }
+    .fringing_slider .sample-name { font-size: 1.1rem; }
+}
+
+@media (max-width: 575px) and (min-width: 480px) {
+    .fringing_slider .slide { min-width: calc(100% - 10px); }
+    .fringing_slider .fringing-section { padding: 40px 20px; margin: 20px 10px; }
+    .fringing_slider .section-title { font-size: 2rem; }
+    .fringing_slider .fringe-sample { width: 160px; height: 160px; }
+}
+        /* Mobile Small (0 - 479px) - 1 slide */
+       @media (max-width: 479px) {
+    .fringing_slider .slide {
+        min-width: calc(100% - 10px);
+    }
+
+    .fringing_slider .fringing-section {
+        padding: 30px 15px;
+        margin: 15px 10px;
+        border-radius: 20px;
+    }
+
+    .fringing_slider .section-title {
+        font-size: 1.8rem;
+    }
+
+    .fringing_slider .section-header {
+        margin-bottom: 40px;
+    }
+
+    .fringing_slider .fringe-sample {
+        width: 140px;
+        height: 140px;
+    }
+
+    .fringing_slider .sample-name {
+        font-size: 1rem;
+    }
+
+    .fringing_slider .sample-description {
+        font-size: 0.9rem;
+    }
+
+    .fringing_slider .nav-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 1.2rem;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="fringing_slider">
+    <div class="fringing-section">
+        <!-- Floating particles -->
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        
+        <div class="content-wrapper">
+            <div class="section-header">
+                <h2 class="section-title">Fringing</h2>
+                <p class="section-subtitle">Premium Decorative Finishes</p>
+                <p class="section-description">
+                    Explore our collection of high-quality fringing options to add elegant finishing touches to your banners and displays
+                </p>
+            </div>
+            
+            <div class="slider-container">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slide active">
+                        <div class="fringe-sample fringe-navy"></div>
+                        <div class="sample-label">
+                            <h3 class="sample-name">Navy Blue</h3>
+                            <p class="sample-description">Classic navy fringing for professional and elegant displays</p>
+                        </div>
+                    </div>
+                    
+                    <div class="slide adjacent">
+                        <div class="fringe-sample fringe-white"></div>
+                        <div class="sample-label">
+                            <h3 class="sample-name">Pure White</h3>
+                            <p class="sample-description">Clean white fringing perfect for minimalist and modern designs</p>
+                        </div>
+                    </div>
+                    
+                    <div class="slide adjacent">
+                        <div class="fringe-sample fringe-gold"></div>
+                        <div class="sample-label">
+                            <h3 class="sample-name">Luxe Gold</h3>
+                            <p class="sample-description">Premium gold fringing for luxury and high-end presentations</p>
+                        </div>
+                    </div>
+                    
+                    <div class="slide">
+                        <div class="fringe-sample fringe-cream"></div>
+                        <div class="sample-label">
+                            <h3 class="sample-name">Cream</h3>
+                            <p class="sample-description">Soft cream fringing for warm and sophisticated applications</p>
+                        </div>
+                    </div>
+                    
+                    <div class="slide">
+                        <div class="fringe-sample fringe-black"></div>
+                        <div class="sample-label">
+                            <h3 class="sample-name">Deep Black</h3>
+                            <p class="sample-description">Bold black fringing for dramatic and impactful displays</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="nav-controls">
+                <button class="nav-btn" id="prevBtn" onclick="previousSlide()">‹</button>
+                <button class="nav-btn" id="nextBtn" onclick="nextSlide()">›</button>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="dots-container" id="dotsContainer">
+                <div class="dot active" onclick="goToSlide(0)"></div>
+                <div class="dot" onclick="goToSlide(1)"></div>
+                <div class="dot" onclick="goToSlide(2)"></div>
+                <div class="dot" onclick="goToSlide(3)"></div>
+                <div class="dot" onclick="goToSlide(4)"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        const sliderTrack = document.getElementById('sliderTrack');
+        const progressFill = document.getElementById('progressFill');
+        const totalSlides = slides.length;
+
+        // Get current slides per view based on screen size
+        function getSlidesPerView() {
+            const width = window.innerWidth;
+            if (width >= 992) return 3;
+            if (width >= 576) return 2;
+            return 1;
+        }
+
+        function updateSlider() {
+            const slidesPerView = getSlidesPerView();
+            const maxIndex = Math.max(0, totalSlides - slidesPerView);
+            
+            // Prevent going beyond the last meaningful position
+            if (currentIndex > maxIndex) {
+                currentIndex = maxIndex;
+            }
+
+            // Remove all active/adjacent classes
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active', 'adjacent');
+                
+                // For desktop (3 slides), mark center slide as active and adjacent ones
+                if (slidesPerView === 3) {
+                    if (index === currentIndex + 1) {
+                        slide.classList.add('active');
+                    } else if (index === currentIndex || index === currentIndex + 2) {
+                        slide.classList.add('adjacent');
+                    }
+                }
+                // For tablet (2 slides), mark first as active, second as adjacent
+                else if (slidesPerView === 2) {
+                    if (index === currentIndex) {
+                        slide.classList.add('active');
+                    } else if (index === currentIndex + 1) {
+                        slide.classList.add('adjacent');
+                    }
+                }
+                // For mobile (1 slide), mark only current as active
+                else {
+                    if (index === currentIndex) {
+                        slide.classList.add('active');
+                    }
+                }
+            });
+
+            // Update dots
+            dots.forEach((dot, index) => {
+                const isActive = slidesPerView === 3 ? 
+                    (index === currentIndex + 1) : 
+                    (index === currentIndex);
+                dot.classList.toggle('active', isActive);
+            });
+
+            // Calculate translation
+            let translateX;
+            if (slidesPerView === 3) {
+                // For 3 slides: move by slide width (33.333%)
+                translateX = -(currentIndex * 33.333);
+            } else if (slidesPerView === 2) {
+                // For 2 slides: move by slide width (50%)
+                translateX = -(currentIndex * 50);
+            } else {
+                // For 1 slide: move by slide width (100%)
+                translateX = -(currentIndex * 100);
+            }
+
+            sliderTrack.style.transform = `translateX(${translateX}%)`;
+
+            // Update progress bar
+            const progressIndex = slidesPerView === 3 ? currentIndex + 1 : currentIndex;
+            const progressWidth = ((progressIndex + 1) / totalSlides) * 100;
+            progressFill.style.width = `${progressWidth}%`;
+        }
+
+        function nextSlide() {
+            const slidesPerView = getSlidesPerView();
+            const maxIndex = Math.max(0, totalSlides - slidesPerView);
+            
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+            } else {
+                currentIndex = 0; // Loop back to start
+            }
+            updateSlider();
+        }
+
+        function previousSlide() {
+            const slidesPerView = getSlidesPerView();
+            const maxIndex = Math.max(0, totalSlides - slidesPerView);
+            
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = maxIndex; // Loop to end
+            }
+            updateSlider();
+        }
+
+        function goToSlide(index) {
+            const slidesPerView = getSlidesPerView();
+            
+            if (slidesPerView === 3) {
+                // For 3 slides, adjust index to show clicked slide in center
+                currentIndex = Math.max(0, Math.min(index - 1, totalSlides - slidesPerView));
+            } else {
+                // For 2 or 1 slide, go directly to that slide
+                const maxIndex = Math.max(0, totalSlides - slidesPerView);
+                currentIndex = Math.min(index, maxIndex);
+            }
+            updateSlider();
+        }
+
+        // Touch/swipe support
+        let startX = 0;
+        let endX = 0;
+
+        sliderTrack.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        sliderTrack.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            const deltaX = startX - endX;
+            
+            if (Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                    nextSlide();
+                } else {
+                    previousSlide();
+                }
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                previousSlide();
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+            }
+        });
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            updateSlider();
+        });
+
+        // Initialize slider
+        updateSlider();
+    </script>
+</body>
+</html>

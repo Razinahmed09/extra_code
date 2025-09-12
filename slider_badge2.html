@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fringe Carousel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        /* Main Container - Unique naming */
+        .fringe-showcase {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 60px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .showcase-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .header-title {
+            font-size: 2.5rem;
+            color: #d63031;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: -1px;
+        }
+
+        .header-subtitle {
+            font-size: 1.1rem;
+            color: #636e72;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Carousel Wrapper */
+        .fringe-carousel {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .carousel-viewport {
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 25px;
+            padding: 20px 0;
+        }
+
+        .fringe-item {
+            flex: 0 0 auto;
+            width: calc(20% - 20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            opacity: 0.7;
+            transform: scale(0.9);
+            transition: all 0.5s ease;
+            cursor: pointer;
+        }
+
+        .fringe-item.current-active {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        .fringe-item.side-visible {
+            opacity: 0.85;
+            transform: scale(0.95);
+        }
+
+        .fringe-circle {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #e0e0e0;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .fringe-item:hover .fringe-circle,
+        .fringe-item.current-active .fringe-circle {
+            border-color: #d63031;
+            box-shadow: 0 15px 40px rgba(214, 48, 49, 0.3);
+            transform: translateY(-5px);
+        }
+
+        /* Fringe Pattern Styles */
+        .fringe-navy {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            position: relative;
+        }
+
+        .fringe-navy::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.3) 0px,
+                    rgba(255, 255, 255, 0.3) 2px,
+                    transparent 2px,
+                    transparent 6px
+                ),
+                linear-gradient(180deg, transparent 0%, rgba(30, 58, 138, 0.9) 100%);
+        }
+
+        .fringe-white {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            position: relative;
+        }
+
+        .fringe-white::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(100, 116, 139, 0.4) 0px,
+                    rgba(100, 116, 139, 0.4) 2px,
+                    transparent 2px,
+                    transparent 6px
+                ),
+                linear-gradient(180deg, transparent 0%, rgba(226, 232, 240, 0.9) 100%);
+        }
+
+        .fringe-gold {
+            background: linear-gradient(135deg, #f59e0b 0%, #eab308 100%);
+            position: relative;
+        }
+
+        .fringe-gold::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.5) 0px,
+                    rgba(255, 255, 255, 0.5) 2px,
+                    transparent 2px,
+                    transparent 6px
+                ),
+                linear-gradient(180deg, transparent 0%, rgba(245, 158, 11, 0.9) 100%);
+        }
+
+        .fringe-cream {
+            background: linear-gradient(135deg, #fef3c7 0%, #fbbf24 100%);
+            position: relative;
+        }
+
+        .fringe-cream::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(146, 64, 14, 0.3) 0px,
+                    rgba(146, 64, 14, 0.3) 2px,
+                    transparent 2px,
+                    transparent 6px
+                ),
+                linear-gradient(180deg, transparent 0%, rgba(251, 191, 36, 0.9) 100%);
+        }
+
+        .fringe-black {
+            background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+            position: relative;
+        }
+
+        .fringe-black::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255, 255, 255, 0.3) 0px,
+                    rgba(255, 255, 255, 0.3) 2px,
+                    transparent 2px,
+                    transparent 6px
+                ),
+                linear-gradient(180deg, transparent 0%, rgba(17, 24, 39, 0.9) 100%);
+        }
+
+        .item-label {
+            max-width: 160px;
+        }
+
+        .label-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2d3436;
+            margin-bottom: 8px;
+        }
+
+        .label-desc {
+            font-size: 0.9rem;
+            color: #636e72;
+            line-height: 1.4;
+        }
+
+        /* Navigation Controls */
+        .carousel-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background: #d63031;
+            color: white;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(214, 48, 49, 0.3);
+        }
+
+        .control-btn:hover {
+            background: #c92a2a;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(214, 48, 49, 0.4);
+        }
+
+        .control-btn:active {
+            transform: translateY(0);
+        }
+
+        .control-btn:disabled {
+            background: #ddd;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Pagination Dots */
+        .carousel-pagination {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .pagination-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #ddd;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pagination-dot.dot-active {
+            background: #d63031;
+            transform: scale(1.3);
+            box-shadow: 0 0 10px rgba(214, 48, 49, 0.5);
+        }
+
+        .pagination-dot:hover {
+            background: #fab1a0;
+        }
+
+        /* Progress Indicator */
+        .progress-track {
+            width: 100%;
+            height: 3px;
+            background: #e0e0e0;
+            border-radius: 2px;
+            margin: 25px 0;
+            overflow: hidden;
+        }
+
+        .progress-indicator {
+            height: 100%;
+            background: linear-gradient(90deg, #d63031, #e84393);
+            border-radius: 2px;
+            transition: width 0.6s ease;
+            width: 20%;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1200px) {
+            .fringe-item {
+                width: calc(33.333% - 17px);
+            }
+            
+            .fringe-circle {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .fringe-showcase {
+                padding: 40px 20px;
+            }
+            
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .fringe-item {
+                width: calc(50% - 12px);
+            }
+            
+            .fringe-circle {
+                width: 140px;
+                height: 140px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .fringe-item {
+                width: calc(100% - 10px);
+            }
+            
+            .fringe-circle {
+                width: 160px;
+                height: 160px;
+            }
+            
+            .carousel-controls {
+                gap: 20px;
+            }
+        }
+
+        /* Smooth Animations */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fringe-showcase {
+            animation: slideIn 0.8s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="fringing_slider">
+    <div class="fringe-showcase">
+        <div class="showcase-header">
+            <h2 class="header-title">Fringing</h2>
+            <p class="header-subtitle">
+                Premium decorative fringing collection featuring high-quality materials and elegant finishes for professional displays
+            </p>
+        </div>
+
+        <div class="fringe-carousel">
+            <div class="carousel-viewport">
+                <div class="carousel-track" id="fringeTrack">
+                    <div class="fringe-item current-active">
+                        <div class="fringe-circle fringe-navy"></div>
+                        <div class="item-label">
+                            <h3 class="label-name">Navy Blue</h3>
+                            <p class="label-desc">Professional navy fringing perfect for corporate and formal events</p>
+                        </div>
+                    </div>
+
+                    <div class="fringe-item side-visible">
+                        <div class="fringe-circle fringe-white"></div>
+                        <div class="item-label">
+                            <h3 class="label-name">Pure White</h3>
+                            <p class="label-desc">Clean white fringing ideal for minimalist and contemporary designs</p>
+                        </div>
+                    </div>
+
+                    <div class="fringe-item side-visible">
+                        <div class="fringe-circle fringe-gold"></div>
+                        <div class="item-label">
+                            <h3 class="label-name">Luxe Gold</h3>
+                            <p class="label-desc">Premium gold fringing for luxury presentations and special occasions</p>
+                        </div>
+                    </div>
+
+                    <div class="fringe-item">
+                        <div class="fringe-circle fringe-cream"></div>
+                        <div class="item-label">
+                            <h3 class="label-name">Warm Cream</h3>
+                            <p class="label-desc">Soft cream fringing offering warmth and sophistication to any display</p>
+                        </div>
+                    </div>
+
+                    <div class="fringe-item">
+                        <div class="fringe-circle fringe-black"></div>
+                        <div class="item-label">
+                            <h3 class="label-name">Deep Black</h3>
+                            <p class="label-desc">Bold black fringing for dramatic impact and modern aesthetics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="carousel-controls">
+            <button class="control-btn" id="prevControl" onclick="moveToPrevious()">‹</button>
+            <button class="control-btn" id="nextControl" onclick="moveToNext()">›</button>
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-indicator" id="progressBar"></div>
+        </div>
+
+        <div class="carousel-pagination" id="paginationDots">
+            <div class="pagination-dot dot-active" onclick="jumpToItem(0)"></div>
+            <div class="pagination-dot" onclick="jumpToItem(1)"></div>
+            <div class="pagination-dot" onclick="jumpToItem(2)"></div>
+            <div class="pagination-dot" onclick="jumpToItem(3)"></div>
+            <div class="pagination-dot" onclick="jumpToItem(4)"></div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        let activeIndex = 0;
+        const fringeItems = document.querySelectorAll('.fringe-item');
+        const paginationDots = document.querySelectorAll('.pagination-dot');
+        const carouselTrack = document.getElementById('fringeTrack');
+        const progressBar = document.getElementById('progressBar');
+        const totalItems = fringeItems.length;
+
+        // Get items per view based on screen size
+        function getItemsPerView() {
+            const screenWidth = window.innerWidth;
+            if (screenWidth >= 1200) return 3;
+            if (screenWidth >= 768) return 2;
+            return 1;
+        }
+
+        function updateCarousel() {
+            const itemsPerView = getItemsPerView();
+            const maxIndex = Math.max(0, totalItems - itemsPerView);
+            
+            // Prevent overflow
+            if (activeIndex > maxIndex) {
+                activeIndex = maxIndex;
+            }
+
+            // Update item states
+            fringeItems.forEach((item, index) => {
+                item.classList.remove('current-active', 'side-visible');
+                
+                if (itemsPerView === 3) {
+                    // Desktop: center item active, sides visible
+                    if (index === activeIndex + 1) {
+                        item.classList.add('current-active');
+                    } else if (index === activeIndex || index === activeIndex + 2) {
+                        item.classList.add('side-visible');
+                    }
+                } else if (itemsPerView === 2) {
+                    // Tablet: first active, second visible
+                    if (index === activeIndex) {
+                        item.classList.add('current-active');
+                    } else if (index === activeIndex + 1) {
+                        item.classList.add('side-visible');
+                    }
+                } else {
+                    // Mobile: only current active
+                    if (index === activeIndex) {
+                        item.classList.add('current-active');
+                    }
+                }
+            });
+
+            // Update pagination dots
+            paginationDots.forEach((dot, index) => {
+                const isActive = itemsPerView === 3 ? 
+                    (index === activeIndex + 1) : 
+                    (index === activeIndex);
+                dot.classList.toggle('dot-active', isActive);
+            });
+
+            // Move carousel
+            let translateValue;
+            if (itemsPerView === 3) {
+                translateValue = -(activeIndex * 33.333);
+            } else if (itemsPerView === 2) {
+                translateValue = -(activeIndex * 50);
+            } else {
+                translateValue = -(activeIndex * 100);
+            }
+
+            carouselTrack.style.transform = `translateX(${translateValue}%)`;
+
+            // Update progress
+            const progressIndex = itemsPerView === 3 ? activeIndex + 1 : activeIndex;
+            const progressPercent = ((progressIndex + 1) / totalItems) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+
+            // Update control buttons
+            const prevBtn = document.getElementById('prevControl');
+            const nextBtn = document.getElementById('nextControl');
+            const maxIdx = Math.max(0, totalItems - itemsPerView);
+            
+            prevBtn.disabled = activeIndex <= 0;
+            nextBtn.disabled = activeIndex >= maxIdx;
+        }
+
+        function moveToNext() {
+            const itemsPerView = getItemsPerView();
+            const maxIndex = Math.max(0, totalItems - itemsPerView);
+            
+            if (activeIndex < maxIndex) {
+                activeIndex++;
+            } else {
+                activeIndex = 0; // Loop to beginning
+            }
+            updateCarousel();
+        }
+
+        function moveToPrevious() {
+            const itemsPerView = getItemsPerView();
+            const maxIndex = Math.max(0, totalItems - itemsPerView);
+            
+            if (activeIndex > 0) {
+                activeIndex--;
+            } else {
+                activeIndex = maxIndex; // Loop to end
+            }
+            updateCarousel();
+        }
+
+        function jumpToItem(index) {
+            const itemsPerView = getItemsPerView();
+            
+            if (itemsPerView === 3) {
+                // For 3-item view, center the clicked item
+                activeIndex = Math.max(0, Math.min(index - 1, totalItems - itemsPerView));
+            } else {
+                // For 2 or 1-item view, go directly to that item
+                const maxIndex = Math.max(0, totalItems - itemsPerView);
+                activeIndex = Math.min(index, maxIndex);
+            }
+            updateCarousel();
+        }
+
+        // Touch/Swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        carouselTrack.addEventListener('touchstart', (e) => {
+            touchStartX = e.touches[0].clientX;
+        });
+
+        carouselTrack.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].clientX;
+            const deltaX = touchStartX - touchEndX;
+            
+            if (Math.abs(deltaX) > 50) {
+                if (deltaX > 0) {
+                    moveToNext();
+                } else {
+                    moveToPrevious();
+                }
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                moveToPrevious();
+            } else if (e.key === 'ArrowRight') {
+                moveToNext();
+            }
+        });
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+            updateCarousel();
+        });
+
+        // Initialize
+        updateCarousel();
+
+        // Auto-play (optional - remove if not needed)
+        /*
+        setInterval(() => {
+            moveToNext();
+        }, 5000);
+        */
+    </script>
+</body>
+</html>

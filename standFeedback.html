@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .main-title {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #ffd700, #ffed4e, #ffc107);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        @keyframes titleGlow {
+            from {
+                filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5));
+            }
+            to {
+                filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+            }
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .feedback-grid {
+            display: grid;
+            gap: 2rem;
+            animation: staggerIn 0.8s ease-out;
+        }
+
+        .feedback-card {
+            background: linear-gradient(145deg, #2a2a2a, #1f1f1f);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            animation: slideInUp 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(50px);
+        }
+
+        .feedback-card:nth-child(1) { animation-delay: 0.2s; }
+        .feedback-card:nth-child(2) { animation-delay: 0.4s; }
+        .feedback-card:nth-child(3) { animation-delay: 0.6s; }
+        .feedback-card:nth-child(4) { animation-delay: 0.8s; }
+        .feedback-card:nth-child(5) { animation-delay: 1s; }
+
+        .feedback-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #ffd700, transparent);
+            transition: left 0.8s ease;
+        }
+
+        .feedback-card:hover::before {
+            left: 100%;
+        }
+
+        .feedback-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.1);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .feedback-content {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #d0d0d0;
+        }
+
+        .feedback-author {
+            text-align: right;
+            font-weight: bold;
+            color: #ffd700;
+            font-size: 1.1rem;
+            text-shadow: 0 2px 4px rgba(255, 215, 0, 0.3);
+        }
+
+        .quote-icon {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            font-size: 3rem;
+            color: rgba(255, 215, 0, 0.3);
+            font-family: serif;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes staggerIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .particle:nth-child(1) {
+            width: 4px;
+            height: 4px;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .particle:nth-child(2) {
+            width: 6px;
+            height: 6px;
+            left: 20%;
+            animation-delay: 1s;
+        }
+
+        .particle:nth-child(3) {
+            width: 3px;
+            height: 3px;
+            left: 30%;
+            animation-delay: 2s;
+        }
+
+        .particle:nth-child(4) {
+            width: 5px;
+            height: 5px;
+            left: 80%;
+            animation-delay: 3s;
+        }
+
+        .particle:nth-child(5) {
+            width: 4px;
+            height: 4px;
+            left: 90%;
+            animation-delay: 4s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-10vh) rotate(180deg);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .feedback-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <h1 class="main-title">Feedback</h1>
+        
+        <p class="intro">
+            Here are just a few things our customers had to say about us and our services:
+        </p>
+
+        <div class="feedback-grid">
+            <div class="feedback-card">
+                <div class="quote-icon">"</div>
+                <div class="feedback-content">
+                    The banner has arrived this morning. They fit my Manhasset stand perfectly and the quality of tailoring appears to be of equal high calibre. Thanks so much for your quick response and on-time delivery. When I gave you my credit card number, I felt that I had taken somewhat of a risk doing business with a small, unknown (to me) company in another country. However, you delivered on all commitments you made... I would be happy to serve as a reference for your business if you want to expand into the US market. Again, thanks very much.
+                </div>
+                <div class="feedback-author">D. Rasmussen, New Hampshire, USA</div>
+            </div>
+
+            <div class="feedback-card">
+                <div class="quote-icon">"</div>
+                <div class="feedback-content">
+                    Hi, AMAZING, STUPENDOUS, WONDERFUL. Thanks
+                </div>
+                <div class="feedback-author">J. Chamberlain, Aberystwyth</div>
+            </div>
+
+            <div class="feedback-card">
+                <div class="quote-icon">"</div>
+                <div class="feedback-content">
+                    The falls have arrived safely and are looking superb. I haven't seen them on the stands yet, as they are in the bell store but tried one on my own music stand and was very pleased with the appearance. Thank you once again for your efforts which have been much appreciated.
+                </div>
+                <div class="feedback-author">Dunblane Cathedral Handbell Ringers, Scotland</div>
+            </div>
+
+            <div class="feedback-card">
+                <div class="quote-icon">"</div>
+                <div class="feedback-content">
+                    At last we have had Maureen's birthday celebration and I presented our beautiful Glosando music stand falls to her... As I guessed, she was over the moon - absolutely delighted and thrilled with the beautifully finished product.<br><br>
+                    We had a very happy birthday celebration with lots of enjoyable harping as well as yummy food and drink. But the music stand falls were definitely the best surprise of the day!
+                </div>
+                <div class="feedback-author">J. Matthewson, Dumfries, Scotland</div>
+            </div>
+
+            <div class="feedback-card">
+                <div class="quote-icon">"</div>
+                <div class="feedback-content">
+                    Just wanted to let you know that the stand banners arrived yesterday and we're delighted with them.<br><br>
+                    Thanks for all your hard work and you infinite patience.<br><br>
+                    Very best wishes
+                </div>
+                <div class="feedback-author">Paul, Surlingham</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

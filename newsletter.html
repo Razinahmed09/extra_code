@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newsletter & Social Follow Section</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4a1a5c 0%, #2d1b69 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .news_letter .container {
+            max-width: 1200px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 60px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .news_letter .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .news_letter .section-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            letter-spacing: -0.02em;
+        }
+
+        .news_letter .section-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .news_letter .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .news_letter .newsletter-section {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .news_letter .newsletter-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .news_letter .newsletter-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .news_letter .newsletter-description {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .news_letter .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .news_letter .input-group {
+            display: flex;
+            gap: 12px;
+        }
+
+        .news_letter .email-input {
+            flex: 1;
+            padding: 16px 20px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #ffffff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .news_letter .email-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .news_letter .email-input:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.2);
+        }
+
+        .news_letter .subscribe-btn {
+            padding: 16px 32px;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: #ffffff;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+            white-space: nowrap;
+        }
+
+        .news_letter .subscribe-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        .news_letter .subscribe-btn:active {
+            transform: translateY(0);
+        }
+
+        .news_letter .social-section {
+            text-align: center;
+        }
+
+        .news_letter .social-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+
+        .news_letter .social-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 30px;
+        }
+
+        .news_letter .social-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 30px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            backdrop-filter: blur(10px);
+        }
+
+        .news_letter .social-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.12);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .news_letter .social-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 16px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        .news_letter .facebook-icon {
+            background: linear-gradient(45deg, #1877f2, #42a5f5);
+        }
+
+        .news_letter .instagram-icon {
+            background: linear-gradient(45deg, #e4405f, #ffdd55);
+        }
+
+        .news_letter .twitter-icon {
+            background: linear-gradient(45deg, #1da1f2, #00c9ff);
+        }
+
+        .news_letter .social-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+
+        .news_letter .social-handle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .news_letter .connect-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .news_letter .success-message {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-top: 16px;
+            text-align: center;
+            display: none;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 968px) {
+            .news_letter .content-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .news_letter .section-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .news_letter .container {
+                padding: 40px 24px;
+            }
+
+            .news_letter .social-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .news_letter .input-group {
+                flex-direction: column;
+            }
+
+            .news_letter .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .news_letter .container {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .news_letter .social-card {
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .news_letter .social-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .news_letter .social-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .news_letter .social-card:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="news_letter">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Stay Connected</h1>
+                <p class="section-subtitle">Join our community and never miss an update. Get the latest news, exclusive
+                    content, and special offers delivered straight to your inbox.</p>
+            </div>
+
+            <div class="content-grid">
+                <!-- Newsletter Section -->
+                <div class="newsletter-section">
+                    <h2 class="newsletter-title">
+                        <div class="newsletter-icon">📧</div>
+                        Newsletter
+                    </h2>
+                    <p class="newsletter-description">
+                        Subscribe to our weekly newsletter and be the first to know about new features, industry
+                        insights, and exclusive content tailored just for you.
+                    </p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <div class="input-group">
+                            <input type="email" class="email-input" placeholder="Enter your email address" required
+                                id="emailInput">
+                            <button type="submit" class="subscribe-btn">
+                                Subscribe
+                            </button>
+                        </div>
+                        <div class="success-message" id="successMessage">
+                            🎉 Thank you for subscribing! Check your email to confirm your subscription.
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Social Media Section -->
+                <div class="social-section">
+                    <h2 class="social-title">Follow Us</h2>
+                    <p class="connect-text">Connect with us on social media for daily updates and behind-the-scenes
+                        content</p>
+
+                    <div class="social-grid">
+                        <a href="#" class="social-card" onclick="handleSocialClick('Facebook')">
+                            <div class="social-icon facebook-icon">📘</div>
+                            <div class="social-name">Facebook</div>
+                            <div class="social-handle">@yourcompany</div>
+                        </a>
+
+                        <a href="#" class="social-card" onclick="handleSocialClick('Instagram')">
+                            <div class="social-icon instagram-icon">📷</div>
+                            <div class="social-name">Instagram</div>
+                            <div class="social-handle">@yourcompany</div>
+                        </a>
+
+                        <a href="#" class="social-card" onclick="handleSocialClick('Twitter')">
+                            <div class="social-icon twitter-icon">🐦</div>
+                            <div class="social-name">Twitter</div>
+                            <div class="social-handle">@yourcompany</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        // Newsletter form handling
+        document.getElementById('newsletterForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('emailInput').value;
+            const successMessage = document.getElementById('successMessage');
+
+            // Simple email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (emailRegex.test(email)) {
+                // Show success message
+                successMessage.style.display = 'block';
+
+                // Clear the form
+                document.getElementById('emailInput').value = '';
+
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+
+                // In a real implementation, you would send this to your backend
+                console.log('Newsletter subscription:', { email: email, timestamp: new Date() });
+            } else {
+                alert('Please enter a valid email address.');
+            }
+        });
+
+        // Social media click handling
+        function handleSocialClick(platform) {
+            console.log(`Clicked on ${platform}`);
+            // In a real implementation, these would link to actual social media pages
+            // Example: window.open('https://facebook.com/yourcompany', '_blank');
+        }
+
+        // Add some interactive effects
+        document.querySelectorAll('.social-card').forEach(card => {
+            card.addEventListener('mouseenter', function () {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function () {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Email input focus effects
+        const emailInput = document.getElementById('emailInput');
+        emailInput.addEventListener('focus', function () {
+            this.parentElement.style.transform = 'scale(1.02)';
+        });
+
+        emailInput.addEventListener('blur', function () {
+            this.parentElement.style.transform = 'scale(1)';
+        });
+    </script>
+</body>
+
+</html>
