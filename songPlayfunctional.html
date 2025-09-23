@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Featured Tracks</title>
+  <style>
+    body {
+      background: #0b0b0b;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 30px;
+      padding: 50px;
+    }
+    .player-box {
+      background: #111;
+      padding: 20px;
+      border-radius: 15px;
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .player-box img {
+      width: 100%;
+      border-radius: 15px;
+    }
+    .track-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 300px;
+    }
+    .track {
+      background: #1a1a1a;
+      padding: 10px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .track:hover {
+      background: #333;
+    }
+    .track img {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    .track-info {
+      flex: 1;
+      margin-left: 10px;
+    }
+    .track-title {
+      font-weight: bold;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    .progress-container {
+      width: 100%;
+      height: 5px;
+      background: #333;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+    .progress {
+      height: 100%;
+      background: #9b5de5;
+      width: 0%;
+      border-radius: 5px;
+    }
+    button {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="player-box">
+    <img id="player-image" src="https://via.placeholder.com/300x300" alt="Track">
+    <h3 id="player-title">Select a Song</h3>
+    <p id="player-artist"></p>
+    <div class="progress-container" id="progress-container">
+      <div class="progress" id="progress"></div>
+    </div>
+    <div class="controls">
+      <button id="prev">⏮</button>
+      <button id="play">▶</button>
+      <button id="next">⏭</button>
+    </div>
+    <audio id="audio"></audio>
+  </div>
+
+  <div class="track-list" id="track-list">
+    <!-- Example Tracks -->
+  </div>
+
+<script>
+  const tracks = [
+    {
+      title: "Broken Song",
+      artist: "Austin Neill",
+      image: "https://picsum.photos/id/1011/300/300",
+      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+    },
+    {
+      title: "Blue Ghost",
+      artist: "Joshua Fuller",
+      image: "https://picsum.photos/id/1025/300/300",
+      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"
+    },
+    {
+      title: "Altered Song",
+      artist: "Slim Emcee",
+      image: "https://picsum.photos/id/1027/300/300",
+      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3"
+    },
+    {
+      title: "Frau Power",
+      artist: "Nick Karvounis",
+      image: "https://picsum.photos/id/1024/300/300",
+      src: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3"
+    }
+  ];
+
+  const trackList = document.getElementById("track-list");
+  const playerImage = document.getElementById("player-image");
+  const playerTitle = document.getElementById("player-title");
+  const playerArtist = document.getElementById("player-artist");
+  const audio = document.getElementById("audio");
+  const playBtn = document.getElementById("play");
+  const prevBtn = document.getElementById("prev");
+  const nextBtn = document.getElementById("next");
+  const progress = document.getElementById("progress");
+  const progressContainer = document.getElementById("progress-container");
+
+  let currentTrack = 0;
+  let isPlaying = false;
+
+  function loadTrack(index) {
+    currentTrack = index;
+    const track = tracks[index];
+    playerImage.src = track.image;
+    playerTitle.textContent = track.title;
+    playerArtist.textContent = track.artist;
+    audio.src = track.src;
+    playTrack();
+  }
+
+  function playTrack() {
+    audio.play();
+    isPlaying = true;
+    playBtn.textContent = "⏸";
+  }
+
+  function pauseTrack() {
+    audio.pause();
+    isPlaying = false;
+    playBtn.textContent = "▶";
+  }
+
+  function nextTrack() {
+    currentTrack = (currentTrack + 1) % tracks.length;
+    loadTrack(currentTrack);
+  }
+
+  function prevTrack() {
+    currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+    loadTrack(currentTrack);
+  }
+
+  playBtn.addEventListener("click", () => {
+    isPlaying ? pauseTrack() : playTrack();
+  });
+
+  nextBtn.addEventListener("click", nextTrack);
+  prevBtn.addEventListener("click", prevTrack);
+
+  audio.addEventListener("timeupdate", () => {
+    const progressPercent = (audio.currentTime / audio.duration) * 100;
+    progress.style.width = `${progressPercent}%`;
+  });
+
+  progressContainer.addEventListener("click", (e) => {
+    const width = progressContainer.clientWidth;
+    const clickX = e.offsetX;
+    audio.currentTime = (clickX / width) * audio.duration;
+  });
+
+  // Generate track list
+  tracks.forEach((track, index) => {
+    const div = document.createElement("div");
+    div.classList.add("track");
+    div.innerHTML = `
+      <img src="${track.image}" alt="${track.title}">
+      <div class="track-info">
+        <div class="track-title">${track.title}</div>
+        <div class="track-artist">${track.artist}</div>
+      </div>
+      <button>▶</button>
+    `;
+    div.addEventListener("click", () => loadTrack(index));
+    trackList.appendChild(div);
+  });
+
+</script>
+
+</body>
+</html>

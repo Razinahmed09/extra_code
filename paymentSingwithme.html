@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Withdraw Funds</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+       .payment-popup .withdraw-btn {
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+
+.payment-popup .withdraw-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+}
+
+.payment-popup .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.payment-popup .overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.payment-popup .popup {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8) translateY(20px);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.payment-popup .overlay.active .popup {
+    transform: scale(1) translateY(0);
+}
+
+.payment-popup .popup-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.payment-popup .popup-title {
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.payment-popup .close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #9ca3af;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.payment-popup .close-btn:hover {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.payment-popup .payment-methods {
+    display: grid;
+    gap: 12px;
+    padding: 5px;
+    height: 270px;
+    overflow: overlay;
+}
+
+.payment-popup .payment-method {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background: #fafafa;
+}
+
+.payment-popup .payment-method:hover {
+    border-color: #8b5cf6;
+    background: #f8fafc;
+    transform: translateY(-1px);
+}
+
+.payment-popup .payment-method.selected {
+    border-color: #6366f1;
+    background: linear-gradient(135deg, #ede9fe, #f3e8ff);
+}
+
+.payment-popup .payment-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 14px;
+}
+
+.payment-popup .paypal { background: linear-gradient(135deg, #0070ba, #003087); }
+.payment-popup .cashapp { background: linear-gradient(135deg, #00d632, #00ac28); }
+.payment-popup .venmo { background: linear-gradient(135deg, #3d95ce, #1a5490); }
+.payment-popup .bank { background: linear-gradient(135deg, #6366f1, #8b5cf6); }
+.payment-popup .crypto { background: linear-gradient(135deg, #f7931a, #e6851a); }
+
+.payment-popup .payment-info h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 2px;
+}
+
+.payment-popup .payment-info p {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.payment-popup .amount-section {
+    margin: 25px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+}
+
+.payment-popup .amount-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.payment-popup .amount-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: border-color 0.2s ease;
+}
+
+.payment-popup .amount-input:focus {
+    outline: none;
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.payment-popup .withdraw-action {
+    display: flex;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.payment-popup .btn-cancel {
+    flex: 1;
+    padding: 12px;
+    border: 2px solid #e5e7eb;
+    background: white;
+    color: #6b7280;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.payment-popup .btn-cancel:hover {
+    border-color: #d1d5db;
+    background: #f9fafb;
+}
+
+.payment-popup .btn-confirm {
+    flex: 2;
+    padding: 12px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+}
+
+.payment-popup .btn-confirm:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+}
+
+.payment-popup .btn-confirm:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+    </style>
+</head>
+<body>
+    
+
+    <div class="payment-popup">
+        <button class="withdraw-btn" onclick="openPopup()">
+        Withdraw Funds
+    </button>
+    <div class="overlay" id="overlay" onclick="closePopup(event)">
+        <div class="popup" onclick="event.stopPropagation()">
+            <div class="popup-header">
+                <h2 class="popup-title">Withdraw Funds</h2>
+                <button class="close-btn" onclick="closePopup()">&times;</button>
+            </div>
+
+            <div class="amount-section">
+                <div class="amount-label">Amount to withdraw</div>
+                <input type="number" class="amount-input" placeholder="0.00" min="1" step="0.01">
+            </div>
+
+            <div class="payment-methods">
+                <div class="payment-method" onclick="selectMethod(this)">
+                    <div class="payment-icon paypal">PP</div>
+                    <div class="payment-info">
+                        <h3>PayPal</h3>
+                        <p>Instant transfer to your PayPal account</p>
+                    </div>
+                </div>
+
+                <div class="payment-method" onclick="selectMethod(this)">
+                    <div class="payment-icon cashapp">CA</div>
+                    <div class="payment-info">
+                        <h3>Cash App</h3>
+                        <p>Direct deposit to your Cash App</p>
+                    </div>
+                </div>
+
+                <div class="payment-method" onclick="selectMethod(this)">
+                    <div class="payment-icon venmo">V</div>
+                    <div class="payment-info">
+                        <h3>Venmo</h3>
+                        <p>Send to your Venmo account</p>
+                    </div>
+                </div>
+
+                <div class="payment-method" onclick="selectMethod(this)">
+                    <div class="payment-icon bank">BT</div>
+                    <div class="payment-info">
+                        <h3>Bank Transfer</h3>
+                        <p>2-3 business days to your bank</p>
+                    </div>
+                </div>
+
+                <div class="payment-method" onclick="selectMethod(this)">
+                    <div class="payment-icon crypto">₿</div>
+                    <div class="payment-info">
+                        <h3>Cryptocurrency</h3>
+                        <p>Bitcoin, Ethereum, or other crypto</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="withdraw-action">
+                <button class="btn-cancel" onclick="closePopup()">Cancel</button>
+                <button class="btn-confirm" onclick="processWithdraw()">Confirm Withdrawal</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        let selectedMethod = null;
+
+        function openPopup() {
+            document.getElementById('overlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePopup(event) {
+            if (event && event.target !== document.getElementById('overlay')) return;
+            document.getElementById('overlay').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function selectMethod(element) {
+            // Remove selected class from all methods
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.classList.remove('selected');
+            });
+            
+            // Add selected class to clicked method
+            element.classList.add('selected');
+            selectedMethod = element.querySelector('h3').textContent;
+            
+            // Enable confirm button
+            document.querySelector('.btn-confirm').disabled = false;
+        }
+
+        function processWithdraw() {
+            const amount = document.querySelector('.amount-input').value;
+            
+            if (!amount || !selectedMethod) {
+                alert('Please enter an amount and select a payment method.');
+                return;
+            }
+
+            if (parseFloat(amount) <= 0) {
+                alert('Please enter a valid amount.');
+                return;
+            }
+
+            // Simulate processing
+            const confirmBtn = document.querySelector('.btn-confirm');
+            confirmBtn.textContent = 'Processing...';
+            confirmBtn.disabled = true;
+
+            setTimeout(() => {
+                alert(`Withdrawal of $${amount} to ${selectedMethod} has been initiated!`);
+                closePopup();
+                
+                // Reset form
+                document.querySelector('.amount-input').value = '';
+                document.querySelectorAll('.payment-method').forEach(method => {
+                    method.classList.remove('selected');
+                });
+                selectedMethod = null;
+                confirmBtn.textContent = 'Confirm Withdrawal';
+                confirmBtn.disabled = false;
+            }, 2000);
+        }
+
+        // Close popup with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closePopup();
+            }
+        });
+    </script>
+</body>
+</html>

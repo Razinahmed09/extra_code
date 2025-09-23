@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Menu Popup</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .player_dots .music-player {
+            position: relative;
+        }
+
+        .player_dots .song-info {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .player_dots .song-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .player_dots .artist-name {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+
+        .player_dots .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .player_dots .menu-button {
+            width: 44px;
+            height: 44px;
+            background: rgba(0, 0, 0, 0.3);
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .player_dots .menu-button:hover {
+            background: rgba(0, 0, 0, 0.5);
+            transform: scale(1.1);
+        }
+
+        .player_dots .menu-button:active {
+            transform: scale(0.95);
+        }
+
+        .player_dots .dots {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .player_dots .dot {
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+        }
+
+        .player_dots .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .player_dots .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .player_dots .popup {
+            background: white;
+            border-radius: 16px;
+            padding: 0;
+            min-width: 280px;
+            max-width: 90vw;
+            transform: scale(0.9) translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .player_dots .popup-overlay.active .popup {
+            transform: scale(1) translateY(0);
+        }
+
+        .player_dots .popup-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        .player_dots .popup-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .player_dots .popup-subtitle {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .player_dots .popup-options {
+            padding: 8px 0;
+        }
+
+        .player_dots .option {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 16px 20px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border: none;
+            width: 100%;
+            background: none;
+            text-align: left;
+        }
+
+        .player_dots .option:hover {
+            background: #f5f5f5;
+        }
+
+        .player_dots .option-icon {
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+        }
+
+        .player_dots .option-text {
+            flex: 1;
+        }
+
+        .player_dots .option-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .player_dots .option-description {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .player_dots .close-button {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: #f5f5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+            transition: all 0.2s ease;
+        }
+
+        .player_dots .close-button:hover {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .player_dots .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateX(100px);
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .player_dots .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="player_dots">
+        <div class="music-player">
+            <div class="controls">
+                <div style="flex: 1;"></div>
+                <button class="menu-button" id="menuButton">
+                    <div class="dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <div class="popup-overlay" id="popupOverlay">
+            <div class="popup">
+                <button class="close-button" id="closeButton">&times;</button>
+
+                <div class="popup-header">
+                    <div class="popup-title">Music Options</div>
+                    <div class="popup-subtitle">Choose an action</div>
+                </div>
+
+                <div class="popup-options">
+                    <button class="option" id="shareOption">
+                        <div class="option-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                                <polyline points="16,6 12,2 8,6" />
+                                <line x1="12" y1="2" x2="12" y2="15" />
+                            </svg>
+                        </div>
+                        <div class="option-text">
+                            <div class="option-title">Share Music</div>
+                            <div class="option-description">Share this song with friends</div>
+                        </div>
+                    </button>
+
+                    <button class="option" id="saveOption">
+                        <div class="option-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
+                            </svg>
+                        </div>
+                        <div class="option-text">
+                            <div class="option-title">Save to List</div>
+                            <div class="option-description">Add to your playlist or favorites</div>
+                        </div>
+                    </button>
+
+                    <button class="option" id="downloadOption">
+                        <div class="option-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="7,10 12,15 17,10" />
+                                <line x1="12" y1="15" x2="12" y2="3" />
+                            </svg>
+                        </div>
+                        <div class="option-text">
+                            <div class="option-title">Download</div>
+                            <div class="option-description">Save offline for later</div>
+                        </div>
+                    </button>
+
+                    <button class="option" id="infoOption">
+                        <div class="option-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <path d="M12 16v-4" />
+                                <path d="M12 8h.01" />
+                            </svg>
+                        </div>
+                        <div class="option-text">
+                            <div class="option-title">Song Info</div>
+                            <div class="option-description">View details and lyrics</div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="notification" id="notification"></div>
+    </div>
+    
+
+</body>
+
+</html>
