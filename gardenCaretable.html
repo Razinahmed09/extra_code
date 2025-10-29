@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Low Profile Wet UFH Overlay</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .sec_Low_Profile {
+            position: relative;
+            min-height: auto;
+            background: #0d1b0d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 0px;
+            overflow: hidden;
+        }
+
+    .sec_Low_Profile .bg-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.05);
+    animation: float 20s infinite ease-in-out;
+}
+
+.sec_Low_Profile .bg-circle:nth-child(1) {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+.sec_Low_Profile .bg-circle:nth-child(2) {
+    width: 200px;
+    height: 200px;
+    bottom: -50px;
+    right: -50px;
+    animation-delay: 5s;
+}
+
+.sec_Low_Profile .bg-circle:nth-child(3) {
+    width: 150px;
+    height: 150px;
+    top: 50%;
+    right: 10%;
+    animation-delay: 10s;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0) scale(1);
+    }
+    33% {
+        transform: translate(30px, -30px) scale(1.1);
+    }
+    66% {
+        transform: translate(-20px, 20px) scale(0.9);
+    }
+}
+
+.sec_Low_Profile .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    text-align: center;
+    animation: fadeInUp 1s ease-out;
+}
+
+ @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sec_Low_Profile h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    color: #ffffff;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.sec_Low_Profile .subtitle {
+    font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+    color: #e8f5e8;
+    margin-bottom: 30px;
+    font-weight: 300;
+    animation: fadeInUp 1s ease-out 0.4s both;
+}
+
+.sec_Low_Profile .description {
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: #d4e8d4;
+    max-width: 800px;
+    margin: 0 auto 50px;
+    line-height: 1.6;
+    animation: fadeInUp 1s ease-out 0.6s both;
+}
+
+.sec_Low_Profile .features {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+    animation: fadeInUp 1s ease-out 0.8s both;
+}
+
+.sec_Low_Profile .feature-badge {
+    background: rgb(45 80 46);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgb(159 165 159);
+    padding: 15px 30px;
+    border-radius: 18px;
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    cursor: default;
+}
+
+.sec_Low_Profile .feature-badge:hover {
+    background: rgb(255 255 255);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    color: #1c501e;
+    border-color: #286e27;
+}
+
+.sec_Low_Profile .cta-button {
+    display: inline-block;
+    background: #ffffff;
+    color: #5a7d5a;
+    padding: 20px 50px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 1s ease-out 1s both, pulse 2s ease-in-out 2s infinite;
+}
+
+.sec_Low_Profile .cta-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(90, 125, 90, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.sec_Low_Profile .cta-button:hover::before {
+    width: 400px;
+    height: 400px;
+}
+
+.sec_Low_Profile .cta-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+}
+
+ .cta-button span {
+    position: relative;
+    z-index: 1;
+}
+
+ @keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+}
+
+.sec_Low_Profile .scroll-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: bounce 2s infinite;
+}
+
+.sec_Low_Profile .scroll-indicator::before {
+    content: '';
+    display: block;
+    width: 30px;
+    height: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 25px;
+    position: relative;
+}
+
+.sec_Low_Profile .scroll-indicator::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 3px;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: scrollDot 2s infinite;
+}
+
+ @keyframes bounce {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-10px);
+    }
+}
+
+ @keyframes scrollDot {
+    0% {
+        top: 8px;
+        opacity: 1;
+    }
+    100% {
+        top: 30px;
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .sec_Low_Profile .features {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sec_Low_Profile .feature-badge {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <section class="sec_Low_Profile">
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+        
+        <div class="container">
+            <h1>Low Profile Wet UFH Overlay</h1>
+            <p class="subtitle">Premium Underfloor Heating Made Simple</p>
+            <p class="description">
+                Our Low Profile Wet UFH Overlay kits are premade so you don't have to work out the individual components needed for your installation.
+            </p>
+            
+            <div class="features">
+                <div class="feature-badge">Only 18mm Thick</div>
+                <div class="feature-badge">Easy Installation</div>
+                <div class="feature-badge">Complete Kit</div>
+            </div>
+            
+            <a href="#quote" class="cta-button">
+                <span>Get Your Quote Today</span>
+            </a>
+        </div>
+        
+        <div class="scroll-indicator"></div>
+    </section>
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Selector</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #1a1f35;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .label {
+            color: #a0aec0;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            background: #2d3748;
+            border: 1px solid #4a5568;
+            border-radius: 8px;
+            color: white;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            color: white;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .selections {
+            background: #2d3748;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #e0e0e0;
+            color: #333;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+        }
+
+        .tag:hover {
+            background-color: #ffcccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="label">Select Category</div>
+        <select id="mainCategory">
+            <option value="">Choose category</option>
+            <option value="wellness">Wellness Category – GATS</option>
+            <option value="fitness">Logistics Category – GATS</option>
+            <option value="Acting">Acting Category – GATS</option>
+            <option value="Musical">Musical Instruments Category – GATS</option>
+            <option value="Gymnastics">Gymnastics Category – GATS</option>
+            <option value="Radio">Radio and Audio Studio Category – GATS</option>
+            <option value="Business">Business Category – GATS</option>
+        </select>
+
+        <div id="styleSection" style="display: none;">
+            <div class="label">Select Your Style</div>
+            <select id="styleSelect">
+                <option value="">Choose style</option>
+            </select>
+        </div>
+
+        <div id="subSection" style="display: none;">
+            <div class="label">Select Subcategory</div>
+            <select id="subSelect">
+                <option value="">Choose subcategory</option>
+            </select>
+        </div>
+
+        <div id="innerSection" style="display: none;">
+            <div class="label">Select Inner Category</div>
+            <select id="innerSelect">
+                <option value="">Choose inner category</option>
+            </select>
+        </div>
+
+        <div class="selections">
+            <div class="section-title">Your Selections</div>
+            <div id="selections"></div>
+        </div>
+    </div>
+
+    <script>
+        const selectionsContainer = document.getElementById('selections');
+
+        function addTag(label) {
+            const existingTags = selectionsContainer.querySelectorAll('.tag');
+            for (const tag of existingTags) {
+                if (tag.textContent === label) return;
+            }
+
+            const tag = document.createElement('span');
+            tag.className = 'tag';
+            tag.textContent = label;
+
+            tag.addEventListener('click', () => {
+                tag.remove();
+            });
+
+            selectionsContainer.appendChild(tag);
+        }
+
+        const mainCategory = document.getElementById('mainCategory');
+        const styleSelect = document.getElementById('styleSelect');
+        const subSelect = document.getElementById('subSelect');
+        const innerSelect = document.getElementById('innerSelect');
+
+        mainCategory.addEventListener('change', function () {
+            if (this.value) {
+                loadStyles(this.value);
+                document.getElementById('styleSection').style.display = 'block';
+                document.getElementById('subSection').style.display = 'none';
+                document.getElementById('innerSection').style.display = 'none';
+
+                addTag(`${this.options[this.selectedIndex].text}`);
+            } else {
+                document.getElementById('styleSection').style.display = 'none';
+                document.getElementById('subSection').style.display = 'none';
+                document.getElementById('innerSection').style.display = 'none';
+            }
+        });
+
+        styleSelect.addEventListener('change', function () {
+            if (this.value) {
+                loadSubcategories(mainCategory.value, this.value);
+                document.getElementById('subSection').style.display = 'block';
+                document.getElementById('innerSection').style.display = 'none';
+
+                addTag(this.value);
+            } else {
+                document.getElementById('subSection').style.display = 'none';
+                document.getElementById('innerSection').style.display = 'none';
+            }
+        });
+
+        subSelect.addEventListener('change', function () {
+            const value = this.value;
+            const category = mainCategory.value;
+            const style = styleSelect.value;
+            const selectedData = data[category].styles[style];
+            const innerData = selectedData && selectedData[value];
+
+            if (Array.isArray(innerData)) {
+                loadInnerCategories(category, style, value);
+                document.getElementById('innerSection').style.display = 'block';
+            } else {
+                document.getElementById('innerSection').style.display = 'none';
+                if (value) addTag(value);
+            }
+        });
+
+        innerSelect.addEventListener('change', function () {
+            if (this.value) {
+                addTag(this.value);
+            }
+        });
+
+        function loadStyles(category) {
+            styleSelect.innerHTML = '<option value="">Choose style</option>';
+            const styles = Object.keys(data[category].styles);
+            styles.forEach(style => {
+                const option = document.createElement('option');
+                option.value = style;
+                option.textContent = style;
+                styleSelect.appendChild(option);
+            });
+        }
+
+        function loadSubcategories(category, style) {
+            subSelect.innerHTML = '<option value="">Choose subcategory</option>';
+            const currentStyleData = data[category].styles[style];
+            const keys = Object.keys(currentStyleData);
+
+            const filteredKeys = keys.filter(k => !k.match(/^\d+\./) && !k.includes("Digital Platform") && !k.includes("Events") && !k.includes("Support") && k !== "Subcategories");
+
+            filteredKeys.forEach(sub => {
+                const option = document.createElement('option');
+                option.value = sub;
+                option.textContent = sub;
+                subSelect.appendChild(option);
+            });
+
+            const listKey = currentStyleData["Subcategories"] || currentStyleData["Subcategories:"];
+            if (Array.isArray(listKey)) {
+                listKey.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item;
+                    option.textContent = item;
+                    subSelect.appendChild(option);
+                });
+            }
+        }
+
+        function loadInnerCategories(category, style, subcat) {
+            innerSelect.innerHTML = '<option value="">Choose inner category</option>';
+            const inners = data[category].styles[style][subcat];
+            if (Array.isArray(inners)) {
+                inners.forEach(inner => {
+                    const option = document.createElement('option');
+                    option.value = inner;
+                    option.textContent = inner;
+                    innerSelect.appendChild(option);
+                });
+            }
+        }
+
+        const data = {
+            wellness: {
+                styles: {
+                    "Benefits and Opportunities forthe Wellness Category": {
+                        "1. Training and Education:": [" Workshops and certification programs in Yoga, Physiotherapy, and Chiropractic practices.", "Courses on nutritional therapy and holistic wellness approaches.", "Programs about advertising regulations and safe medication promotion."],
+                        "2. Visibility and Opportunities:": ["A global platform for wellness coaches, therapists, and yoga instructors", "Promotion of nutritional and wellness clinics.", "Inclusion in documentaries, live shows, and wellness expos"],
+                        "3. Professional Connections:": ["Collaborations with gyms, wellness centers, and holistic clinics.", "Partnerships with nutritionists, doctors, and healthcare providers.", "Integration with other categories such as Nutrition, Sports, and Business"],
+                        "4. Logistical and Financial Support:": ["Scholarships for students in wellness and healthcare programs.","Sponsorship for equipment, therapy centers, and yoga studios.", "Support for international wellness conventions and training."],
+                        "5. Events and Competitions:": ["Global events showcasing yoga, physiotherapy, and chiropractic methods.","Competitions in innovative wellness programs and holistic practices.", "A dedicated Wellness category in the Global Artist Talent Show."],
+                        "6. Digital Platform:": ["Online platform for wellness programs, yoga sessions, and therapy services.","Marketplace for nutritional and wellness products.", "Forums and reviews about wellness practices and medical support."]
+                    }
+                }
+            },
+          
+            fitness: {
+                styles: {
+                    "Benefits and Opportunities for the Logistics Category": {
+                        "1. Training and Education:": ["Courses on event logistics and international coordination.", "Programs in hotel and hospitality management for the arts and entertainment industry.", "Certification in logistics for live shows, festivals, and international tours."],
+                        "2. Visibility and Opportunities": ["A global platform for logistics companies and hotel services.", "Promotion of hospitality services linked to entertainment and the arts.", "Inclusion in documentaries, behind-the-scenes content, and live shows."],
+                        "3. Professional Connections:": ["Partnerships with transportation companies, hotels, and event venues.", "Collaboration with artists, production companies, and entertainment agencies.", "Integration with other categories such as Live Shows, Business, and Wellness."],
+                        "4. Logistical and Financial Support:": ["Scholarships for students in logistics and hospitality programs.", "Sponsorship for travel, accommodation, and hospitality solutions.", "Financial support for international events and artistic tours."],
+                        "5. Events and Competitions:": ["Global conventions in logistics, tourism, and entertainment hospitality.", "Competitions for innovative solutions in event logistics.", "A dedicated Logistics section in the Global Artist Talent Show."],
+                        "6. Digital Platform:": ["Online directory of logistics and hotel providers for the entertainment industry.", "Marketplace for event coordination and hospitality services.", "Reviews and recommendations of transportation, accommodation, and logistics providers."]
+                    }
+                }
+            },
+            
+            Acting: {
+                styles:{
+                    "Benefits and Opportunities for the Acting Category":{ 
+                    "Subcategories": [
+                        "Theater Actor", "Film Actor", "TV Actor", "Voice Actor (Voiceover)", "Soap Opera Actor", "Advertising Actor (Commercials)", "Improvisation Actor", "Dubbing Actor", "Child Actor", "Motion Capture Actor","Stunt Actor (Action Actor)"
+                    ],
+                    "1. Training and Education:": [
+                        "Acting schools and workshops for theater, film, and TV performance.",
+                        "Specialized courses in voice acting, dubbing, and improvisation.",
+                        "Programs for motion capture and stunt performance."
+                    ],
+                    "2. Visibility and Opportunities:" : [
+                        "Global platform for actors to showcase portfolios and demo reels.",
+                        "Inclusion in documentaries, live shows, and streaming productions.",
+                        "Exposure in advertising campaigns and commercial projects."
+                    ],
+                    "3. Professional Connections:" : [
+                        "Partnerships with film studios, theaters, and TV networks.",
+                        "Collaboration with directors, producers, and casting agencies.",
+                        "Integration with other categories such as Music, Fashion, Business, and Media."
+                    ],
+                    "4. Logistical and Financial Support:" : [
+                        "Scholarships for students in acting academies and training programs.",
+                        "Sponsorship for film festivals, theater productions, and TV projects.",
+                        "Support for actors in international casting opportunities."
+                    ],
+                    "5. Events and Competitions:" : [
+                        "Global competitions in acting, improvisation, and performance.",
+                        "Participation in film festivals and theater conventions.",
+                        "A dedicated Acting category in the Global Artist Talent Show."
+                    ],
+                    "6. Digital Platform:" : [
+                        "Online portal for casting calls and auditions.",
+                        "Marketplace for voiceover, dubbing, and acting services.",
+                        "Reviews and recommendations of acting schools, agencies, and training programs."
+                    ]
+                        
+                    }
+                }
+            },
+
+            Musical: {
+                styles: {
+                    "Benefits and Opportunities for the Musical Instruments Category" : {
+                     "Subcategories:" : [
+                        "Wind Instruments", "Percussion Instruments", "String Instruments", "Keyboards & Piano", "Synthesizers", "Other Instruments"
+                     ],
+                     "1. Training and Education": [
+                        "Music schools and workshops for instrument learning and performance.",
+                        "Programs in classical, contemporary, and digital instrument training.",
+                        "Certification courses in composition, improvisation, and orchestration."
+                     ],
+                     "2. Visibility and Opportunities": [
+                        "A platform for musicians to showcase their talent with instruments.",
+                        "Integration into concerts, live shows, and streaming events.",
+                        "Inclusion in documentaries, music videos, and educational programs."
+                     ],
+                     "3. Professional Connections": [
+                        "Collaborations with orchestras, bands, and recording studios.",
+                        "Partnerships with instrument manufacturers and music academies.",
+                        "Integration with categories such as Music/Audio, Education, and Live Shows."
+                     ],
+                     "4. Logistical and Financial Support": [
+                        "Scholarships for students in music schools and conservatories.",
+                        "Sponsorships for instrument purchases, maintenance, and upgrades.",
+                        "Sponsorships for instrument purchases, maintenance, and upgrades."
+                     ],
+                     "5. Events and Competitions": [
+                        "Global competitions for instrumentalists in classical and modern music.",
+                        "Participation in international orchestras, concerts, and cultural festivals.",
+                        "A dedicated Musical Instruments category in the Global Artist Talent Show."
+                     ]
+                    }
+                }
+            },
+            
+            Gymnastics: {
+                styles:{
+                    "Benefits and Opportunities for the Gymnastics Category" : {
+                    "Subcategories:" : [
+                        "Artistic Gymnastics", "Rhythmic Gymnastics", "Trampoline Gymnastics", "Tumbling", "Acrobatic Gymnastics", "Acrobatic Gymnastics"
+                    ],
+                    "1. Training and Education:" : [
+                        "Programs and workshops in artistic, rhythmic, and acrobatic gymnastics.", 
+                        "Courses for coaches, choreographers, and sports professionals.", 
+                        "Certification in sports safety, nutrition, and injury prevention for gymnasts"
+                    ],
+                    "2. Visibility and Opportunities:" : [
+                        "A platform for gymnasts to showcase routines and competitions.", 
+                        "Integration into international tournaments, live shows, and GATS productions.",
+                        "Inclusion in documentaries and media to highlight athletes’ journeys."
+                    ],
+                    "3. Professional Connections:" : [
+                        "Collaborations with sports federations, gymnastics schools, and Olympic programs.",
+                        "Partnerships with nutritionists, physiotherapists, and wellness experts.",
+                        "Integration with other categories such as Dancers, Wellness, and Sports Nutrition."
+                    ],
+                    "4. Logistical and Financial Support:" : [
+                        "Scholarships for young athletes and gymnastics schools.",
+                        "Sponsorship for equipment, uniforms, and training facilities.",
+                        "Support for international competitions and travel expenses."
+                    ],
+                    "5. Events and Competitions:" : [
+                        "Global competitions in artistic, rhythmic, and acrobatic gymnastics.",
+                        "Participation in Olympic-level tournaments and international showcases.",
+                        "Participation in Olympic-level tournaments and international showcases."
+                    ],
+                    "6. Digital Platform:" : [
+                        "Online portal for training programs, tutorials, and performance videos.",
+                        "Marketplace for sportswear, equipment, and accessories.",
+                        "Forums and reviews about schools, coaches, and training centers."
+                    ]
+                    }
+                }
+            },
+           
+            Radio: {
+                styles: {
+                    "Benefits and Opportunities for the Radio and Audio Studio Category" : {
+                        "Subcategories:" : [
+                            "Voiceover", "Content Production", "Program Hosts"
+                        ],
+                        "1. Training and Education:" : [
+                            "Courses on voiceover, dubbing, and narration techniques.",
+                            "Workshops on audio content production and editing",
+                            "Programs for radio program hosts and broadcasters."
+                        ],
+                        "2. Visibility and Opportunities:" : [
+                            "A platform for voice actors and program hosts to showcase their work.",
+                            "Opportunities for content producers to distribute material globally",
+                            "Inclusion in documentaries, live shows, and online streaming platforms.",
+                        ],
+                        "3. Professional Connections:" : [
+                            "Partnerships with radio stations, podcasts, and online streaming services.",
+                            "Collaboration with musicians, DJs, and production companies.",
+                            "Integration with other categories such as Music, Business, and Live Shows."
+                        ],
+                        "4. Logistical and Financial Support:" : [
+                            "Scholarships for training in broadcasting, production, and voiceover.", 
+                            "Sponsorship for equipment, studios, and technology upgrades.",
+                            "Support for participation in international broadcasting events."
+                        ],
+                        "5. Events and Competitions:" : [
+                            "Global contests for radio programs, podcasts, and voice acting.",
+                            "Participation in international radio and media conventions.",
+                            "A dedicated Radio & Audio Studio section in the Global Artist Talent Show."
+                        ],
+                        "6. Digital Platform:" : [
+                            "Online portal for radio programs, podcasts, and audio productions.",
+                            "Marketplace for voiceover and content production services.",
+                            "Reviews and recommendations of audio equipment and production software."
+                        ]
+                    }
+                }
+            },
+    
+            Business : {
+                styles: {
+                    "Benefits and Opportunities for the Business Category" : {
+                        "Subcategories:" : [
+                            "Business Manager", "Artistic Talent Representation", "Artistic Agent", "Lawyer", "Music Marketing", "Publicist", "Executive Producer"
+                        ],
+                        "1. Training and Education:": [
+                            "Courses on entertainment business management and talent representation.", "Programs on music marketing, publicity, and executive production.", "Programs on music marketing, publicity, and executive production."
+                        ],
+                        "2. Visibility and Opportunities:" : [
+                            "A platform for business managers and talent agents to connect globally.",
+                            "International promotion for publicists and executive producers.",
+                            "Features in documentaries, events, and networking summits."
+                        ],
+                        "3. Professional Connections:" : [
+                            "Partnerships with law firms, marketing agencies, and record labels.",
+                            "Networking between agents, managers, and corporate sponsors.",
+                            "Integration with other GATS categories such as Music, Modeling, and Live Shows."
+                        ],
+                        "4. Logistical and Financial Support:" : [
+                            "Scholarships for training in entertainment law and management.",
+                            "Sponsorship for marketing campaigns and business initiatives",
+                            "Support for emerging managers and producers in international markets."
+                        ],
+                        "5. Events and Competitions:" : [
+                            "Global summits for music marketing and talent representation.",
+                            "Competitions in business proposals and production projects.",
+                            "A dedicated Business section within the Global Artist Talent Show."
+                        ],
+                        "6. Digital Platform :" : [
+                            "Online directory of lawyers, managers, agents, and producers.",
+                            "Marketplace for marketing and publicity services.",
+                            "Forums for legal, financial, and business advice in the arts."
+                        ]
+                    }
+                }
+
+            }
+        };
+    </script>
+
+    <!-- Your original `data` object script goes here below this line: -->
+    <script src="your_data_file.js"></script>
+    <!-- If you pasted the full `data = { ... }` object manually above, no need for the line above. -->
+</body>
+</html>

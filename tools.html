@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools & Implements - Garden Care</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .tools-section {
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8f4 100%);
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.8em;
+            color: #2d5016;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .section-subtitle {
+            font-size: 1.2em;
+            color: #558b2f;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+            box-shadow: 0 5px 20px rgba(45, 80, 22, 0.1);
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 35px rgba(45, 80, 22, 0.2);
+            border-color: #7cb342;
+        }
+
+        .tool-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #7cb342 0%, #558b2f 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 2em;
+        }
+
+        .tool-title {
+            font-size: 1.5em;
+            color: #2d5016;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .tool-description {
+            color: #666;
+            font-size: 1em;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .tool-features {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .tool-features li {
+            padding: 8px 0;
+            color: #558b2f;
+            font-size: 0.95em;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .tool-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #7cb342;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .cta-container {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #7cb342 0%, #558b2f 100%);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(124, 179, 66, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(124, 179, 66, 0.4);
+            background: linear-gradient(135deg, #8bc34a 0%, #689f38 100%);
+        }
+
+        .quality-banner {
+            background: linear-gradient(135deg, #2d5016 0%, #558b2f 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .quality-banner h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .quality-banner p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2em;
+            }
+
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tools-section {
+                padding: 50px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="tools-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Tools & Implements</h2>
+                <p class="section-subtitle">Professional-grade garden tools and equipment to help you maintain and cultivate your perfect outdoor space with precision and ease.</p>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">🌿</div>
+                    <h3 class="tool-title">Hand Tools Collection</h3>
+                    <p class="tool-description">Essential hand tools crafted for precision gardening work, from delicate pruning to soil cultivation.</p>
+                    <ul class="tool-features">
+                        <li>Premium pruning shears and secateurs</li>
+                        <li>Ergonomic trowels and hand forks</li>
+                        <li>Professional weeding tools</li>
+                        <li>Durable garden gloves and accessories</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🔧</div>
+                    <h3 class="tool-title">Power Equipment</h3>
+                    <p class="tool-description">Modern motorized equipment designed for efficiency in maintaining larger gardens and landscapes.</p>
+                    <ul class="tool-features">
+                        <li>Professional-grade lawn mowers</li>
+                        <li>Hedge trimmers and brush cutters</li>
+                        <li>Electric and petrol-powered tools</li>
+                        <li>Leaf blowers and garden vacuums</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">💧</div>
+                    <h3 class="tool-title">Watering Systems</h3>
+                    <p class="tool-description">Comprehensive irrigation solutions to keep your garden hydrated and thriving throughout all seasons.</p>
+                    <ul class="tool-features">
+                        <li>Quality hoses and spray nozzles</li>
+                        <li>Drip irrigation systems</li>
+                        <li>Automatic sprinkler solutions</li>
+                        <li>Water timers and controllers</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🌱</div>
+                    <h3 class="tool-title">Cultivation Tools</h3>
+                    <p class="tool-description">Specialized implements for soil preparation, planting, and maintaining healthy garden beds.</p>
+                    <ul class="tool-features">
+                        <li>Spades, forks, and rakes</li>
+                        <li>Hoes and cultivators</li>
+                        <li>Wheelbarrows and garden carts</li>
+                        <li>Soil testing equipment</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">✂️</div>
+                    <h3 class="tool-title">Pruning & Shaping</h3>
+                    <p class="tool-description">Professional cutting tools for maintaining tree health and achieving beautiful plant shapes.</p>
+                    <ul class="tool-features">
+                        <li>Long-reach pruning saws</li>
+                        <li>Loppers and pole pruners</li>
+                        <li>Topiary shears</li>
+                        <li>Tree surgery equipment</li>
+                    </ul>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🛠️</div>
+                    <h3 class="tool-title">Maintenance Equipment</h3>
+                    <p class="tool-description">Essential tools for ongoing garden care and seasonal maintenance tasks.</p>
+                    <ul class="tool-features">
+                        <li>Lawn aerators and scarifiers</li>
+                        <li>Composting equipment</li>
+                        <li>Garden shredders</li>
+                        <li>Tool storage and organization</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="quality-banner">
+                <h3>Quality Tools for Quality Gardens</h3>
+                <p>At Garden Care, we use only professional-grade tools and equipment, ensuring every task is completed to the highest standard. Our experienced team is equipped with the right tools for every garden challenge, from delicate pruning to major landscaping projects.</p>
+            </div>
+
+            <div class="cta-container">
+                <a href="javascript:;" class="cta-button">Consult with Our Experts</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

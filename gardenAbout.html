@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About VPS - Modern Design</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            overflow-x: hidden;
+            background: #f8f9fa;
+        }
+
+        .About_VPS_latest .about-section {
+    background: linear-gradient(135deg, #2d5016 0%, #3d6b1f 50%, #4a7c26 100%);
+    padding: 100px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.About_VPS_latest .about-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+        radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+    animation: backgroundShift 20s ease-in-out infinite;
+}
+
+ @keyframes backgroundShift {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+.About_VPS_latest .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.About_VPS_latest .about-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 60px;
+    letter-spacing: -0.5px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease 0.2s forwards;
+}
+
+.About_VPS_latest .row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -15px;
+}
+
+.About_VPS_latest .col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+    padding: 0 15px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.About_VPS_latest .col-6:nth-child(1) {
+    animation-delay: 0.4s;
+}
+
+.About_VPS_latest .col-6:nth-child(2) {
+    animation-delay: 0.6s;
+}
+
+.About_VPS_latest .info-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    height: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.About_VPS_latest .info-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+
+.About_VPS_latest .info-card:hover::before {
+    left: 100%;
+}
+
+.About_VPS_latest .info-card:hover {
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.About_VPS_latest .card-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    transition: all 0.3s ease;
+}
+
+.About_VPS_latest .info-card:hover .card-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.About_VPS_latest .card-icon svg {
+    width: 32px;
+    height: 32px;
+    color: #fff;
+}
+
+.About_VPS_latest .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.About_VPS_latest .card-text {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+ @keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.About_VPS_latest .cta-section {
+    background: #ffffff;
+    padding: 100px 20px;
+    position: relative;
+}
+
+.About_VPS_latest .cta-card {
+    max-width: 900px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    padding: 60px 50px;
+    border-radius: 24px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(61, 107, 31, 0.1);
+}
+
+.About_VPS_latest .cta-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(74, 124, 38, 0.05) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.About_VPS_latest .cta-content {
+    position: relative;
+    z-index: 1;
+}
+
+.About_VPS_latest .cta-title {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #2d5016;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease 0.2s forwards;
+}
+
+.About_VPS_latest .cta-subtitle {
+    color: #5a5a5a;
+    font-size: 1.15rem;
+    margin-bottom: 40px;
+    line-height: 1.6;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease 0.4s forwards;
+}
+
+.About_VPS_latest .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    opacity: 0;
+    animation: fadeInUp 0.6s ease 0.6s forwards;
+}
+
+.About_VPS_latest .btn {
+    padding: 18px 40px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.About_VPS_latest .btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.About_VPS_latest .btn:hover::after {
+    width: 300px;
+    height: 300px;
+}
+
+.About_VPS_latest .btn span {
+    position: relative;
+    z-index: 1;
+}
+
+.About_VPS_latest .btn-primary {
+    background: linear-gradient(135deg, #4a7c26 0%, #3d6b1f 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(74, 124, 38, 0.3);
+}
+
+.About_VPS_latest .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(74, 124, 38, 0.4);
+}
+
+.About_VPS_latest .btn-primary:active {
+    transform: translateY(0);
+}
+
+.About_VPS_latest .btn-secondary {
+    background: transparent;
+    color: #3d6b1f;
+    border: 2px solid #3d6b1f;
+}
+
+.About_VPS_latest .btn-secondary:hover {
+    background: #3d6b1f;
+    color: #ffffff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(61, 107, 31, 0.2);
+}
+
+.About_VPS_latest .btn-secondary:active {
+    transform: translateY(0);
+}
+
+.About_VPS_latest .icon {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.About_VPS_latest .btn-primary:hover .icon {
+    animation: ring 0.5s ease;
+}
+
+.About_VPS_latest .btn-secondary:hover .icon {
+    transform: translateX(5px);
+}
+
+ @keyframes ring {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-15deg); }
+    75% { transform: rotate(15deg); }
+}
+
+@media (max-width: 768px) {
+    .About_VPS_latest .col-6 {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .About_VPS_latest .about-title {
+        font-size: 2.5rem;
+    }
+
+    .About_VPS_latest .cta-title {
+        font-size: 2rem;
+    }
+
+    .About_VPS_latest .info-card {
+        padding: 30px;
+    }
+
+    .About_VPS_latest .cta-card {
+        padding: 40px 30px;
+    }
+
+    .About_VPS_latest .cta-subtitle {
+        font-size: 1rem;
+    }
+
+    .About_VPS_latest .cta-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .About_VPS_latest .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <section class="About_VPS_latest">
+        <section class="about-section">
+            <div class="container">
+                <h1 class="about-title">About VPS</h1>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="info-card">
+                            <div class="card-icon">
+                                <svg fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                </svg>
+                            </div>
+                            <h3 class="card-title">Quality Assured</h3>
+                            <p class="card-text">
+                                VPS is a trusted distributor of underfloor heating pipes, manifolds, components and fittings. We carefully select the best components available with an unwavering emphasis on quality, value for money, and exceptional customer service.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="info-card">
+                            <div class="card-icon">
+                                <svg fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"/>
+                                </svg>
+                            </div>
+                            <h3 class="card-title">Expert Selection</h3>
+                            <p class="card-text">
+                                We have identified a select group of manufacturers of underfloor heating pipes, manifolds, circulation pumps, insulation panels, press fittings and accessories to ensure you receive only the finest products for your heating needs.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-card">
+                    <div class="cta-content">
+                        <h2 class="cta-title">Ready to Get Started?</h2>
+                        <p class="cta-subtitle">
+                            Contact us today for expert advice and to order your complete underfloor heating kit
+                        </p>
+                        <div class="cta-buttons">
+                            <button class="btn btn-primary" onclick="window.location.href='tel:01234567890'">
+                                <svg class="icon" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+                                </svg>
+                                <span>Call 0123 456 7890</span>
+                            </button>
+                            <button class="btn btn-secondary">
+                                <span>Request a Quote</span>
+                                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+</body>
+</html>

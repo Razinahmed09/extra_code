@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VPS UFH - Complete Underfloor Heating Kits</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f8f9f5;
+            color: #2d3e2d;
+        }
+
+       /* Hero Section */
+.mainServicesContent .ufh-hero {
+    background: linear-gradient(135deg, #2d5016 0%, #1a3010 100%);
+    padding: 80px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.mainServicesContent .ufh-hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(107, 142, 78, 0.15) 0%, transparent 70%);
+    animation: float 25s ease-in-out infinite;
+}
+
+.mainServicesContent .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInDown 1s ease forwards;
+}
+
+.mainServicesContent .hero-tag {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.mainServicesContent .hero-title {
+    font-size: 56px;
+    color: white;
+    margin-bottom: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.mainServicesContent .hero-contact {
+    font-size: 32px;
+    color: #7ea05d;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.mainServicesContent .hero-description {
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Products Table Section */
+.mainServicesContent .products-section {
+    max-width: 1400px;
+    margin: 45px auto 0;
+    padding: 0 20px 80px;
+    position: relative;
+    z-index: 10;
+}
+
+.mainServicesContent .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards 0.3s;
+}
+
+.mainServicesContent .section-header h2 {
+    font-size: 42px;
+    color: #2d5016;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.mainServicesContent .section-header p {
+    font-size: 18px;
+    color: #5a6c5a;
+    line-height: 1.8;
+}
+
+.mainServicesContent .table-container {
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(45, 80, 22, 0.15);
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards 0.5s;
+}
+
+.mainServicesContent .products-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.mainServicesContent .products-table thead {
+    background: linear-gradient(135deg, #5a7c47 0%, #2d5016 100%);
+}
+
+.mainServicesContent .products-table th {
+    padding: 20px 15px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: white;
+    letter-spacing: 0.5px;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mainServicesContent .products-table th:last-child {
+    border-right: none;
+}
+
+.mainServicesContent .products-table tbody tr {
+    border-bottom: 1px solid #e8f5e0;
+    transition: all 0.3s ease;
+}
+
+.mainServicesContent .products-table tbody tr:hover {
+    background: #f5f9f3;
+    transform: scale(1.01);
+}
+
+.mainServicesContent .products-table td {
+    padding: 18px 15px;
+    font-size: 15px;
+    color: #2d5016;
+    border-right: 1px solid #e8f5e0;
+}
+
+.mainServicesContent .products-table td:last-child {
+    border-right: none;
+}
+
+.mainServicesContent .products-table td:first-child {
+    font-weight: 600;
+    color: #2d5016;
+    font-size: 16px;
+}
+
+/* Features Section */
+.mainServicesContent .features-section {
+    max-width: 1400px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.mainServicesContent .features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 60px;
+}
+
+.mainServicesContent .feature-card {
+    background: white;
+    padding: 40px 35px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(45, 80, 22, 0.1);
+    transition: all 0.4s ease;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.mainServicesContent .feature-card:nth-child(1) { animation-delay: 0.2s; }
+.mainServicesContent .feature-card:nth-child(2) { animation-delay: 0.3s; }
+.mainServicesContent .feature-card:nth-child(3) { animation-delay: 0.4s; }
+
+.mainServicesContent .feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(45, 80, 22, 0.15);
+}
+
+.mainServicesContent .feature-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.mainServicesContent .feature-title {
+    font-size: 24px;
+    color: #2d5016;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.mainServicesContent .feature-text {
+    font-size: 16px;
+    color: #5a6c5a;
+    line-height: 1.8;
+}
+
+/* Included Items Section */
+.mainServicesContent .included-section {
+    background: linear-gradient(135deg, #e8f5e0 0%, #f5f9f3 100%);
+    padding: 80px 20px;
+    margin: 80px 0;
+}
+
+.mainServicesContent .included-content {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.mainServicesContent .included-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.mainServicesContent .included-header h3 {
+    font-size: 42px;
+    color: #2d5016;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.mainServicesContent .included-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+}
+
+.mainServicesContent .item-box {
+    background: white;
+    padding: 30px 25px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 5px 20px rgba(45, 80, 22, 0.08);
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.6s ease forwards;
+}
+
+.mainServicesContent .item-box:nth-child(1) { animation-delay: 0.1s; }
+.mainServicesContent .item-box:nth-child(2) { animation-delay: 0.2s; }
+.mainServicesContent .item-box:nth-child(3) { animation-delay: 0.3s; }
+.mainServicesContent .item-box:nth-child(4) { animation-delay: 0.4s; }
+.mainServicesContent .item-box:nth-child(5) { animation-delay: 0.5s; }
+.mainServicesContent .item-box:nth-child(6) { animation-delay: 0.6s; }
+
+.mainServicesContent .item-box:hover {
+    transform: translateX(10px);
+    box-shadow: 0 8px 30px rgba(45, 80, 22, 0.15);
+}
+
+.mainServicesContent .item-check {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #5a7c47 0%, #2d5016 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.mainServicesContent .item-name {
+    font-size: 17px;
+    color: #2d5016;
+    font-weight: 600;
+}
+
+/* Maintenance Brands Section */
+.mainServicesContent .maintenance-section {
+    max-width: 1400px;
+    margin: 0 auto 80px;
+    padding: 0 20px;
+}
+
+.mainServicesContent .maintenance-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.mainServicesContent .maintenance-header h3 {
+    font-size: 42px;
+    color: #2d5016;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.mainServicesContent .maintenance-description {
+    font-size: 18px;
+    color: #5a6c5a;
+    max-width: 800px;
+    margin: 0 auto 40px;
+    line-height: 1.8;
+}
+
+.mainServicesContent .brands-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+}
+
+.mainServicesContent .brand-item {
+    background: white;
+    padding: 25px 20px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(45, 80, 22, 0.08);
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.mainServicesContent .brand-item:nth-child(1) { animation-delay: 0.1s; }
+.mainServicesContent .brand-item:nth-child(2) { animation-delay: 0.15s; }
+.mainServicesContent .brand-item:nth-child(3) { animation-delay: 0.2s; }
+.mainServicesContent .brand-item:nth-child(4) { animation-delay: 0.25s; }
+.mainServicesContent .brand-item:nth-child(5) { animation-delay: 0.3s; }
+.mainServicesContent .brand-item:nth-child(6) { animation-delay: 0.35s; }
+.mainServicesContent .brand-item:nth-child(7) { animation-delay: 0.4s; }
+.mainServicesContent .brand-item:nth-child(8) { animation-delay: 0.45s; }
+.mainServicesContent .brand-item:nth-child(9) { animation-delay: 0.5s; }
+.mainServicesContent .brand-item:nth-child(10) { animation-delay: 0.55s; }
+.mainServicesContent .brand-item:nth-child(11) { animation-delay: 0.6s; }
+.mainServicesContent .brand-item:nth-child(12) { animation-delay: 0.65s; }
+.mainServicesContent .brand-item:nth-child(13) { animation-delay: 0.7s; }
+.mainServicesContent .brand-item:nth-child(14) { animation-delay: 0.75s; }
+.mainServicesContent .brand-item:nth-child(15) { animation-delay: 0.8s; }
+.mainServicesContent .brand-item:nth-child(16) { animation-delay: 0.85s; }
+
+.mainServicesContent .brand-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(45, 80, 22, 0.15);
+    background: linear-gradient(135deg, #f5f9f3 0%, #e8f5e0 100%);
+}
+
+.mainServicesContent .brand-name {
+    font-size: 16px;
+    color: #2d5016;
+    font-weight: 600;
+}
+
+/* About Section */
+.mainServicesContent .about-section {
+    background: linear-gradient(135deg, #2d5016 0%, #1a3010 100%);
+    padding: 80px 20px;
+    color: white;
+}
+
+.mainServicesContent .about-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.mainServicesContent .about-content h3 {
+    font-size: 42px;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+.mainServicesContent .about-content p {
+    font-size: 18px;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.95);
+    margin-bottom: 20px;
+}
+
+/* CTA Section */
+.mainServicesContent .cta-section {
+    max-width: 1400px;
+    margin: -50px auto 0;
+    padding: 0 20px 80px;
+    position: relative;
+    z-index: 10;
+}
+
+.mainServicesContent .cta-box {
+    background: white;
+    padding: 70px 50px;
+    border-radius: 25px;
+    box-shadow: 0 20px 60px rgba(45, 80, 22, 0.2);
+    text-align: center;
+}
+
+.mainServicesContent .cta-title {
+    font-size: 42px;
+    color: #2d5016;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.mainServicesContent .cta-text {
+    font-size: 20px;
+    color: #5a6c5a;
+    margin-bottom: 35px;
+}
+
+.mainServicesContent .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.mainServicesContent .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 45px;
+    background: linear-gradient(135deg, #5a7c47 0%, #2d5016 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(45, 80, 22, 0.3);
+}
+
+.mainServicesContent .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(45, 80, 22, 0.4);
+}
+
+.mainServicesContent .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 45px;
+    background: transparent;
+    color: #2d5016;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 600;
+    border: 2px solid #2d5016;
+    transition: all 0.3s ease;
+}
+
+.mainServicesContent .btn-secondary:hover {
+    background: #2d5016;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    25% {
+        transform: translate(30px, -30px) rotate(90deg);
+    }
+    50% {
+        transform: translate(0, -60px) rotate(180deg);
+    }
+    75% {
+        transform: translate(-30px, -30px) rotate(270deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .mainServicesContent .products-table {
+        font-size: 13px;
+    }
+    
+    .mainServicesContent .products-table th,
+    .mainServicesContent .products-table td {
+        padding: 12px 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .mainServicesContent .hero-title {
+        font-size: 36px;
+    }
+
+    .mainServicesContent .hero-contact {
+        font-size: 24px;
+    }
+
+    .mainServicesContent .section-header h2,
+    .mainServicesContent .maintenance-header h3,
+    .mainServicesContent .about-content h3,
+    .mainServicesContent .cta-title {
+        font-size: 28px;
+    }
+
+    .mainServicesContent .table-container {
+        overflow-x: auto;
+    }
+
+    .mainServicesContent .products-table {
+        min-width: 800px;
+    }
+
+    .mainServicesContent .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+    </style>
+</head>
+<body>
+
+    <section class="mainServicesContent">
+    <!-- Hero Section -->
+    <section class="ufh-hero">
+        <div class="hero-content">
+            <span class="hero-tag">VPS UFH</span>
+            <h1 class="hero-title">Complete Wet Underfloor Heating Kits</h1>
+            <div class="hero-contact">📞 0141 846 0804</div>
+            <p class="hero-description">
+                Our complete wet underfloor heating kits contain everything required to install an underfloor heating solution to your chosen floor area. Perfect for single zone applications controlled by a single thermostat.
+            </p>
+        </div>
+    </section>
+
+    <!-- Products Table -->
+    <section class="products-section">
+        <div class="section-header">
+            <h2>Available Kit Sizes</h2>
+            <p>Each kit includes all components based on 100mm pipe centres with centrally located manifold</p>
+        </div>
+
+        <div class="table-container">
+            <table class="products-table">
+                <thead>
+                    <tr>
+                        <th>Size</th>
+                        <th>Pipe (m)</th>
+                        <th>Manifold Ports</th>
+                        <th>16mm Eurocones</th>
+                        <th>Manifold Control Pack</th>
+                        <th>60mm Pipe Clips</th>
+                        <th>25m Edge Insulation</th>
+                        <th>Pipe Cutters</th>
+                        <th>Reaming Tool</th>
+                        <th>Installation Manual</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>20m²</td>
+                        <td>200</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>400</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>30m²</td>
+                        <td>300</td>
+                        <td>3</td>
+                        <td>6</td>
+                        <td>1</td>
+                        <td>600</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>40m²</td>
+                        <td>400</td>
+                        <td>4</td>
+                        <td>8</td>
+                        <td>1</td>
+                        <td>800</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>50m²</td>
+                        <td>500</td>
+                        <td>5</td>
+                        <td>10</td>
+                        <td>1</td>
+                        <td>1000</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>60m²</td>
+                        <td>600</td>
+                        <td>6</td>
+                        <td>12</td>
+                        <td>1</td>
+                        <td>1200</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>70m²</td>
+                        <td>700</td>
+                        <td>7</td>
+                        <td>14</td>
+                        <td>1</td>
+                        <td>1400</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>80m²</td>
+                        <td>800</td>
+                        <td>8</td>
+                        <td>16</td>
+                        <td>1</td>
+                        <td>1600</td>
+                        <td>2</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>90m²</td>
+                        <td>900</td>
+                        <td>9</td>
+                        <td>18</td>
+                        <td>1</td>
+                        <td>1800</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>100m²</td>
+                        <td>1000</td>
+                        <td>10</td>
+                        <td>20</td>
+                        <td>1</td>
+                        <td>2000</td>
+                        <td>3</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>110m²</td>
+                        <td>1100</td>
+                        <td>11</td>
+                        <td>22</td>
+                        <td>1</td>
+                        <td>2200</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td>120m²</td>
+                        <td>1200</td>
+                        <td>12</td>
+                        <td>24</td>
+                        <td>1</td>
+                        <td>2400</td>
+                        <td>4</td>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features-section">
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 class="feature-title">Single Zone Solution</h3>
+                <p class="feature-text">Perfect for one zone or room applications, controlled by a single thermostat for optimal temperature management.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">📐</div>
+                <h3 class="feature-title">100mm Pipe Centres</h3>
+                <p class="feature-text">All kits include sufficient pipe supply based on 100mm pipe spacing, assuming centrally located manifold placement.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3 class="feature-title">Pre-Assembled Manifolds</h3>
+                <p class="feature-text">Complete with isolating ball valves, adjustable flow meters, fill and drain points, automatic air vents, and pipe connectors.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- What's Included -->
+    <section class="included-section">
+        <div class="included-content">
+            <div class="included-header">
+                <h3>Each Kit Includes</h3>
+            </div>
+            <div class="included-items">
+                <div class="item-box">
+                    <div class="item-check">✓</div>
+                    <div class="item-name">16mm PERT-AL-PERT Pipe</div>
+                </div>
+                <div class="item-box">
+                    <div class="item-check">✓</div>
+                    <div class="item-name">Manifold Control Pack</div>
+                </div>
+                <div class="item-box">
+                    <div class="item-check">✓</div>
+                    <div class="item-name">Grundfos A Rated Pump</div>
+                </div>
+                <div class="item-box">
+                    <div class="item-check">✓</div>
+                    <div class="item-name">ESBE VTA 372 Valves</div>
+                </div>
+                <div class="item-box">
+                    <div class="item-check">✓</div>
+                    <div class="item-name">UFH Manifold & Connectors</div>
+                </div>
+                <div class="item-box">
+                    <div class="item-check">✓</div>
+                    <div class="item-name">Edge Insulation & Staples</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Maintenance Brands -->
+    <section class="maintenance-section">
+        <div class="maintenance-header">
+            <h3>Maintenance Plans Available</h3>
+            <p class="maintenance-description">
+                Our maintenance plans cover both electric and wet underfloor heating. Our underfloor heating specialists service all types of underfloor heating systems from leading manufacturers.
+            </p>
+        </div>
+
+        <div class="brands-grid">
+            <div class="brand-item"><div class="brand-name">Nu-Heat</div></div>
+            <div class="brand-item"><div class="brand-name">Warm Up</div></div>
+            <div class="brand-item"><div class="brand-name">Heat-Matt</div></div>
+            <div class="brand-item"><div class="brand-name">Devireg</div></div>
+            <div class="brand-item"><div class="brand-name">Uponor</div></div>
+            <div class="brand-item"><div class="brand-name">Thermo Floor</div></div>
+            <div class="brand-item"><div class="brand-name">Ebeco</div></div>
+            <div class="brand-item"><div class="brand-name">Invisible Heating</div></div>
+            <div class="brand-item"><div class="brand-name">Florad</div></div>
+            <div class="brand-item"><div class="brand-name">Floor Heating</div></div>
+            <div class="brand-item"><div class="brand-name">Enerfoil</div></div>
+            <div class="brand-item"><div class="brand-name">Ecohome</div></div>
+            <div class="brand-item"><div class="brand-name">Allbrite</div></div>
+            <div class="brand-item"><div class="brand-name">Thermo</div></div>
+            <div class="brand-item"><div class="brand-name">Taconova</div></div>
+            <div class="brand-item"><div class="brand-name">Roben</div></div>
+        </div>
+    </section>
+
+    <!-- About VPS -->
+    <section class="about-section">
+        <div class="about-content">
+            <h3>About VPS</h3>
+            <p>
+                VPS is a trusted distributor of underfloor heating pipes, manifolds, components and fittings. We carefully select the best components available with an unwavering emphasis on quality, value for money, and exceptional customer service.
+            </p>
+            <p>
+                We have identified a select group of manufacturers of underfloor heating pipes, manifolds, circulation pumps, insulation panels, press fittings and accessories to ensure you receive only the finest products for your heating needs.
+            </p>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="cta-box">
+            <h3 class="cta-title">Ready to Get Started?</h3>
+            <p class="cta-text">Contact us today for expert advice and to order your complete underfloor heating kit</p>
+            <div class="cta-buttons">
+                <a href="tel:01418460804" class="btn-primary">
+                    📞 Call 0141 846 0804
+                </a>
+                <a href="#quote" class="btn-secondary">
+                    Request a Quote
+                    <span>→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+    </section>
+</body>
+</html>

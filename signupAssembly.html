@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Modal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .signup-btn-unique {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #2E87D1 0%, #4CAF50 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .signup-btn-unique:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-overlay_latest{
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            animation: fadeIn 0.3s;
+        }
+
+        .modal-overlay_latest.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-overlay_latest .modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 480px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: slideUp 0.3s;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-overlay_latest .modal-header {
+            background: linear-gradient(135deg, #3375d1, #0c9eb5, #72a500);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .modal-overlay_latest .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .modal-overlay_latest .close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .modal-overlay_latest .icon-circle {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-overlay_latest .icon-circle svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+
+        .modal-overlay_latest .modal-header h2 {
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .modal-overlay_latest .tabs {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .modal-overlay_latest .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .modal-overlay_latest .tab:hover {
+            background: rgba(46, 135, 209, 0.05);
+        }
+
+        .modal-overlay_latest .tab.active {
+            color: #2E87D1;
+            background: white;
+        }
+
+        .modal-overlay_latest .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #3375d1, #0c9eb5, #72a500);
+        }
+
+        .modal-overlay_latest .modal-content {
+            padding: 30px;
+            max-height: calc(90vh - 200px);
+            overflow-y: auto;
+        }
+
+        .modal-overlay_latest .tab-content {
+            display: none;
+        }
+
+        .modal-overlay_latest .tab-content.active {
+            display: block;
+            animation: fadeInContent 0.3s;
+        }
+
+        @keyframes fadeInContent {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-overlay_latest .form-group {
+            margin-bottom: 20px;
+        }
+
+        .modal-overlay_latest label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .modal-overlay_latest .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .modal-overlay_latest .input-icon {
+            position: absolute;
+            left: 15px;
+            color: #999;
+            width: 18px;
+            height: 18px;
+        }
+
+        .modal-overlay_latest input[type="text"],
+        .modal-overlay_latest input[type="email"],
+        .modal-overlay_latest input[type="password"],
+        .modal-overlay_latest textarea,
+        .modal-overlay_latest select {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #f8f9fa;
+        }
+
+        .modal-overlay_latest input[type="file"] {
+            padding: 12px 15px;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 15px;
+            background: #f8f9fa;
+            width: 100%;
+        }
+
+        .modal-overlay_latest textarea {
+            resize: vertical;
+            min-height: 80px;
+            padding-left: 15px;
+        }
+
+        .modal-overlay_latest input:focus,
+        .modal-overlay_latest textarea:focus,
+        .modal-overlay_latest select:focus {
+            outline: none;
+            border-color: #2E87D1;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(46, 135, 209, 0.1);
+        }
+
+        .modal-overlay_latest .toggle-password {
+            position: absolute;
+            right: 15px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #999;
+            padding: 5px;
+        }
+
+        .modal-overlay_latest .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .modal-overlay_latest .checkbox-wrapper input[type="checkbox"] {
+            width: auto;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .modal-overlay_latest .checkbox-wrapper label {
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .modal-overlay_latest .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #2E87D1 0%, #4CAF50 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .modal-overlay_latest .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(46, 135, 209, 0.4);
+        }
+
+        .modal-overlay_latest .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .modal-overlay_latest .login-link {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .modal-overlay_latest .login-link a {
+            color: #2E87D1;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .modal-overlay_latest .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .modal-overlay_latest .login-form {
+            display: none;
+            animation: fadeInContent 0.3s;
+        }
+
+        .modal-overlay_latest .login-form.active {
+            display: block;
+        }
+
+        .modal-overlay_latest .back-btn {
+            background: transparent;
+            border: none;
+            color: #2E87D1;
+            cursor: pointer;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .modal-overlay_latest .back-btn:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sign Up Button -->
+    <button class="signup-btn-unique" onclick="openSignupModal2025()">Sign Up</button>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay_latest" id="signupModalOverlay2025" onclick="closeSignupModalOnOverlay2025(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <button class="close-btn" onclick="closeSignupModal2025()">&times;</button>
+                <div class="icon-circle">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        <path d="M19 13h-2v2h-2v2h2v2h2v-2h2v-2h-2z"/>
+                    </svg>
+                </div>
+                <h2 id="signupModalTitle2025">Create Account</h2>
+            </div>
+
+            <!-- Sign Up Forms -->
+            <div id="signupSection2025">
+                <div class="tabs">
+                    <button class="tab active" onclick="switchSignupTab2025('customer')">Customer Account</button>
+                    <button class="tab" onclick="switchSignupTab2025('technician')">Technician Account</button>
+                </div>
+
+                <div class="modal-content">
+                    <!-- Customer Form -->
+                    <div id="customerForm2025" class="tab-content active">
+                        <form onsubmit="handleSignupSubmit2025(event, 'customer')">
+                            <div class="form-group">
+                                <label for="customerName2025">Full Name</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                    </svg>
+                                    <input type="text" id="customerName2025" placeholder="Enter your full name" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="customerEmail2025">Email Address</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                    </svg>
+                                    <input type="email" id="customerEmail2025" placeholder="admin@gmail.com" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="customerPassword2025">Password</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                    </svg>
+                                    <input type="password" id="customerPassword2025" placeholder="••••••••••••••" required>
+                                    <button type="button" class="toggle-password" onclick="toggleSignupPassword2025('customerPassword2025')">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="customerTerms2025" required>
+                                <label for="customerTerms2025">I agree to the Terms & Conditions</label>
+                            </div>
+
+                            <button type="submit" class="submit-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                    <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                                Sign Up
+                            </button>
+
+                            <div class="divider">OR</div>
+
+                            <div class="login-link">
+                                Already have an account? <a href="#" onclick="showSignupLogin2025(event)">Login here</a>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Technician Form -->
+                    <div id="technicianForm2025" class="tab-content">
+                        <form onsubmit="handleSignupSubmit2025(event, 'technician')">
+                            <div class="form-group">
+                                <label for="techName2025">Full Name</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                    </svg>
+                                    <input type="text" id="techName2025" placeholder="Enter your full name" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="techEmail2025">Email Address</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                    </svg>
+                                    <input type="email" id="techEmail2025" placeholder="technician@gmail.com" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="techPassword2025">Password</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                    </svg>
+                                    <input type="password" id="techPassword2025" placeholder="••••••••••••••" required>
+                                    <button type="button" class="toggle-password" onclick="toggleSignupPassword2025('techPassword2025')">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                            <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="techCity2025">City/State</label>
+                                <div class="input-wrapper">
+                                    <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+                                    </svg>
+                                    <input type="text" id="techCity2025" placeholder="e.g., New York, NY" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="techExperience2025">Past Work Experience</label>
+                                <textarea id="techExperience2025" placeholder="Describe your relevant work experience..." required></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="techDocuments2025">Legal Documents / Resume</label>
+                                <input type="file" id="techDocuments2025" accept=".pdf,.doc,.docx" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="techDetails2025">Additional Details</label>
+                                <textarea id="techDetails2025" placeholder="Any additional information you'd like to share..."></textarea>
+                            </div>
+
+                            <div class="checkbox-wrapper">
+                                <input type="checkbox" id="techTerms2025" required>
+                                <label for="techTerms2025">I agree to the Terms & Conditions</label>
+                            </div>
+
+                            <button type="submit" class="submit-btn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                    <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                                </svg>
+                                Sign Up
+                            </button>
+
+                            <div class="divider">OR</div>
+
+                            <div class="login-link">
+                                Already have an account? <a href="#" onclick="showSignupLogin2025(event)">Login here</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginSection2025" class="login-form">
+                <div class="modal-content">
+                    <button class="back-btn" onclick="showSignupForm2025()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                        </svg>
+                        Back to Sign Up
+                    </button>
+
+                    <form onsubmit="handleSignupLoginSubmit2025(event)">
+                        <div class="form-group">
+                            <label for="loginEmail2025">Email Address</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                </svg>
+                                <input type="email" id="loginEmail2025" placeholder="Enter your email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loginPassword2025">Password</label>
+                            <div class="input-wrapper">
+                                <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                                </svg>
+                                <input type="password" id="loginPassword2025" placeholder="Enter your password" required>
+                                <button type="button" class="toggle-password" onclick="toggleSignupPassword2025('loginPassword2025')">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                                <path d="M11 7L9.6 8.4l2.6 2.6H2v2h10.2l-2.6 2.6L11 17l5-5-5-5zm9 12h-8v2h8c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-8v2h8v14z"/>
+                            </svg>
+                            Login
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openSignupModal2025() {
+            document.getElementById('signupModalOverlay2025').classList.add('active');
+        }
+
+        function closeSignupModal2025() {
+            document.getElementById('signupModalOverlay2025').classList.remove('active');
+            // Reset to signup section when closing
+            setTimeout(() => {
+                showSignupForm2025();
+            }, 300);
+        }
+
+        function closeSignupModalOnOverlay2025(event) {
+            if (event.target.id === 'signupModalOverlay2025') {
+                closeSignupModal2025();
+            }
+        }
+
+        function switchSignupTab2025(tab) {
+            // Update tab buttons
+            const tabs = document.querySelectorAll('.modal-overlay_latest .tab');
+            tabs.forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Update tab content
+            const contents = document.querySelectorAll('.modal-overlay_latest .tab-content');
+            contents.forEach(c => c.classList.remove('active'));
+            document.getElementById(tab === 'customer' ? 'customerForm2025' : 'technicianForm2025').classList.add('active');
+        }
+
+        function toggleSignupPassword2025(inputId) {
+            const input = document.getElementById(inputId);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function showSignupLogin2025(e) {
+            e.preventDefault();
+            document.getElementById('signupSection2025').style.display = 'none';
+            document.getElementById('loginSection2025').classList.add('active');
+            document.getElementById('signupModalTitle2025').textContent = 'Login';
+        }
+
+        function showSignupForm2025() {
+            document.getElementById('signupSection2025').style.display = 'block';
+            document.getElementById('loginSection2025').classList.remove('active');
+            document.getElementById('signupModalTitle2025').textContent = 'Create Account';
+        }
+
+        function handleSignupSubmit2025(e, type) {
+            e.preventDefault();
+            alert(`${type.charAt(0).toUpperCase() + type.slice(1)} account created successfully!`);
+            closeSignupModal2025();
+        }
+
+        function handleSignupLoginSubmit2025(e) {
+            e.preventDefault();
+            alert('Login successful!');
+            closeSignupModal2025();
+        }
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modalOverlay = document.getElementById('signupModalOverlay2025');
+                if (modalOverlay && modalOverlay.classList.contains('active')) {
+                    closeSignupModal2025();
+                }
+            }
+        });
+    </script>
+</body>
+</html>

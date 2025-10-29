@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swing Set Installation Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 50%, #fff3e0 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            gap: 20px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: #e0e0e0;
+            color: #666;
+            transition: all 0.3s;
+        }
+
+        .step.active .step-number {
+            background: linear-gradient(135deg, #3375d1, #0c9eb5, #72a500);
+            color: white;
+        }
+
+        .step-text {
+            font-weight: 600;
+            color: #999;
+        }
+
+        .step.active .step-text {
+            color: #4caf50;
+        }
+
+        .progress-line {
+            width: 80px;
+            height: 4px;
+            background: #e0e0e0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-line.active::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #4caf50;
+        }
+
+        /* Form Container */
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            display: none;
+        }
+
+        .form-container.active {
+            display: block;
+        }
+
+        .form-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .form-header svg {
+            color: #2196f3;
+        }
+
+        .form-header h2 {
+            font-size: 28px;
+            color: #333;
+        }
+
+        /* Form Fields */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+                font-weight: 600;
+                color: #2d7783;
+                margin-bottom: 8px;
+                font-size: 16px;
+        }
+
+        label .required {
+            color: #4caf50;
+        }
+
+        input, select, textarea {
+            padding: 12px 16px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 15px;
+            transition: all 0.3s;
+            font-family: inherit;
+            color: gray;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #b7d7d4;
+            /* box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1); */
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3375d1, #0c9eb5, #72a500);
+            color: white;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(33, 150, 243, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .btn:disabled {
+            background: #e0e0e0;
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .button-group .btn {
+            flex: 1;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 16px 16px 16px 50px;
+            font-size: 16px;
+        }
+
+        /* Technician Cards */
+        .technician-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .technician-card {
+            border: 3px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 24px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+            position: relative;
+        }
+
+        .technician-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+            border-color: #2196f3;
+        }
+
+        .technician-card.selected {
+            border-color: #4caf50;
+            background: #f1f8f4;
+            box-shadow: 0 8px 24px rgba(76, 175, 80, 0.2);
+        }
+
+        .technician-card.unavailable {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .technician-card.unavailable:hover {
+            transform: none;
+            border-color: #e0e0e0;
+        }
+
+        .card-header {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 4px solid #bbdefb;
+        }
+
+        .tech-info h3 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .star {
+            color: #ffc107;
+            font-size: 16px;
+        }
+
+        .rating-text {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .review-count {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .card-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .detail-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #555;
+            font-size: 14px;
+        }
+
+        .detail-row svg {
+            flex-shrink: 0;
+        }
+
+        .expertise-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .completed-jobs {
+            padding-top: 12px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .completed-jobs strong {
+            color: #4caf50;
+            font-size: 16px;
+        }
+
+        .badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-unavailable {
+            background: #f44336;
+            color: white;
+        }
+
+        .badge-selected {
+            background: #4caf50;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+            font-size: 18px;
+        }
+
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            .step-text {
+                display: none;
+            }
+
+            .progress-line {
+                width: 40px;
+            }
+
+            .technician-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="step" id="step1Indicator">
+                <div class="step-number">1</div>
+                <span class="step-text">Booking Details</span>
+            </div>
+            <div class="progress-line" id="progressLine"></div>
+            <div class="step" id="step2Indicator">
+                <div class="step-number">2</div>
+                <span class="step-text">Select Technician</span>
+            </div>
+        </div>
+
+        <!-- Step 1: Booking Form -->
+        <div class="form-container active" id="step1">
+            <div class="form-header">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                <h2>Schedule Your Installation</h2>
+            </div>
+
+            <form id="bookingForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Select Swing Set <span class="required">*</span></label>
+                        <select id="swingSet" required>
+                            <option value="">Choose your swing set</option>
+                            <option value="Skyfort II">Skyfort II</option>
+                            <option value="Adventure Tower">Adventure Tower</option>
+                            <option value="Woodland Explorer">Woodland Explorer</option>
+                            <option value="Mega Fortress">Mega Fortress</option>
+                            <option value="Castle Playset">Castle Playset</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Installation Address <span class="required">*</span></label>
+                        <input type="text" id="address" placeholder="123 Main Street" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>City <span class="required">*</span></label>
+                        <input type="text" id="city" placeholder="Your City" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ZIP Code <span class="required">*</span></label>
+                        <input type="text" id="zipCode" placeholder="12345" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Preferred Date <span class="required">*</span></label>
+                        <input type="date" id="preferredDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Preferred Time Range <span class="required">*</span></label>
+                        <select id="timeRange" required>
+                            <option value="">Select a time range</option>
+                            <option value="8:00 AM - 10:00 AM">8:00 AM - 10:00 AM</option>
+                            <option value="10:00 AM - 12:00 PM">10:00 AM - 12:00 PM</option>
+                            <option value="12:00 PM - 2:00 PM">12:00 PM - 2:00 PM</option>
+                            <option value="2:00 PM - 4:00 PM">2:00 PM - 4:00 PM</option>
+                            <option value="4:00 PM - 6:00 PM">4:00 PM - 6:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Additional Notes (Optional)</label>
+                    <textarea id="additionalNotes" placeholder="Any special instructions, site conditions, or requests..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Continue to Technician Selection</button>
+            </form>
+        </div>
+
+        <!-- Step 2: Technician Selection -->
+        <div class="form-container" id="step2">
+            <div class="form-header">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="8" r="7"></circle>
+                    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                </svg>
+                <h2>Choose Your Expert Technician</h2>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="search-container">
+                <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="searchInput" class="search-input" placeholder="Search by name, specialization, or expertise...">
+            </div>
+
+            <!-- Technician Grid -->
+            <div class="technician-grid" id="technicianGrid"></div>
+
+            <div class="no-results" id="noResults" style="display: none;">
+                No technicians found matching your search.
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button class="btn btn-secondary" id="backBtn">Back to Details</button>
+                <button class="btn btn-primary" id="confirmBtn" disabled>Confirm Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data
+        const technicians = [
+            {
+                id: 1,
+                name: 'Michael Rodriguez',
+                rating: 4.9,
+                reviews: 127,
+                experience: '8 years',
+                specialization: 'Large Wooden Playsets',
+                avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Michael',
+                completedJobs: 340,
+                responseTime: '< 2 hours',
+                expertise: ['Skyfort Series', 'Multi-Level Structures', 'Custom Installations'],
+                available: true
+            },
+            {
+                id: 2,
+                name: 'Sarah Johnson',
+                rating: 5.0,
+                reviews: 94,
+                experience: '6 years',
+                specialization: 'Swing Sets & Fort Assembly',
+                avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah',
+                completedJobs: 256,
+                responseTime: '< 1 hour',
+                expertise: ['Skyfort II', 'Swing Systems', 'Safety Inspections'],
+                available: true
+            },
+            {
+                id: 3,
+                name: 'James Patterson',
+                rating: 4.8,
+                reviews: 156,
+                experience: '10 years',
+                specialization: 'Commercial & Residential Playsets',
+                avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=James',
+                completedJobs: 412,
+                responseTime: '< 3 hours',
+                expertise: ['All Wooden Structures', 'Repairs', 'Modifications'],
+                available: true
+            },
+            {
+                id: 4,
+                name: 'Emily Chen',
+                rating: 4.9,
+                reviews: 88,
+                experience: '5 years',
+                specialization: 'Backyard Adventure Sets',
+                avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Emily',
+                completedJobs: 203,
+                responseTime: '< 2 hours',
+                expertise: ['Slide Integration', 'Fort Structures', 'Ground Leveling'],
+                available: true
+            },
+            {
+                id: 5,
+                name: 'David Thompson',
+                rating: 4.7,
+                reviews: 142,
+                experience: '9 years',
+                specialization: 'Complex Multi-Feature Sets',
+                avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=David',
+                completedJobs: 378,
+                responseTime: '< 4 hours',
+                expertise: ['Large Projects', 'Team Coordination', 'Site Preparation'],
+                available: false
+            }
+        ];
+
+        // State
+        let currentStep = 1;
+        let selectedTechnicianId = null;
+        let bookingData = {};
+
+        // DOM Elements
+        const step1 = document.getElementById('step1');
+        const step2 = document.getElementById('step2');
+        const step1Indicator = document.getElementById('step1Indicator');
+        const step2Indicator = document.getElementById('step2Indicator');
+        const progressLine = document.getElementById('progressLine');
+        const bookingForm = document.getElementById('bookingForm');
+        const searchInput = document.getElementById('searchInput');
+        const technicianGrid = document.getElementById('technicianGrid');
+        const noResults = document.getElementById('noResults');
+        const backBtn = document.getElementById('backBtn');
+        const confirmBtn = document.getElementById('confirmBtn');
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('preferredDate').setAttribute('min', today);
+
+        // Step 1: Form Submission
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            bookingData = {
+                swingSet: document.getElementById('swingSet').value,
+                address: document.getElementById('address').value,
+                city: document.getElementById('city').value,
+                zipCode: document.getElementById('zipCode').value,
+                preferredDate: document.getElementById('preferredDate').value,
+                timeRange: document.getElementById('timeRange').value,
+                additionalNotes: document.getElementById('additionalNotes').value
+            };
+
+            goToStep(2);
+        });
+
+        // Navigation
+        function goToStep(step) {
+            currentStep = step;
+
+            if (step === 1) {
+                step1.classList.add('active');
+                step2.classList.remove('active');
+                step1Indicator.classList.add('active');
+                step2Indicator.classList.remove('active');
+                progressLine.classList.remove('active');
+            } else {
+                step1.classList.remove('active');
+                step2.classList.add('active');
+                step1Indicator.classList.add('active');
+                step2Indicator.classList.add('active');
+                progressLine.classList.add('active');
+                renderTechnicians(technicians);
+            }
+        }
+
+        backBtn.addEventListener('click', () => goToStep(1));
+
+        // Render Technicians
+        function renderTechnicians(techList) {
+            technicianGrid.innerHTML = '';
+
+            if (techList.length === 0) {
+                noResults.style.display = 'block';
+                return;
+            }
+
+            noResults.style.display = 'none';
+
+            techList.forEach(tech => {
+                const card = document.createElement('div');
+                card.className = `technician-card ${!tech.available ? 'unavailable' : ''} ${selectedTechnicianId === tech.id ? 'selected' : ''}`;
+                
+                card.innerHTML = `
+                    ${!tech.available ? '<div class="badge badge-unavailable">Unavailable</div>' : ''}
+                    ${selectedTechnicianId === tech.id ? `
+                        <div class="badge badge-selected">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                            Selected
+                        </div>
+                    ` : ''}
+                    
+                    <div class="card-header">
+                        <img src="${tech.avatar}" alt="${tech.name}" class="avatar">
+                        <div class="tech-info">
+                            <h3>${tech.name}</h3>
+                            <div class="rating">
+                                <span class="star">★</span>
+                                <span class="rating-text">${tech.rating}</span>
+                                <span class="review-count">(${tech.reviews} reviews)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-details">
+                        <div class="detail-row">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2196f3" stroke-width="2">
+                                <circle cx="12" cy="8" r="7"></circle>
+                                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                            </svg>
+                            <strong>${tech.experience} Experience</strong>
+                        </div>
+
+                        <div class="detail-row">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4caf50" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
+                            <span>${tech.specialization}</span>
+                        </div>
+
+                        <div class="detail-row">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff9800" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            <span>Response: ${tech.responseTime}</span>
+                        </div>
+
+                        <div class="expertise-tags">
+                            ${tech.expertise.map(exp => `<span class="tag">${exp}</span>`).join('')}
+                        </div>
+
+                        <div class="completed-jobs">
+                            <strong>${tech.completedJobs}</strong> Completed Installations
+                        </div>
+                    </div>
+                `;
+
+                if (tech.available) {
+                    card.addEventListener('click', () => selectTechnician(tech.id));
+                }
+
+                technicianGrid.appendChild(card);
+            });
+        }
+
+        // Search Functionality
+        searchInput.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            
+            const filtered = technicians.filter(tech => 
+                tech.name.toLowerCase().includes(query) ||
+                tech.specialization.toLowerCase().includes(query) ||
+                tech.expertise.some(exp => exp.toLowerCase().includes(query))
+            );
+
+            renderTechnicians(filtered);
+        });
+
+        // Select Technician
+        function selectTechnician(id) {
+            selectedTechnicianId = id;
+            confirmBtn.disabled = false;
+            renderTechnicians(searchInput.value ? 
+                technicians.filter(tech => 
+                    tech.name.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+                    tech.specialization.toLowerCase().includes(searchInput.value.toLowerCase()) ||
+                    tech.expertise.some(exp => exp.toLowerCase().includes(searchInput.value.toLowerCase()))
+                ) : technicians
+            );
+        }
+
+        // Confirm Booking
+        confirmBtn.addEventListener('click', function() {
+            const selectedTech = technicians.find(t => t.id === selectedTechnicianId);
+            
+            if (!selectedTech) return;
+
+            const message = `Booking Confirmed! ✅\n\n` +
+                `Technician: ${selectedTech.name}\n` +
+                `Swing Set: ${bookingData.swingSet}\n` +
+                `Address: ${bookingData.address}, ${bookingData.city}, ${bookingData.zipCode}\n` +
+                `Date: ${bookingData.preferredDate}\n` +
+                `Time: ${bookingData.timeRange}\n\n` +
+                `We'll send you a confirmation email shortly!`;
+
+            alert(message);
+            
+            // Reset form
+            bookingForm.reset();
+            selectedTechnicianId = null;
+            searchInput.value = '';
+            goToStep(1);
+        });
+
+        // Initialize
+        step1Indicator.classList.add('active');
+    </script>
+</body>
+</html>

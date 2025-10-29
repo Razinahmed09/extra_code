@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Podcast Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+/* Animated Background Particles */
+.livepodcast_Section .bg-particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.livepodcast_Section .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(230, 57, 70, 0.3);
+    border-radius: 50%;
+    animation: float 15s infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100vh) translateX(50px);
+        opacity: 0;
+    }
+}
+
+.livepodcast_Section .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header */
+.livepodcast_Section .header {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeInDown 0.8s ease;
+}
+
+.livepodcast_Section .header h1 {
+    color: white;
+    font-size: 2.8rem;
+    text-shadow: 0 0 20px rgba(230, 57, 70, 0.5);
+    margin-bottom: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.livepodcast_Section .live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #cf158b 0%, #7b16d9 100%);
+    color: white;
+    padding: 10px 25px;
+    border-radius: 30px;
+    font-weight: 600;
+    animation: pulse 2s infinite, glow 2s infinite;
+    box-shadow: 0 5px 20px rgba(230, 57, 70, 0.4);
+}
+
+.livepodcast_Section .live-dot {
+    width: 12px;
+    height: 12px;
+    background: white;
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Main Grid */
+.livepodcast_Section .main-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 25px;
+    margin-bottom: 40px;
+    align-items: center;
+}
+
+@media (max-width: 1024px) {
+    .livepodcast_Section .main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Video Player Section */
+.livepodcast_Section .video-section {
+    background: rgb(47 13 52);
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+    animation: slideInLeft 0.8s ease;
+    border: 1px solid rgba(230, 57, 70, 0.1);
+    position: relative;
+}
+
+.livepodcast_Section .video-section::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(135deg, #cf158b 0%, #7b16d9 100%);
+    border-radius: 25px;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.livepodcast_Section .video-section:hover::before {
+    opacity: 0.3;
+    animation: borderRotate 3s linear infinite;
+}
+
+@keyframes borderRotate {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+.livepodcast_Section .video-player {
+    position: relative;
+    width: 100%;
+    padding-top: 56.25%;
+    background: #000;
+}
+
+.livepodcast_Section .video-player iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.livepodcast_Section .video-url-input {
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #51195a 0%, #3e1c44 100%);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.livepodcast_Section .video-url-input input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    background: rgb(61 20 68);
+    color: white;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.livepodcast_Section .video-url-input input:focus {
+    outline: none;
+    border-color: #9C27B0;
+    /* background: white; */
+    /* box-shadow: 0 0 15px rgba(255, 255, 255, 0.3); */
+}
+
+.livepodcast_Section .load-video-btn {
+    padding: 10px 25px;
+    background: linear-gradient(135deg, #cf158b 0%, #7b16d9 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    gap: 5px;
+}
+
+.livepodcast_Section .load-video-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
+}
+
+.livepodcast_Section .video-info {
+    padding: 25px;
+    /* backdrop-filter: blur(6px); */
+    background: #f8ceff14;
+}
+
+.livepodcast_Section .video-title {
+    font-size: 1.6rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.livepodcast_Section .video-stats {
+    display: flex;
+    gap: 25px;
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.livepodcast_Section .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 15px;
+    background: rgb(75 52 78);
+    color: white;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.livepodcast_Section .stat-item:hover {
+    background: rgba(230, 57, 70, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Comments Section */
+.livepodcast_Section .comments-section {
+    /* background: rgba(255, 255, 255, 0.98); */
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+    display: flex;
+    flex-direction: column;
+    height: 650px;
+    animation: slideInRight 0.8s ease;
+    border: 1px solid rgba(230, 57, 70, 0.1);
+}
+
+.livepodcast_Section .comments-header {
+    background: linear-gradient(135deg, #51195a 0%, #3e1c44 100%);
+    color: white;
+    padding: 18px 25px;
+    font-weight: 700;
+    font-size: 1.15rem;
+    box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+}
+
+.livepodcast_Section .comments-feed {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    background: linear-gradient(to bottom, #3e1c44, #69327273);
+}
+
+.livepodcast_Section .comment {
+    background: #f6c1ffd1;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    animation: slideInComment 0.4s ease;
+    transform-origin: bottom;
+    border-left: 3px solid #9C27B0;
+    transition: all 0.3s ease;
+}
+
+.livepodcast_Section .comment:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(230, 57, 70, 0.15);
+}
+
+.livepodcast_Section .comment-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.livepodcast_Section .comment-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #cf158b 0%, #7b16d9 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 3px 10px rgba(230, 57, 70, 0.3);
+}
+
+.livepodcast_Section .comment-username {
+    font-weight: 700;
+    color: #1a1a2e;
+    font-size: 0.95rem;
+}
+
+.livepodcast_Section .comment-time {
+    font-size: 0.8rem;
+    color: #000000;
+    margin-left: auto;
+}
+
+.livepodcast_Section .comment-text {
+    color: #333;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.livepodcast_Section .comment-input-section {
+    padding: 20px;
+    background: #4c1e54;
+    border-top: 2px solid rgba(230, 57, 70, 0.1);
+}
+
+.livepodcast_Section .comment-input-wrapper {
+    display: flex;
+    gap: 12px;
+}
+
+.livepodcast_Section .comment-input {
+    flex: 1;
+    padding: 10px 18px;
+    border: 1px solid #785b7c;
+    background: #3d1444;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.livepodcast_Section .comment-input:focus {
+    outline: none;
+    border-color: #9C27B0;
+    box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.1);
+}
+
+.livepodcast_Section .send-btn {
+    padding: 10px 30px;
+    background: linear-gradient(135deg, #cf158b 0%, #7b16d9 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+}
+
+.livepodcast_Section .send-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4);
+}
+
+/* Upload Section */
+.livepodcast_Section .upload-section {
+    background: rgb(55 22 60);
+    border-radius: 25px;
+    padding: 35px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+    margin-bottom: 40px;
+    animation: fadeInUp 1s ease;
+    border: 1px solid rgba(230, 57, 70, 0.1);
+}
+
+.livepodcast_Section .upload-header {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+}
+
+.livepodcast_Section .upload-form {
+    display: grid;
+    gap: 20px;
+}
+
+.livepodcast_Section .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.livepodcast_Section .form-group label {
+    font-weight: 700;
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.livepodcast_Section .form-group input,
+.livepodcast_Section .form-group textarea {
+    padding: 14px 18px;
+    border: 1px solid #785b7c;
+    color: white;
+    border-radius: 15px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    background: #3d1444;
+}
+
+.livepodcast_Section .form-group input:focus,
+.livepodcast_Section .form-group textarea:focus {
+    outline: none;
+    border-color: #9C27B0;
+    box-shadow: 0 0 0 4px rgba(230, 57, 70, 0.1);
+}
+
+.livepodcast_Section .file-input-wrapper {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #cf158b 0%, #7b16d9 100%);
+    color: white;
+    padding: 18px 35px;
+    border-radius: 15px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+}
+
+.livepodcast_Section .file-input-wrapper:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(230, 57, 70, 0.4);
+}
+
+.livepodcast_Section .file-input-wrapper input {
+    position: absolute;
+    left: -9999px;
+}
+
+.livepodcast_Section .upload-btn {
+    padding: 18px 35px;
+    background: linear-gradient(135deg, #561460 0%, #602cbb 100%);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(15, 52, 96, 0.3);
+}
+
+.livepodcast_Section .upload-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(15, 52, 96, 0.4);
+}
+
+/* Uploaded Podcasts Section */
+.livepodcast_Section .podcasts-list-section {
+    background: rgb(55 22 60);
+    border-radius: 25px;
+    padding: 35px;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+    animation: fadeInUp 1.2s ease;
+    border: 1px solid rgba(230, 57, 70, 0.1);
+}
+
+.livepodcast_Section .podcasts-header {
+    font-size: 2rem;
+    color: #ffffff;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 700;
+}
+
+.livepodcast_Section .podcasts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.livepodcast_Section .podcast-card {
+    background: #37163c;
+    border: 2px solid #785b7c !important;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s ease;
+    animation: scaleIn 0.5s ease;
+    border: 2px solid transparent;
+}
+
+.livepodcast_Section .podcast-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(230, 57, 70, 0.2);
+    border-color: #e63946;
+}
+
+.livepodcast_Section .podcast-thumbnail {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #cf158b 0%, #7b16d9 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.livepodcast_Section .podcast1 {
+    background-image: url(podcast1.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.livepodcast_Section .podcast2 {
+    background-image: url(podcast2.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.livepodcast_Section .podcast3 {
+    background-image: url(podcast3.png);
+    background-size: cover;
+    background-position: center;
+}
+
+.livepodcast_Section .podcast-thumbnail::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+    animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translate(-50%, -50%);
+    }
+    50% {
+        transform: translate(50%, 50%);
+    }
+    100% {
+        transform: translate(-50%, -50%);
+    }
+}
+
+      .livepodcast_Section .podcast-info {
+    padding: 20px;
+}
+
+.livepodcast_Section .podcast-title {
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    font-size: 1.15rem;
+}
+
+.livepodcast_Section .podcast-description {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-height: 1.5;
+}
+
+.livepodcast_Section .podcast-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 2px solid rgba(230, 57, 70, 0.1);
+}
+
+.livepodcast_Section .podcast-date {
+    font-size: 0.85rem;
+    color: #999;
+    font-weight: 600;
+}
+
+.livepodcast_Section .play-btn {
+    padding: 10px 25px;
+    background: linear-gradient(135deg, #cf158b 0%, #7b16d9 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 3px 10px rgba(230, 57, 70, 0.3);
+    display: flex;
+    gap: 5px;
+}
+
+.livepodcast_Section .play-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(230, 57, 70, 0.5);
+}
+
+/* Animations */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(60px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInComment {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.08);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 5px 20px rgba(230, 57, 70, 0.4);
+    }
+    50% {
+        box-shadow: 0 5px 30px rgba(230, 57, 70, 0.7);
+    }
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.2;
+    }
+}
+
+/* Scrollbar Styling */
+.livepodcast_Section .comments-feed::-webkit-scrollbar {
+    width: 10px;
+}
+
+.livepodcast_Section .comments-feed::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.livepodcast_Section .comments-feed::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #cf158b 0%, #7b16d9 100%);
+    border-radius: 10px;
+}
+
+.livepodcast_Section .comments-feed::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #cf158b 0%, #7b16d9 100%);
+}
+
+    </style>
+</head>
+<body>
+    <section class="livepodcast_Section">
+    <!-- Animated Background Particles -->
+    <div class="bg-particles" id="particles"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎙️ Live Podcast Studio</h1>
+            <div class="live-badge">
+                <div class="live-dot"></div>
+                <span>LIVE NOW</span>
+            </div>
+        </div>
+
+        <!-- Main Grid: Video + Comments -->
+        <div class="main-grid">
+            <!-- Video Player Section -->
+            <div class="video-section">
+                <div class="video-url-input">
+                    <input 
+                        type="text" 
+                        id="videoUrlInput" 
+                        placeholder="Enter YouTube or video URL (e.g., https://www.youtube.com/watch?v=...)"
+                        value="https://www.youtube.com/embed/jfKfPfyJRdk"
+                    >
+                    <button class="load-video-btn" onclick="loadVideo()">
+                        <div class="live-dot"></div> Load
+                    </button>
+                </div>
+                <div class="video-player" id="videoPlayer">
+                    <iframe 
+                        src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+                <div class="video-info">
+                    <h2 class="video-title" id="videoTitle">Elevation: Season Opening Party 2</h2>
+                    <div class="video-stats">
+                        <div class="stat-item">
+                            <span>👁️</span>
+                            <span id="viewCount">1,234</span> watching
+                        </div>
+                        <div class="stat-item">
+                            <span>💬</span>
+                            <span id="commentCount">89</span> comments
+                        </div>
+                        <div class="stat-item">
+                            <span>👍</span>
+                            <span>542</span> likes
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comments Section -->
+            <div class="comments-section">
+                <div class="comments-header">
+                    💬 Live Chat
+                </div>
+                <div class="comments-feed" id="commentsFeed">
+                    <!-- Comments will be added here dynamically -->
+                </div>
+                <div class="comment-input-section">
+                    <div class="comment-input-wrapper">
+                        <input 
+                            type="text" 
+                            class="comment-input" 
+                            id="commentInput" 
+                            placeholder="Say something nice..."
+                            onkeypress="handleKeyPress(event)"
+                        >
+                        <button class="send-btn" onclick="addComment()">
+                            Send
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Podcast Section -->
+        <div class="upload-section">
+            <h2 class="upload-header">
+                📤 Upload New Podcast
+            </h2>
+            <form class="upload-form" onsubmit="handleUpload(event)">
+                <div class="form-group">
+                    <label>Podcast Title</label>
+                    <input type="text" id="podcastTitle" placeholder="Enter podcast title..." required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="podcastDescription" rows="3" placeholder="Brief description..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Podcast URL (Spotify/YouTube/Apple)</label>
+                    <input type="text" id="podcastUrl" placeholder="https://open.spotify.com/episode/..." required>
+                </div>
+                <div class="form-group">
+                    <label class="file-input-wrapper">
+                        📎 Choose Thumbnail Image
+                        <input type="file" id="thumbnailFile" accept="image/*">
+                    </label>
+                    <span id="fileName" style="color: #666; font-size: 0.9rem;"></span>
+                </div>
+                <button type="submit" class="upload-btn">
+                    🚀 Upload Podcast
+                </button>
+            </form>
+        </div>
+
+        <!-- Uploaded Podcasts List -->
+        <div class="podcasts-list-section">
+            <h2 class="podcasts-header">
+                🎧 Uploaded Podcasts
+            </h2>
+            <div class="podcasts-grid" id="podcastsGrid">
+                <!-- Initial demo podcasts -->
+                <div class="podcast-card">
+                    <div class="podcast-thumbnail podcast1"></div>
+                    <div class="podcast-info">
+                        <h3 class="podcast-title">Elevation: Season Opening Party 1</h3>
+                        <p class="podcast-description">Exploring the latest trends in digital marketing and how AI is reshaping the industry.</p>
+                        <div class="podcast-footer">
+                            <span class="podcast-date">2 days ago</span>
+                            <button class="play-btn" onclick="playPodcast(this)"><div class="live-dot"></div> Play</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="podcast-card">
+                    <div class="podcast-thumbnail podcast2"></div>
+                    <div class="podcast-info">
+                        <h3 class="podcast-title">Elevation: Season Opening Party 2</h3>
+                        <p class="podcast-description">Learn how to create compelling content that converts and engages your audience.</p>
+                        <div class="podcast-footer">
+                            <span class="podcast-date">5 days ago</span>
+                            <button class="play-btn" onclick="playPodcast(this)"><div class="live-dot"></div> Play</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="podcast-card">
+                    <div class="podcast-thumbnail podcast3"></div>
+                    <div class="podcast-info">
+                        <h3 class="podcast-title">Elevation: Season Opening Party 3</h3>
+                        <p class="podcast-description">Proven strategies to grow your social media presence organically in 2025.</p>
+                        <div class="podcast-footer">
+                            <span class="podcast-date">1 week ago</span>
+                            <button class="play-btn" onclick="playPodcast(this)"><div class="live-dot"></div> Play</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    <script>
+        // Create animated background particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Load video from URL
+        function loadVideo() {
+            const urlInput = document.getElementById('videoUrlInput');
+            let url = urlInput.value.trim();
+            
+            if (!url) {
+                alert('⚠️ Please enter a video URL');
+                return;
+            }
+
+            // Convert YouTube watch URL to embed URL
+            if (url.includes('youtube.com/watch')) {
+                const videoId = url.split('v=')[1]?.split('&')[0];
+                if (videoId) {
+                    url = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0`;
+                }
+            } else if (url.includes('youtu.be/')) {
+                const videoId = url.split('youtu.be/')[1]?.split('?')[0];
+                if (videoId) {
+                    url = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0`;
+                }
+            } else if (!url.includes('embed')) {
+                alert('⚠️ Please enter a valid YouTube URL or embed URL');
+                return;
+            }
+
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.innerHTML = `
+                <iframe 
+                    src="${url}" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            `;
+        }
+
+        // Sample usernames for demo comments
+        const usernames = ['Sarah M.', 'John D.', 'Emily R.', 'Michael B.', 'Lisa K.', 'David W.', 'Anna S.', 'Chris P.', 'Jessica L.', 'Tom H.'];
+        const sampleComments = [
+            'This is amazing content! 🔥',
+            'Love this podcast series!',
+            'Great insights on marketing strategies',
+            'Can\'t wait for the next episode!',
+            'This changed my perspective completely',
+            'Incredibly valuable information',
+            'Thanks for sharing this!',
+            'Best podcast ever! 💯',
+            'Mind blown! 🤯',
+            'Taking notes furiously!'
+        ];
+
+        let commentId = 0;
+        let commentCount = 89;
+
+        // Add initial comments
+        function initializeComments() {
+            for (let i = 0; i < 5; i++) {
+                addRandomComment();
+            }
+        }
+
+        // Add random comment (simulating other users)
+        function addRandomComment() {
+            const username = usernames[Math.floor(Math.random() * usernames.length)];
+            const comment = sampleComments[Math.floor(Math.random() * sampleComments.length)];
+            const avatar = username.charAt(0);
+            
+            addCommentToFeed(username, comment, avatar, true);
+        }
+
+        // Add comment to feed
+        function addCommentToFeed(username, text, avatar, isRandom = false) {
+            const commentsFeed = document.getElementById('commentsFeed');
+            const commentDiv = document.createElement('div');
+            commentDiv.className = 'comment';
+            
+            const now = new Date();
+            const timeString = 'Just now';
+            
+            commentDiv.innerHTML = `
+                <div class="comment-header">
+                    <div class="comment-avatar">${avatar}</div>
+                    <span class="comment-username">${username}</span>
+                    <span class="comment-time">${timeString}</span>
+                </div>
+                <div class="comment-text">${text}</div>
+            `;
+            
+            commentsFeed.insertBefore(commentDiv, commentsFeed.firstChild);
+            
+            // Update comment count
+            if (!isRandom) {
+                commentCount++;
+                document.getElementById('commentCount').textContent = commentCount;
+            }
+            
+            // Remove old comments if too many
+            if (commentsFeed.children.length > 50) {
+                commentsFeed.removeChild(commentsFeed.lastChild);
+            }
+        }
+
+        // Handle user comment submission
+        function addComment() {
+            const input = document.getElementById('commentInput');
+            const text = input.value.trim();
+            
+            if (text) {
+                addCommentToFeed('You', text, 'Y', false);
+                input.value = '';
+            }
+        }
+
+        // Handle Enter key press
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                addComment();
+            }
+        }
+
+        // Auto-add random comments every 3-5 seconds
+        function startAutoComments() {
+            setInterval(() => {
+                addRandomComment();
+            }, Math.random() * 2000 + 3000);
+        }
+
+        // Handle podcast upload
+        function handleUpload(event) {
+            event.preventDefault();
+            
+            const title = document.getElementById('podcastTitle').value;
+            const description = document.getElementById('podcastDescription').value;
+            const url = document.getElementById('podcastUrl').value;
+            
+            const podcastsGrid = document.getElementById('podcastsGrid');
+            const podcastCard = document.createElement('div');
+            podcastCard.className = 'podcast-card';
+            
+            const emoji = ['🎙️', '🎤', '🎧', '📻', '🎵'][Math.floor(Math.random() * 5)];
+            
+            podcastCard.innerHTML = `
+                <div class="podcast-thumbnail">${emoji}</div>
+                <div class="podcast-info">
+                    <h3 class="podcast-title">${title}</h3>
+                    <p class="podcast-description">${description}</p>
+                    <div class="podcast-footer">
+                        <span class="podcast-date">Just now</span>
+                        <button class="play-btn" onclick="playPodcast(this)">▶️ Play</button>
+                    </div>
+                </div>
+            `;
+            
+            podcastsGrid.insertBefore(podcastCard, podcastsGrid.firstChild);
+            
+            // Reset form
+            document.getElementById('podcastTitle').value = '';
+            document.getElementById('podcastDescription').value = '';
+            document.getElementById('podcastUrl').value = '';
+            document.getElementById('fileName').textContent = '';
+            
+            // Show success message
+            alert('✅ Podcast uploaded successfully!');
+        }
+
+        // Handle file input display
+        document.getElementById('thumbnailFile').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : '';
+            document.getElementById('fileName').textContent = fileName ? `Selected: ${fileName}` : '';
+        });
+
+        // Play podcast function
+        function playPodcast(btn) {
+            const card = btn.closest('.podcast-card');
+            const title = card.querySelector('.podcast-title').textContent;
+            document.getElementById('videoTitle').textContent = title;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Update view count periodically
+        function updateViewCount() {
+            setInterval(() => {
+                const viewCount = document.getElementById('viewCount');
+                const currentViews = parseInt(viewCount.textContent.replace(',', ''));
+                const newViews = currentViews + Math.floor(Math.random() * 5);
+                viewCount.textContent = newViews.toLocaleString();
+            }, 5000);
+        }
+
+        // Initialize everything
+        createParticles();
+        initializeComments();
+        startAutoComments();
+        updateViewCount();
+    </script>
+</body>
+</html>

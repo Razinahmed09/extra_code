@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Catalogue</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background: linear-gradient(to bottom, #fafafa, #f5f5f5);
+    color: #2a2a2a;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Header */
+.header {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #e5e5e5;
+    padding: 1.5rem 1rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #2d7a4f, #ff8534);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    background: linear-gradient(135deg, #2d7a4f, #ff8534);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Catalogue Section */
+.catalogue-section {
+  position: relative;
+  background: linear-gradient(-45deg, #69eeff8c, #ffffff, #c3ffc76e, #c8e1f3);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+  border-radius: 12px;
+  padding: 60px 0;
+}
+
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+.catalogue-section .catalogue-title {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+    background: linear-gradient(135deg, #000000, #000000);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* Tabs */
+.catalogue-section .tabs-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    background: white;
+    border: 1px solid #e5e5e5;
+    padding: 0.5rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+    justify-content: center;
+}
+
+.catalogue-section .tab-trigger {
+    padding: 0.625rem 1.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #2a2a2a;
+}
+
+.catalogue-section .tab-trigger:hover {
+    transform: scale(1.05);
+}
+
+.catalogue-section .tab-trigger.active {
+    background: linear-gradient(135deg, #3375d1, #0c9eb5, #72a500);
+    color: white;
+}
+
+.catalogue-section .tab-content {
+    display: none;
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.catalogue-section .tab-content.active {
+    display: block;
+}
+
+/* Carousel */
+.catalogue-section .carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.catalogue-section .carousel-container {
+    flex: 1;
+    overflow: hidden;
+}
+
+.catalogue-section .carousel-track {
+    display: flex;
+    gap: 1rem;
+    padding: 12px 0;
+    transition: transform 0.4s ease;
+}
+
+.catalogue-section .carousel-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #e5e5e5;
+    background: white;
+    cursor: pointer;
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.catalogue-section .carousel-btn:hover {
+    background: #2d7a4f;
+    color: white;
+    border-color: #2d7a4f;
+}
+
+/* Product Card */
+.catalogue-section .product-card {
+    min-width: calc(25% - 0.75rem);
+    background: linear-gradient(145deg, #ffffff, #f8f8f8);
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    animation: scaleIn 0.4s ease-out;
+}
+
+.catalogue-section .product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border-color: rgba(45, 122, 79, 0.5);
+}
+
+.catalogue-section .product-image {
+    aspect-ratio: 1;
+    background: linear-gradient(135deg, #f5f5f5, #ececec);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.catalogue-section .product-image-inner {
+    width: 100%;
+    height: 100%;
+    background: url('http://127.0.0.1:5500/assets/images/resource/serv1.jpg'), linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s ease;
+}
+
+.catalogue-section .product-card:hover .product-image-inner {
+    transform: scale(1.1);
+}
+
+.catalogue-section .product-image-placeholder {
+    text-align: center;
+    padding: 1rem;
+}
+
+.catalogue-section .product-card .cardBTN {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    margin-top: 10px;
+    font-size: 16px;
+    background: linear-gradient(135deg, #3375d1, #0c9eb5, #72a500);
+    background-size: 200%;
+    background-position: left center;
+    transition: background-position 0.4s ease-in-out;
+}
+
+.catalogue-section .product-card .cardBTN:hover {
+    background-position: right center;
+}
+
+.catalogue-section .product-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 0.75rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #2d7a4f, #ff8534);
+    opacity: 0.2;
+    transition: opacity 0.3s ease;
+}
+
+.catalogue-section .product-card:hover .product-icon {
+    opacity: 0.3;
+}
+
+.catalogue-section .product-image-text {
+    font-size: 0.75rem;
+    color: #666;
+    font-weight: 500;
+}
+
+.catalogue-section .product-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 0.25rem;
+    transition: color 0.3s ease;
+}
+
+.catalogue-section .product-card:hover .product-name {
+    color: #47cac4;
+}
+
+.catalogue-section .product-company {
+    font-size: 0.875rem;
+    color: #666;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .catalogue-section .product-card {
+        min-width: calc(33.333% - 0.667rem);
+    }
+}
+
+@media (max-width: 768px) {
+    .catalogue-section .catalogue-title {
+        font-size: 2rem;
+    }
+
+    .catalogue-section .product-card {
+        min-width: calc(50% - 0.5rem);
+    }
+
+    .catalogue-section .tabs-list {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .catalogue-section .product-card {
+        min-width: 100%;
+    }
+}
+
+/* Spinner */
+.catalogue-section .parent_spinner {
+    position: absolute;
+    transform: scale(.6);
+    right: 72px;
+}
+
+.catalogue-section .parent_spinner .spinner {
+    width: 80px;
+    height: 80px;
+    --clr: rgb(127, 207, 255);
+    --clr-alpha: rgb(127, 207, 255, .1);
+    animation: spinner 2s infinite linear;
+    transform-style: preserve-3d;
+}
+
+.catalogue-section .parent_spinner .spinner > div {
+    background-color: var(--clr-alpha);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    border: 5px solid var(--clr);
+}
+
+.catalogue-section .parent_spinner .spinner div:nth-of-type(1) {
+    transform: translateZ(-40px) rotateY(180deg);
+}
+
+.catalogue-section .parent_spinner .spinner div:nth-of-type(2) {
+    transform: rotateY(-270deg) translateX(50%);
+    transform-origin: top right;
+}
+
+.catalogue-section .parent_spinner .spinner div:nth-of-type(3) {
+    transform: rotateY(270deg) translateX(-50%);
+    transform-origin: center left;
+}
+
+.catalogue-section .parent_spinner .spinner div:nth-of-type(4) {
+    transform: rotateX(90deg) translateY(-50%);
+    transform-origin: top center;
+}
+
+.catalogue-section .parent_spinner .spinner div:nth-of-type(5) {
+    transform: rotateX(-90deg) translateY(50%);
+    transform-origin: bottom center;
+}
+
+.catalogue-section .parent_spinner .spinner div:nth-of-type(6) {
+    transform: translateZ(40px);
+}
+
+@keyframes spinner {
+    0% {
+        transform: rotate(0deg) rotateX(0deg) rotateY(0deg);
+    }
+
+    50% {
+        transform: rotate(180deg) rotateX(180deg) rotateY(180deg);
+    }
+
+    100% {
+        transform: rotate(360deg) rotateX(360deg) rotateY(360deg);
+    }
+}
+
+
+</style>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">O</div>
+                    <h1 class="logo-text">Outdoor Structures</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="catalogue-section">
+        <div class="parent_spinner">
+            <div class="spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <div class="container">
+            <h2 class="catalogue-title">Product Catalogue</h2>
+
+            <div class="tabs">
+                <div class="tabs-list">
+                    <button class="tab-trigger active" data-company="Backyard Discoveries">Backyard Discoveries</button>
+                    <button class="tab-trigger" data-company="Kid Kraft">Kid Kraft</button>
+                    <button class="tab-trigger" data-company="Lifetime">Lifetime</button>
+                    <button class="tab-trigger" data-company="Yardistry">Yardistry</button>
+                </div>
+
+                <div class="tab-content active" data-content="Backyard Discoveries">
+                    <div class="carousel">
+                        <button class="carousel-btn prev">&lt;</button>
+                        <div class="carousel-container">
+                            <div class="carousel-track" id="carousel-backyard"></div>
+                        </div>
+                        <button class="carousel-btn next">&gt;</button>
+                    </div>
+                </div>
+
+                <div class="tab-content" data-content="Kid Kraft">
+                    <div class="carousel">
+                        <button class="carousel-btn prev">&lt;</button>
+                        <div class="carousel-container">
+                            <div class="carousel-track" id="carousel-kidkraft"></div>
+                        </div>
+                        <button class="carousel-btn next">&gt;</button>
+                    </div>
+                </div>
+
+                <div class="tab-content" data-content="Lifetime">
+                    <div class="carousel">
+                        <button class="carousel-btn prev">&lt;</button>
+                        <div class="carousel-container">
+                            <div class="carousel-track" id="carousel-lifetime"></div>
+                        </div>
+                        <button class="carousel-btn next">&gt;</button>
+                    </div>
+                </div>
+
+                <div class="tab-content" data-content="Yardistry">
+                    <div class="carousel">
+                        <button class="carousel-btn prev">&lt;</button>
+                        <div class="carousel-container">
+                            <div class="carousel-track" id="carousel-yardistry"></div>
+                        </div>
+                        <button class="carousel-btn next">&gt;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const products = [
+    { name: "Skyfort II", company: "Backyard Discoveries" },
+    { name: "Bristol Point", company: "Backyard Discoveries" },
+    { name: "Highlander", company: "Backyard Discoveries" },
+    { name: "Cedar Cove", company: "Backyard Discoveries" },
+    { name: "Tacoma Falls", company: "Backyard Discoveries" },
+    { name: "Canyon Creek", company: "Backyard Discoveries" },
+    { name: "Enduro II", company: "Backyard Discoveries" },
+    { name: "Magnolia Falls", company: "Backyard Discoveries" },
+    { name: "Boulder Station", company: "Kid Kraft" },
+    { name: "Bear Cave Lodge", company: "Kid Kraft" },
+    { name: "Ainsley", company: "Kid Kraft" },
+    { name: "Summit View", company: "Kid Kraft" },
+    { name: "Ridgemore Perch", company: "Kid Kraft" },
+    { name: "Adventure Bend", company: "Kid Kraft" },
+    { name: "Carliston Lodge", company: "Kid Kraft" },
+    { name: "Outdoor Odyssey", company: "Kid Kraft" },
+    { name: "Titan Turbo", company: "Kid Kraft" },
+    { name: "Adventure Tower Deluxe", company: "Lifetime" },
+    { name: "12' x 14' Gazebo", company: "Yardistry" }
+];
+
+const carouselState = {
+    "Backyard Discoveries": 0,
+    "Kid Kraft": 0,
+    "Lifetime": 0,
+    "Yardistry": 0
+};
+
+function createProductCard(product) {
+    return `
+        <div class="product-card">
+            <div class="product-image">
+                <div class="product-image-inner">
+                    
+                </div>
+            </div>
+            <h3 class="product-name">${product.name}</h3>
+            <p class="product-company">${product.company}</p>
+            <button class="cardBTN">Get a Quote</button>
+        </div>
+    `;
+}
+
+function initializeCarousels() {
+    const companies = ["Backyard Discoveries", "Kid Kraft", "Lifetime", "Yardistry"];
+    const carouselIds = {
+        "Backyard Discoveries": "carousel-backyard",
+        "Kid Kraft": "carousel-kidkraft",
+        "Lifetime": "carousel-lifetime",
+        "Yardistry": "carousel-yardistry"
+    };
+
+    companies.forEach(company => {
+        const filteredProducts = products.filter(p => p.company === company);
+        const carouselTrack = document.getElementById(carouselIds[company]);
+        carouselTrack.innerHTML = filteredProducts.map(p => createProductCard(p)).join('');
+    });
+}
+
+function setupTabs() {
+    const tabTriggers = document.querySelectorAll('.tab-trigger');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+            const company = trigger.getAttribute('data-company');
+
+            tabTriggers.forEach(t => t.classList.remove('active'));
+            tabContents.forEach(c => c.classList.remove('active'));
+
+            trigger.classList.add('active');
+            document.querySelector(`[data-content="${company}"]`).classList.add('active');
+        });
+    });
+}
+
+function setupCarousels() {
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabContents.forEach(content => {
+        const company = content.getAttribute('data-content');
+        const prevBtn = content.querySelector('.prev');
+        const nextBtn = content.querySelector('.next');
+        const track = content.querySelector('.carousel-track');
+
+        prevBtn.addEventListener('click', () => {
+            if (carouselState[company] > 0) {
+                carouselState[company]--;
+                updateCarousel(track, company);
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            const cards = track.querySelectorAll('.product-card');
+            const maxScroll = Math.max(0, cards.length - 4);
+            if (carouselState[company] < maxScroll) {
+                carouselState[company]++;
+                updateCarousel(track, company);
+            }
+        });
+    });
+}
+
+function updateCarousel(track, company) {
+    const cardWidth = track.querySelector('.product-card').offsetWidth;
+    const gap = 16;
+    const offset = -(carouselState[company] * (cardWidth + gap));
+    track.style.transform = `translateX(${offset}px)`;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initializeCarousels();
+    setupTabs();
+    setupCarousels();
+});
+
+    </script>
+</body>
+</html>

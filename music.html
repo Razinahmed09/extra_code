@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Music Stand Banner Hover Effect</title>
+  <style>
+    body {
+      background: #111;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .banner-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .banner-container img {
+      width: 350px;
+      height: auto;
+      transition: transform 0.5s ease, filter 0.5s ease;
+    }
+
+    .banner-container::after {
+      content: "";
+      position: absolute;
+      top: -100%;
+      left: -100%;
+      width: 300%;
+      height: 300%;
+      background: linear-gradient(45deg, transparent, rgba(255, 215, 0, 0.3), transparent);
+      transform: rotate(25deg);
+      transition: 0.6s ease;
+    }
+
+    .banner-container:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+    }
+
+    .banner-container:hover img {
+      transform: scale(1.08);
+      filter: brightness(1.2);
+    }
+
+    .banner-container:hover::after {
+      top: 100%;
+      left: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="banner-container">
+    <img src="11ddf327-281a-4674-b309-e350a07af020.png" alt="Music Stand Banner">
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Swing Set Installation Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 50%, #fff3e0 100%);
+            overflow-x: hidden;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        /* Left Content */
+        .hero-content {
+            padding: 40px;
+            animation: fadeInLeft 1s ease-out;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #2196f3, #4caf50);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            animation: bounceIn 1s ease-out 0.3s both;
+        }
+
+        .hero-title {
+            font-size: 56px;
+            font-weight: 800;
+            color: #1a237e;
+            line-height: 1.2;
+            margin-bottom: 24px;
+            animation: fadeInLeft 1s ease-out 0.5s both;
+        }
+
+        .hero-title .highlight {
+            background: linear-gradient(135deg, #2196f3, #4caf50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 18px;
+            color: #546e7a;
+            line-height: 1.8;
+            margin-bottom: 32px;
+            animation: fadeInLeft 1s ease-out 0.7s both;
+        }
+
+        .hero-features {
+            list-style: none;
+            margin-bottom: 40px;
+            animation: fadeInLeft 1s ease-out 0.9s both;
+        }
+
+        .hero-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: #37474f;
+        }
+
+        .check-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .check-icon svg {
+            width: 14px;
+            height: 14px;
+            stroke: white;
+            stroke-width: 3;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            animation: fadeInLeft 1s ease-out 1.1s both;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #2196f3, #4caf50);
+            color: white;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #2196f3;
+            border: 2px solid #2196f3;
+        }
+
+        .btn-secondary:hover {
+            background: #2196f3;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Right Image Section */
+        .hero-image-container {
+            position: relative;
+            height: 600px;
+            animation: fadeInRight 1s ease-out;
+        }
+
+        .image-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+            transform: scale(1.1);
+        }
+
+        .hero-image.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Decorative Elements */
+        .image-decoration {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            animation: slideUp 1s ease-out 1.5s both;
+        }
+
+        .decoration-text {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 4px;
+        }
+
+        .decoration-number {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #2196f3, #4caf50);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Image Navigation Dots */
+        .image-dots {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: white;
+            width: 32px;
+            border-radius: 6px;
+        }
+
+        /* Animations */
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.3);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            70% {
+                transform: scale(0.9);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero-title {
+                font-size: 42px;
+            }
+
+            .hero-image-container {
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                padding: 20px;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-description {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero-image-container {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-grid">
+                <!-- Left Content -->
+                <div class="hero-content">
+                    <span class="hero-badge">🏆 Professional Installation Services</span>
+                    
+                    <h1 class="hero-title">
+                        Book Your <span class="highlight">Swing Set</span> Installation Today
+                    </h1>
+                    
+                    <p class="hero-description">
+                        Transform your backyard into a magical playground! Our certified technicians specialize in 
+                        professional swing set installation, ensuring safety, durability, and endless hours of fun 
+                        for your family.
+                    </p>
+                    
+                    <ul class="hero-features">
+                        <li>
+                            <span class="check-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </span>
+                            <span>Certified & Experienced Technicians</span>
+                        </li>
+                        <li>
+                            <span class="check-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </span>
+                            <span>Same-Day & Next-Day Installation Available</span>
+                        </li>
+                        <li>
+                            <span class="check-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </span>
+                            <span>Safety Inspection & Quality Guarantee</span>
+                        </li>
+                        <li>
+                            <span class="check-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                    <polyline points="20 6 9 17 4 12"></polyline>
+                                </svg>
+                            </span>
+                            <span>Competitive Pricing & Free Quotes</span>
+                        </li>
+                    </ul>
+                    
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="scrollToBooking()">
+                            Book Installation Now
+                        </button>
+                        <button class="btn btn-secondary" onclick="learnMore()">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right Image -->
+                <div class="hero-image-container">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?w=800&h=1000&fit=crop" 
+                             alt="Swing Set 1" 
+                             class="hero-image active"
+                             id="image1">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=1000&fit=crop" 
+                             alt="Swing Set 2" 
+                             class="hero-image"
+                             id="image2">
+                        <img src="https://images.unsplash.com/photo-1529422643029-d4585747aaf2?w=800&h=1000&fit=crop" 
+                             alt="Swing Set 3" 
+                             class="hero-image"
+                             id="image3">
+                        <img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=800&h=1000&fit=crop" 
+                             alt="Swing Set 4" 
+                             class="hero-image"
+                             id="image4">
+                        <img src="https://images.unsplash.com/photo-1587022092964-4a1d2d4c8b2e?w=800&h=1000&fit=crop" 
+                             alt="Swing Set 5" 
+                             class="hero-image"
+                             id="image5">
+                    </div>
+
+                    <!-- Decorative Stats Box -->
+                    <div class="image-decoration">
+                        <p class="decoration-text">Installations Completed</p>
+                        <p class="decoration-number">2,500+</p>
+                    </div>
+
+                    <!-- Navigation Dots -->
+                    <div class="image-dots" id="imageDots"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Image Slideshow Configuration
+        const images = document.querySelectorAll('.hero-image');
+        const dotsContainer = document.getElementById('imageDots');
+        let currentImageIndex = 0;
+        let autoPlayInterval;
+
+        // Create navigation dots
+        function createDots() {
+            images.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'dot';
+                if (index === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToImage(index));
+                dotsContainer.appendChild(dot);
+            });
+        }
+
+        // Change to specific image
+        function goToImage(index) {
+            // Remove active class from current image and dot
+            images[currentImageIndex].classList.remove('active');
+            dotsContainer.children[currentImageIndex].classList.remove('active');
+
+            // Update index
+            currentImageIndex = index;
+
+            // Add active class to new image and dot
+            images[currentImageIndex].classList.add('active');
+            dotsContainer.children[currentImageIndex].classList.add('active');
+
+            // Reset autoplay
+            resetAutoPlay();
+        }
+
+        // Next image
+        function nextImage() {
+            const nextIndex = (currentImageIndex + 1) % images.length;
+            goToImage(nextIndex);
+        }
+
+        // Start autoplay
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(nextImage, 2000); // Change every 2 seconds
+        }
+
+        // Reset autoplay
+        function resetAutoPlay() {
+            clearInterval(autoPlayInterval);
+            startAutoPlay();
+        }
+
+        // Button Actions
+        function scrollToBooking() {
+            alert('Scroll to booking form section');
+            // In real implementation: document.getElementById('bookingForm').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function learnMore() {
+            alert('Navigate to services/about page');
+            // In real implementation: window.location.href = '/services';
+        }
+
+        // Initialize
+        createDots();
+        startAutoPlay();
+
+        // Pause autoplay on hover
+        const imageContainer = document.querySelector('.hero-image-container');
+        imageContainer.addEventListener('mouseenter', () => {
+            clearInterval(autoPlayInterval);
+        });
+
+        imageContainer.addEventListener('mouseleave', () => {
+            startAutoPlay();
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                const prevIndex = (currentImageIndex - 1 + images.length) % images.length;
+                goToImage(prevIndex);
+            } else if (e.key === 'ArrowRight') {
+                nextImage();
+            }
+        });
+    </script>
+</body>
+</html>

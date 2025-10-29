@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrition Sub-Categories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0e27;
+            color: #fff;
+            padding: 60px 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+       .sub-categories .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.sub-categories .section-title {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #4dd4ff;
+    margin-bottom: 15px;
+    letter-spacing: -0.5px;
+}
+
+.sub-categories .section-subtitle {
+    font-size: 1.1rem;
+    color: #b8c4d9;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.sub-categories .subcategories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.sub-categories .subcat-card {
+    background: linear-gradient(135deg, #1a2347 0%, #0f1629 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(77, 212, 255, 0.15);
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sub-categories .subcat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(77, 212, 255, 0.1), rgba(0, 184, 212, 0.1));
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    z-index: 1;
+}
+
+.sub-categories .subcat-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(77, 212, 255, 0.5);
+    box-shadow: 0 20px 60px rgba(77, 212, 255, 0.3);
+}
+
+.sub-categories .subcat-card:hover::before {
+    opacity: 1;
+}
+
+.sub-categories .card-image-container {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+}
+
+.sub-categories .card-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sub-categories .subcat-card:hover .card-image {
+    transform: scale(1.15);
+}
+
+.sub-categories .image-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(10, 14, 39, 0.8) 100%);
+    transition: background 0.5s ease;
+}
+
+.sub-categories .subcat-card:hover .image-overlay {
+    background: linear-gradient(180deg, transparent 0%, rgba(10, 14, 39, 0.6) 100%);
+}
+
+.sub-categories .card-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(77, 212, 255, 0.95);
+    color: #0a0e27;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 2;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.sub-categories .subcat-card:hover .card-badge {
+    background: rgba(77, 212, 255, 1);
+    transform: scale(1.05);
+}
+
+.sub-categories .card-content {
+    padding: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.sub-categories .subcat-title {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 12px;
+    transition: color 0.3s ease;
+}
+
+.sub-categories .subcat-card:hover .subcat-title {
+    color: #4dd4ff;
+}
+
+.sub-categories .subcat-description {
+    font-size: 0.95rem;
+    color: #8e9bb8;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    transition: color 0.3s ease;
+}
+
+.sub-categories .subcat-card:hover .subcat-description {
+    color: #b8c4d9;
+}
+
+.sub-categories .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid rgba(77, 212, 255, 0.1);
+}
+
+.sub-categories .resource-count {
+    font-size: 0.85rem;
+    color: #4dd4ff;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.sub-categories .resource-count::before {
+    content: '📚';
+    font-size: 1rem;
+}
+
+.sub-categories .view-more {
+    font-size: 0.9rem;
+    color: #4dd4ff;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: gap 0.3s ease;
+}
+
+.sub-categories .subcat-card:hover .view-more {
+    gap: 10px;
+}
+
+.sub-categories .view-more::after {
+    content: '→';
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.sub-categories .subcat-card:hover .view-more::after {
+    transform: translateX(3px);
+}
+
+@media (max-width: 768px) {
+    .sub-categories .section-title {
+        font-size: 2.2rem;
+    }
+
+    .sub-categories .subcategories-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+
+    .sub-categories body {
+        padding: 40px 15px;
+    }
+
+    .sub-categories .card-image-container {
+        height: 200px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <section class="sub-categories">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Explore Sub-Categories</h2>
+            <p class="section-subtitle">Benefits and Opportunities for the Nutrition Category</p>
+        </div>
+
+        <div class="subcategories-grid">
+            <div class="subcat-card">
+                <div class="card-image-container">
+                    <img src="Sports Nutrition.jpg" alt="Sports Nutrition" class="card-image">
+                    <div class="image-overlay"></div>
+                    <!-- <span class="card-badge">Popular</span> -->
+                </div>
+                <div class="card-content">
+                    <h3 class="subcat-title">Sports Nutrition</h3>
+                    <p class="subcat-description">Performance-focused nutrition plans, supplements, and dietary strategies for athletes and fitness enthusiasts.</p>
+                    <div class="card-footer">
+                        <!-- <span class="resource-count">24 Resources</span> -->
+                        <span class="view-more">Explore</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subcat-card">
+                <div class="card-image-container">
+                    <img src="Functional Nutrition.jpg" alt="Weight Management" class="card-image">
+                    <div class="image-overlay"></div>
+                    <!-- <span class="card-badge">Trending</span> -->
+                </div>
+                <div class="card-content">
+                    <h3 class="subcat-title">Functional Nutrition</h3>
+                    <p class="subcat-description">Functional Nutrition for optimal metabolism, balanced energy, and lasting wellness.</p>
+                    <div class="card-footer">
+                        <!-- <span class="resource-count">32 Resources</span> -->
+                        <span class="view-more">Explore</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subcat-card">
+                <div class="card-image-container">
+                    <img src="Holistic Nutrition.jpg" alt="Clinical Nutrition" class="card-image">
+                    <div class="image-overlay"></div>
+                    <!-- <span class="card-badge">Medical</span> -->
+                </div>
+                <div class="card-content">
+                    <h3 class="subcat-title">Holistic Nutrition</h3>
+                    <p class="subcat-description">Holistic Nutrition for balance, vitality, and lasting wellness — empowering you to thrive from the inside out.</p>
+                    <div class="card-footer">
+                        <!-- <span class="resource-count">18 Resources</span> -->
+                        <span class="view-more">Explore</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subcat-card">
+                <div class="card-image-container">
+                    <img src="Clinical Nutrition.jpg" alt="Plant-Based Diets" class="card-image">
+                    <div class="image-overlay"></div>
+                    <!-- <span class="card-badge">Eco-Friendly</span> -->
+                </div>
+                <div class="card-content">
+                    <h3 class="subcat-title">Clinical Nutrition</h3>
+                    <p class="subcat-description">Clinical Nutrition for improved health, recovery, and long-term vitality — backed by science and personalized care.</p>
+                    <div class="card-footer">
+                        <!-- <span class="resource-count">28 Resources</span> -->
+                        <span class="view-more">Explore</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subcat-card">
+                <div class="card-image-container">
+                    <img src="Elderly Nutrition.jpg" alt="Pediatric Nutrition" class="card-image">
+                    <div class="image-overlay"></div>
+                    <!-- <span class="card-badge">Family</span> -->
+                </div>
+                <div class="card-content">
+                    <h3 class="subcat-title">Elderly Nutrition</h3>
+                    <p class="subcat-description">Elderly Nutrition for strength, vitality, and graceful aging — empowering wellness at every stage of life.</p>
+                    <div class="card-footer">
+                        <!-- <span class="resource-count">21 Resources</span> -->
+                        <span class="view-more">Explore</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subcat-card">
+                <div class="card-image-container">
+                    <img src="Pregnancy.jpg" alt="Elderly Nutrition" class="card-image">
+                    <div class="image-overlay"></div>
+                    <!-- <span class="card-badge">Senior Care</span> -->
+                </div>
+                <div class="card-content">
+                    <h3 class="subcat-title">Pregnancy Nutrition</h3>
+                    <p class="subcat-description">Pregnancy Nutrition for vitality, balance, and maternal health — nurturing both you and your baby naturally.</p>
+                    <div class="card-footer">
+                        <!-- <span class="resource-count">16 Resources</span> -->
+                        <span class="view-more">Explore</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subcat-card">
+                <div class="card-image-container">
+                    <img src="Nutrition Schools.jpg" alt="Supplements" class="card-image">
+                    <div class="image-overlay"></div>
+                    <!-- <span class="card-badge">Science-Based</span> -->
+                </div>
+                <div class="card-content">
+                    <h3 class="subcat-title">Nutrition Schools</h3>
+                    <p class="subcat-description">Nutrition Schools for education, inspiration, and impact — building a foundation for lifelong wellness careers.</p>
+                    <div class="card-footer">
+                        <!-- <span class="resource-count">35 Resources</span> -->
+                        <span class="view-more">Explore</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subcat-card">
+                <div class="card-image-container">
+                    <img src="Seminars & Conventions.jpg" alt="Prenatal Nutrition" class="card-image">
+                    <div class="image-overlay"></div>
+                    <!-- <span class="card-badge">Maternal</span> -->
+                </div>
+                <div class="card-content">
+                    <h3 class="subcat-title">Seminars & Conventions</h3>
+                    <p class="subcat-description">Seminars & Conventions for learning, connection, and professional growth — bringing experts and innovators together.</p>
+                    <div class="card-footer">
+                        <!-- <span class="resource-count">19 Resources</span> -->
+                        <span class="view-more">Explore</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+</body>
+</html>

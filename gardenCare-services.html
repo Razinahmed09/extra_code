@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services - Garden Care</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f8f9f5;
+            color: #2d3e2d;
+            overflow-x: hidden;
+        }
+
+        /* Services Overview Section */
+        .services-section_overview {
+            padding: 100px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+.services-section_overview .section-intro {
+    text-align: center;
+    margin-bottom: 80px;
+    opacity: 0;
+    animation: fadeInDown 1s ease forwards;
+}
+
+.services-section_overview .section-intro h2 {
+    font-size: 52px;
+    color: #2d5016;
+    margin-bottom: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.services-section_overview .section-intro .tagline {
+    font-size: 22px;
+    color: #6b8e4e;
+    font-style: italic;
+    margin-bottom: 30px;
+}
+
+.services-section_overview .section-intro p {
+    font-size: 18px;
+    color: #5a6c5a;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+}
+
+/* Services Overview Grid */
+.services-section_overview .services-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 120px;
+}
+
+.services-section_overview .service-card-new {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(45, 80, 22, 0.08);
+    transition: all 0.4s ease;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.services-section_overview .service-card-new:nth-child(1) { animation-delay: 0.1s; }
+.services-section_overview .service-card-new:nth-child(2) { animation-delay: 0.2s; }
+.services-section_overview .service-card-new:nth-child(3) { animation-delay: 0.3s; }
+.services-section_overview .service-card-new:nth-child(4) { animation-delay: 0.4s; }
+.services-section_overview .service-card-new:nth-child(5) { animation-delay: 0.5s; }
+.services-section_overview .service-card-new:nth-child(6) { animation-delay: 0.6s; }
+.services-section_overview .service-card-new:nth-child(7) { animation-delay: 0.7s; }
+.services-section_overview .service-card-new:nth-child(8) { animation-delay: 0.8s; }
+
+.services-section_overview .service-card-new::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(90, 124, 71, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.services-section_overview .service-card-new:hover::before {
+    left: 100%;
+}
+
+.services-section_overview .service-card-new:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(45, 80, 22, 0.15);
+    border: 2px solid #e8f5e0;
+}
+
+.services-section_overview .service-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #5a7c47 0%, #2d5016 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    font-size: 32px;
+    transition: transform 0.4s ease;
+}
+
+.services-section_overview .service-card-new:hover .service-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.services-section_overview .service-title {
+    font-size: 22px;
+    color: #2d5016;
+    margin-bottom: 15px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.services-section_overview .service-description {
+    font-size: 15px;
+    color: #5a6c5a;
+    line-height: 1.7;
+}
+
+/* Detailed Services Section */
+.services-section_overview .detailed-services {
+    background: linear-gradient(135deg, #2d5016 0%, #1a3010 100%);
+    padding: 100px 40px;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.services-section_overview .detailed-services::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(107, 142, 78, 0.15) 0%, transparent 70%);
+    animation: float 25s ease-in-out infinite;
+}
+
+.services-section_overview .detailed-header {
+    text-align: center;
+    margin-bottom: 70px;
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    animation: fadeInDown 1s ease forwards 0.3s;
+}
+
+.services-section_overview .detailed-header h3 {
+    font-size: 48px;
+    color: white;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.services-section_overview .detailed-header p {
+    font-size: 20px;
+    color: #7ea05d;
+    font-style: italic;
+}
+
+.services-section_overview .services-masonry {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.services-section_overview .service-item {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    padding: 35px 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.4s ease;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+}
+
+.services-section_overview .service-item:hover {
+    background: rgba(255, 255, 255, 0.12);
+    transform: translateX(10px);
+    border-color: #7ea05d;
+}
+
+.services-section_overview .service-item-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.services-section_overview .item-number {
+    width: 45px;
+    height: 45px;
+    background: #7ea05d;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    flex-shrink: 0;
+}
+
+.services-section_overview .item-title {
+    font-size: 20px;
+    color: white;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.services-section_overview .item-description {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.7;
+    padding-left: 60px;
+}
+
+/* CTA Section */
+.services-section_overview .services-cta {
+    margin-top: 100px;
+    text-align: center;
+    padding: 70px 40px;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 10px 40px rgba(45, 80, 22, 0.1);
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards 0.5s;
+}
+
+.services-section_overview .cta-title {
+    font-size: 42px;
+    color: #2d5016;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.services-section_overview .cta-text {
+    font-size: 20px;
+    color: #5a6c5a;
+    margin-bottom: 35px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.services-section_overview .cta-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.services-section_overview .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 45px;
+    background: linear-gradient(135deg, #5a7c47 0%, #2d5016 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(45, 80, 22, 0.3);
+}
+
+.services-section_overview .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(45, 80, 22, 0.4);
+}
+
+.services-section_overview .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 45px;
+    background: transparent;
+    color: #2d5016;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 600;
+    border: 2px solid #2d5016;
+    transition: all 0.3s ease;
+}
+
+.services-section_overview .btn-secondary:hover {
+    background: #2d5016;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Animations */
+@keyframes fadeInDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    25% { transform: translate(30px, -30px) rotate(90deg); }
+    50% { transform: translate(0, -60px) rotate(180deg); }
+    75% { transform: translate(-30px, -30px) rotate(270deg); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .services-section_overview .section-intro h2 { font-size: 36px; }
+    .services-section_overview .detailed-header h3 { font-size: 32px; }
+    .services-section_overview .services-overview { grid-template-columns: 1fr; }
+    .services-section_overview .services-masonry { grid-template-columns: 1fr; }
+    .services-section_overview .cta-title { font-size: 28px; }
+    .services-section_overview .cta-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <!-- Services Overview Section -->
+    <section class="services-section_overview">
+        <div class="section-intro">
+            <h2>Our Services</h2>
+            <p class="tagline">Comprehensive Garden Care & Landscaping Solutions</p>
+            <p>From concept to completion, we offer a full spectrum of professional garden services tailored to transform and maintain your outdoor and indoor spaces.</p>
+        </div>
+
+        <div class="services-overview">
+            <div class="service-card-new">
+                <div class="service-icon">🌱</div>
+                <h3 class="service-title">Garden Care Consultancy</h3>
+                <p class="service-description">Expert guidance and professional advice for all your garden planning and development needs.</p>
+            </div>
+
+            <div class="service-card-new">
+                <div class="service-icon">🧹</div>
+                <h3 class="service-title">Garden Clearance</h3>
+                <p class="service-description">Complete clearance services to prepare your space for transformation or seasonal maintenance.</p>
+            </div>
+
+            <div class="service-card-new">
+                <div class="service-icon">🏞️</div>
+                <h3 class="service-title">Landscaping Services</h3>
+                <p class="service-description">Professional landscaping including rockeries and innovative vertical wall greenery installations.</p>
+            </div>
+
+            <div class="service-card-new">
+                <div class="service-icon">🏗️</div>
+                <h3 class="service-title">External Landscaping for New Builds</h3>
+                <p class="service-description">Specialized landscaping solutions for new construction projects and property developments.</p>
+            </div>
+
+            <div class="service-card-new">
+                <div class="service-icon">🌿</div>
+                <h3 class="service-title">Internal Green Spaces</h3>
+                <p class="service-description">Indoor plant installations and vertical wall dividers to bring nature into your interior spaces.</p>
+            </div>
+
+            <div class="service-card-new">
+                <div class="service-icon">🏢</div>
+                <h3 class="service-title">Communal Office Oasis Spaces</h3>
+                <p class="service-description">Create productive and calming workplace environments with custom office garden designs.</p>
+            </div>
+
+            <div class="service-card-new">
+                <div class="service-icon">🏥</div>
+                <h3 class="service-title">Care Home Garden Spaces</h3>
+                <p class="service-description">Therapeutic and accessible garden designs specifically tailored for care home environments.</p>
+            </div>
+
+            <div class="service-card-new">
+                <div class="service-icon">🍺</div>
+                <h3 class="service-title">Pub & Restaurant Gardens</h3>
+                <p class="service-description">Attractive and functional outdoor spaces to enhance your hospitality business.</p>
+            </div>
+        </div>
+
+        <!-- Detailed Services Section -->
+        <div class="detailed-services">
+            <div class="detailed-header">
+                <h3>Specialized Services</h3>
+                <p>Comprehensive horticultural expertise at your service</p>
+            </div>
+
+            <div class="services-masonry">
+                <div class="service-item">
+                    <div class="service-item-header">
+                        <div class="item-number">01</div>
+                        <h4 class="item-title">Seasonal Tree Planting & Bedding Displays</h4>
+                    </div>
+                    <p class="item-description">Year-round color and interest with expertly planned seasonal plantings and vibrant bedding displays.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-header">
+                        <div class="item-number">02</div>
+                        <h4 class="item-title">Indoor Plant Specialists</h4>
+                    </div>
+                    <p class="item-description">Curated collections of orchids, bonsai, cacti, and succulents for stunning indoor arrangements.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-header">
+                        <div class="item-number">03</div>
+                        <h4 class="item-title">Professional Arboriculture</h4>
+                    </div>
+                    <p class="item-description">Expert tree and shrub pruning including specialized techniques like pollarding and coppicing.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-header">
+                        <div class="item-number">04</div>
+                        <h4 class="item-title">Contract Garden Maintenance</h4>
+                    </div>
+                    <p class="item-description">Flexible maintenance programs with regular visits or seasonal care tailored to your needs.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-header">
+                        <div class="item-number">05</div>
+                        <h4 class="item-title">Eco-Friendly Fencing</h4>
+                    </div>
+                    <p class="item-description">Quality fencing solutions with special emphasis on sustainable and recycled materials.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-header">
+                        <div class="item-number">06</div>
+                        <h4 class="item-title">Lawn Care & Garden Makeovers</h4>
+                    </div>
+                    <p class="item-description">Transform neglected gardens into beautiful spaces with comprehensive lawn restoration services.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-header">
+                        <div class="item-number">07</div>
+                        <h4 class="item-title">Balcony & Window Gardens</h4>
+                    </div>
+                    <p class="item-description">Maximize small spaces with creative container gardens and vertical planting solutions.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-header">
+                        <div class="item-number">08</div>
+                        <h4 class="item-title">Japanese Zen Gardens</h4>
+                    </div>
+                    <p class="item-description">Authentic indoor and outdoor Japanese-inspired gardens for peaceful contemplation spaces.</p>
+                </div>
+
+                <div class="service-item">
+                    <div class="service-item-header">
+                        <div class="item-number">09</div>
+                        <h4 class="item-title">Concept & Themed Garden Designs</h4>
+                    </div>
+                    <p class="item-description">Custom themed gardens for offices, pubs, schools, and care homes reflecting your unique vision.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA Section -->
+        <!-- <div class="services-cta">
+            <h3 class="cta-title">Ready to Transform Your Space?</h3>
+            <p class="cta-text">Our experienced team is ready to bring your garden vision to life. Contact us today for a consultation and discover how we can enhance your outdoor and indoor spaces.</p>
+            <div class="cta-buttons">
+                <a href="#contact" class="btn-primary">
+                    Request Consultation
+                    <span>→</span>
+                </a>
+                <a href="#portfolio" class="btn-secondary">
+                    View Our Work
+                    <span>→</span>
+                </a>
+            </div>
+        </div> -->
+    </section>
+</body>
+</html>

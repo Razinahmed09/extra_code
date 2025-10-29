@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Disclaimer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: #f5f7fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .disclaimer-banner {
+            width: 100%;
+            max-width: 900px;
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            border-radius: 16px;
+            padding: 50px 60px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .disclaimer-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.8;
+            }
+        }
+
+       .disclaimer-banner .content-wrapper {
+            position: relative;
+            z-index: 1;
+        }
+
+      .disclaimer-banner  h1 {
+            font-size: 32px;
+            color: #78350f;
+            margin-bottom: 24px;
+            font-weight: 700;
+            text-align: center;
+            animation: slideDown 0.6s ease forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        @keyframes slideDown {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+       .disclaimer-banner .disclaimer-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #92400e;
+            margin-bottom: 20px;
+            animation: slideUp 0.6s ease forwards;
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+
+       .disclaimer-banner .highlight-box {
+            background: white;
+            border-left: 5px solid #dc2626;
+            padding: 20px 25px;
+            border-radius: 8px;
+            margin: 24px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            animation: slideUp 0.6s ease forwards;
+            animation-delay: 0.6s;
+            opacity: 0;
+            transition: transform 0.3s ease;
+        }
+
+      .disclaimer-banner  .highlight-box:hover {
+            transform: translateX(5px);
+        }
+
+       .disclaimer-banner .highlight-text {
+            font-size: 16px;
+            color: #991b1b;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+       .disclaimer-banner .responsibility-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #92400e;
+            animation: slideUp 0.6s ease forwards;
+            animation-delay: 0.8s;
+            opacity: 0;
+        }
+
+        @media (max-width: 768px) {
+            .disclaimer-banner {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+           .disclaimer-banner .disclaimer-text,
+           .disclaimer-banner .highlight-text,
+           .disclaimer-banner .responsibility-text {
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .disclaimer-banner {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+           .disclaimer-banner .disclaimer-text,
+           .disclaimer-banner .highlight-text,
+           .disclaimer-banner .responsibility-text {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="disclaimer-banner">
+        <div class="content-wrapper">
+            <h1>Important Service Disclaimer</h1>
+            
+            <p class="disclaimer-text">
+                Please be advised that the price for this item on the catalog page covers the professional installation service only for the wooden swing set shown.
+            </p>
+
+            <div class="highlight-box">
+                <p class="highlight-text">
+                    The cost listed DOES NOT include the price of the wooden swing set kit itself.
+                </p>
+            </div>
+
+            <p class="responsibility-text">
+                The client is responsible for purchasing and providing the complete swing set kit prior to the scheduled installation. Our service is limited to the assembly and securing of the client-supplied materials.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

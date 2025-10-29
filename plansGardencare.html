@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Plans Available</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f8faf8 0%, #e8f2e8 100%);
+            padding: 100px 0;
+        }
+
+        .maintenance-section-latest {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .maintenance-section-latest .section-header {
+    text-align: center;
+    margin-bottom: 70px;
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.maintenance-section-latest .section-title {
+    font-size: 3.5rem;
+    background: linear-gradient(135deg, #4a7c59 0%, #8ac926 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    margin-bottom: 24px;
+}
+
+.maintenance-section-latest .section-description {
+    font-size: 1.15rem;
+    color: #5a6a5a;
+    line-height: 1.8;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.maintenance-section-latest .slider-container {
+    position: relative;
+    padding: 40px 0;
+    overflow: visible;
+}
+
+.maintenance-section-latest .slider-wrapper {
+    overflow: hidden;
+    margin: 0 60px;
+}
+
+.maintenance-section-latest .slider-track {
+    display: flex;
+    gap: 24px;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.maintenance-section-latest .brand-card {
+    min-width: calc((100% - 96px) / 5);
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 48px 32px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.maintenance-section-latest .brand-card:nth-child(1) { animation-delay: 0.1s; }
+.maintenance-section-latest .brand-card:nth-child(2) { animation-delay: 0.15s; }
+.maintenance-section-latest .brand-card:nth-child(3) { animation-delay: 0.2s; }
+.maintenance-section-latest .brand-card:nth-child(4) { animation-delay: 0.25s; }
+.maintenance-section-latest .brand-card:nth-child(5) { animation-delay: 0.3s; }
+
+.maintenance-section-latest .brand-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 20px;
+    padding: 2px;
+    background: linear-gradient(135deg, #8ac926, #4a7c59);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.maintenance-section-latest .brand-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 60px rgba(138, 201, 38, 0.15);
+}
+
+.maintenance-section-latest .brand-card:hover::before {
+    opacity: 1;
+}
+
+.maintenance-section-latest .brand-icon {
+    width: 72px;
+    height: 72px;
+    background: linear-gradient(135deg, rgba(138, 201, 38, 0.1) 0%, rgba(74, 124, 89, 0.1) 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 28px;
+    position: relative;
+    transition: all 0.5s ease;
+}
+
+.maintenance-section-latest .brand-card:hover .brand-icon {
+    transform: scale(1.1) rotate(5deg);
+    background: linear-gradient(135deg, rgba(138, 201, 38, 0.2) 0%, rgba(74, 124, 89, 0.2) 100%);
+}
+
+.maintenance-section-latest .brand-icon::after {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 20px;
+    border: 2px solid rgba(138, 201, 38, 0.2);
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.maintenance-section-latest .brand-card:hover .brand-icon::after {
+    opacity: 1;
+    inset: -12px;
+}
+
+.maintenance-section-latest .brand-icon svg {
+    width: 40px;
+    height: 40px;
+    stroke: #4a7c59;
+    transition: all 0.5s ease;
+}
+
+.maintenance-section-latest .brand-card:hover .brand-icon svg {
+    stroke: #8ac926;
+}
+
+.maintenance-section-latest .brand-name {
+    font-size: 1.35rem;
+    color: #2d4a2d;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: -0.3px;
+    transition: color 0.5s ease;
+}
+
+.maintenance-section-latest .brand-card:hover .brand-name {
+    color: #4a7c59;
+}
+
+.maintenance-section-latest .slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 56px;
+    height: 56px;
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.maintenance-section-latest .slider-nav:hover:not(:disabled) {
+    background: #8ac926;
+    border-color: #8ac926;
+    box-shadow: 0 6px 30px rgba(138, 201, 38, 0.3);
+}
+
+.maintenance-section-latest .slider-nav:hover:not(:disabled) svg {
+    stroke: #ffffff;
+}
+
+.maintenance-section-latest .slider-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.maintenance-section-latest .slider-nav.prev {
+    left: 0;
+}
+
+.maintenance-section-latest .slider-nav.next {
+    right: 0;
+}
+
+.maintenance-section-latest .slider-nav svg {
+    width: 24px;
+    height: 24px;
+    stroke: #2d4a2d;
+    transition: stroke 0.3s ease;
+}
+
+.maintenance-section-latest .slider-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 60px;
+}
+
+.maintenance-section-latest .indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(74, 124, 89, 0.2);
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+}
+
+.maintenance-section-latest .indicator::after {
+    content: '';
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    transition: border-color 0.4s ease;
+}
+
+.maintenance-section-latest .indicator.active {
+    background: #8ac926;
+    width: 40px;
+    border-radius: 6px;
+}
+
+.maintenance-section-latest .indicator.active::after {
+    border-color: rgba(138, 201, 38, 0.3);
+}
+
+.maintenance-section-latest .progress-container {
+    max-width: 600px;
+    margin: 50px auto 0;
+    padding: 0 20px;
+}
+
+.maintenance-section-latest .progress-bar {
+    width: 100%;
+    height: 4px;
+    background: rgba(74, 124, 89, 0.1);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.maintenance-section-latest .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #8ac926 0%, #4a7c59 100%);
+    transition: width 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 2px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Queries */
+@media (max-width: 1400px) {
+    .maintenance-section-latest .brand-card {
+        min-width: calc((100% - 72px) / 4);
+    }
+}
+
+@media (max-width: 1024px) {
+    .maintenance-section-latest .brand-card {
+        min-width: calc((100% - 48px) / 3);
+    }
+
+    .maintenance-section-latest .section-title {
+        font-size: 2.75rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .maintenance-section-latest .brand-card {
+        min-width: calc((100% - 24px) / 2);
+    }
+
+    .maintenance-section-latest .section-title {
+        font-size: 2.25rem;
+    }
+
+    .maintenance-section-latest .section-description {
+        font-size: 1rem;
+    }
+
+    .maintenance-section-latest .slider-wrapper {
+        margin: 0 50px;
+    }
+
+    .maintenance-section-latest .slider-nav {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .maintenance-section-latest .brand-card {
+        min-width: 100%;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <section class="maintenance-section-latest">
+        <div class="section-header">
+            <h2 class="section-title">Maintenance Plans Available</h2>
+            <p class="section-description">
+                Our maintenance plans cover both electric and wet underfloor heating. Our underfloor heating specialists service all types of underfloor heating systems from leading manufacturers.
+            </p>
+        </div>
+
+        <div class="slider-container">
+            <button class="slider-nav prev" id="prevBtn">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+
+            <div class="slider-wrapper">
+                <div class="slider-track" id="sliderTrack">
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Nu-Heat</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Warm Up</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Heat-Matt</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Devireg</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M9 22V12h6v10" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Uponor</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M3 9h18M9 21V9" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Thermo Floor</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" stroke="currentColor" stroke-width="2"/>
+                                <circle cx="7" cy="7" r="1.5" fill="currentColor"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Ebeco</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Invisible Heating</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                <path d="M8 12h8M12 8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Florad</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2"/>
+                                <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Floor Heating</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                                <path d="M3 9h18M9 21V9" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Enerfoil</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Ecohome</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
+                                <path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Allbrite</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Thermo</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Taconova</h3>
+                    </div>
+
+                    <div class="brand-card">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" fill="none">
+                                <path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z" stroke="currentColor" stroke-width="2"/>
+                            </svg>
+                        </div>
+                        <h3 class="brand-name">Roben</h3>
+                    </div>
+                </div>
+            </div>
+
+            <button class="slider-nav next" id="nextBtn">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
+        </div>
+
+        <div class="slider-indicators" id="indicators"></div>
+
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const sliderTrack = document.getElementById('sliderTrack');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const indicatorsContainer = document.getElementById('indicators');
+        const progressFill = document.getElementById('progressFill');
+        const cards = document.querySelectorAll('.brand-card');
+
+        let currentIndex = 0;
+        let cardsPerView = 5;
+        const totalCards = cards.length;
+
+        function updateCardsPerView() {
+            const width = window.innerWidth;
+            if (width < 480) {
+                cardsPerView = 1;
+            } else if (width < 768) {
+                cardsPerView = 2;
+            } else if (width < 1024) {
+                cardsPerView = 3;
+            } else if (width < 1400) {
+                cardsPerView = 4;
+            } else {
+                cardsPerView = 5;
+            }
+        }
+
+        function createIndicators() {
+            const totalPages = Math.ceil(totalCards / cardsPerView);
+            indicatorsContainer.innerHTML = '';
+            for (let i = 0; i < totalPages; i++) {
+                const indicator = document.createElement('div');
+                indicator.className = 'indicator';
+                if (i === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => goToPage(i));
+                indicatorsContainer.appendChild(indicator);
+            }
+        }
+
+        function updateSlider() {
+            const cardWidth = cards[0].offsetWidth;
+            const gap = 24;
+            const offset = -(currentIndex * cardsPerView * (cardWidth + gap));
+            sliderTrack.style.transform = `translateX(${offset}px)`;
+
+            const indicators = document.querySelectorAll('.indicator');
+            indicators.forEach((indicator, index) => {
+                indicator.classList.toggle('active', index === currentIndex);
+            });
+
+            const totalPages = Math.ceil(totalCards / cardsPerView);
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex >= totalPages - 1;
+
+            const progress = ((currentIndex + 1) / totalPages) * 100;
+            progressFill.style.width = `${progress}%`;
+        }
+
+        function goToPage(index) {
+            currentIndex = index;
+            updateSlider();
+        }
+
+        function nextSlide() {
+            const totalPages = Math.ceil(totalCards / cardsPerView);
+            if (currentIndex < totalPages - 1) {
+                currentIndex++;
+                updateSlider();
+            }
+        }
+
+        function prevSlide() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateSlider();
+            }
+        }
+
+        prevBtn.addEventListener('click', prevSlide);
+        nextBtn.addEventListener('click', nextSlide);
+
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        sliderTrack.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        sliderTrack.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) prevSlide();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevSlide();
+            if (e.key === 'ArrowRight') nextSlide();
+        });
+
+        updateCardsPerView();
+        createIndicators();
+        updateSlider();
+
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                updateCardsPerView();
+                createIndicators();
+                currentIndex = 0;
+                updateSlider();
+            }, 250);
+        });
+    </script>
+</body>
+</html>
